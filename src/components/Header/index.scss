@@ -1,0 +1,46 @@
+.app-header {
+	width: 100%;
+	justify-content: space-between;
+
+	&-logo {
+		height: 50px;
+		margin-right: 50px;
+	}
+}
+
+.nav-link {
+	height: 50px;
+	line-height: 50px;
+	margin-left: 50px;
+	text-decoration: none;
+	color: white;
+	cursor: pointer;
+	font-size: 20px;
+	font-weight: 700;
+	position: relative;
+
+	&::after {
+		position: absolute;
+		content: " ";
+		width: 0%;
+		left: 50%;
+		right: 50%;
+		height: 2px;
+		background-color: white;
+		bottom: 7px;
+		transition: all 0.3s;
+	}
+
+	&:hover {
+		&::after {
+			left: 0;
+			right: 0;
+			width: 100%;
+		}
+	}
+}
+
+.dropdown-menu {
+	width: 120px;
+	max-width: unset;
+}
