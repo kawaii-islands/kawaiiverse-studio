@@ -21,9 +21,27 @@ const theme = createTheme({
 				root: {
 					height: 44,
 					textTransform: "unset",
-					fontFamily: "Play",
 					fontSize: 16,
 					fontWeight: 700,
+				},
+			},
+		},
+		MuiTypography: {
+			styleOverrides: {
+				root: { color: "#833f1d", fontFamily: "Play" },
+				h6: {
+					fontSize: "20px",
+					fontWeight: 700,
+				},
+				h5: {
+					fontSize: "24px",
+					fontWeight: 700,
+				},
+				body1: {
+					fontSize: "16px",
+				},
+				body2: {
+					fontSize: "14px",
 				},
 			},
 		},

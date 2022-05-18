@@ -1,0 +1,11 @@
+.pagination {
+	width: fit-content;
+	margin: 20px auto 0;
+	:global(.MuiPaginationItem-root) {
+		color: #833f1d;
+	}
+	:global(.MuiPaginationItem-root.Mui-selected) {
+		color: white;
+		background-color: #ff8d4d;
+	}
+}

@@ -1,0 +1,83 @@
+.card {
+	background: linear-gradient(180deg, #fef5e8 0%, #fee8d0 100%);
+	border: 1px solid #cf9c8f;
+	border-radius: 12px;
+	width: 220px;
+	padding: 16px 12px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+
+	&:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 0 8px 0 rgb(4 17 29 / 50%);
+	}
+
+	.id {
+		background: #d2b0a3;
+		box-shadow: 0 4px 4px #eed0c4;
+		border-radius: 4px;
+		padding: 3px 7px;
+		color: #f3f3f3;
+		margin-bottom: 22px;
+		width: fit-content;
+		font-size: 12px;
+	}
+
+	.avatar {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 150px;
+		position: relative;
+		margin-bottom: 12px;
+
+		img {
+			max-width: 100%;
+			max-height: 100%;
+		}
+
+		.balance {
+			position: absolute;
+			bottom: 5px;
+			right: 5px;
+			background: #fff8f0;
+			border: 1px solid rgba(168, 108, 96, 0.5);
+			border-radius: 6px;
+			min-width: 36px;
+			height: 36px;
+			font-weight: 700;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+	}
+	.name {
+		font-weight: 700;
+		font-size: 13px;
+		margin-bottom: 6px;
+	}
+
+	.price {
+		display: flex;
+		align-items: center;
+
+		img {
+			width: 24px;
+			height: 24px;
+			margin-right: 6px;
+		}
+
+		.amount {
+			font-size: 16px;
+			font-weight: 700;
+		}
+
+		.usd {
+			margin-left: 6px;
+			color: #cb8b91;
+			font-weight: 700;
+			font-size: 13px;
+		}
+	}
+}
