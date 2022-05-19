@@ -5,11 +5,20 @@ import CardContent from "@mui/material/CardContent";
 import Modal from "@mui/material/Modal";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
-import logoCreate from "src/assets/icons/add.png";
+import Item from "./Item";
+import logoCreate from "src/assets/icons/plus1.png";
 
 const cx = cn.bind(styles);
 const PAGE_SIZE = 8;
 const CreateGame = () => {
+	let componentGameList;
+
+	componentGameList = (
+		<Grid item md={4} sm={6} xs={12}>
+			<Item />
+		</Grid>
+	);
+
 	return (
 		<div className={cx("container")}>
 			<div className={cx("content")}>
@@ -26,7 +35,7 @@ const CreateGame = () => {
 						</Card>
 					</Grid>
 
-					{/* {componentGameList} */}
+					{componentGameList}
 				</Grid>
 				<div className={cx("pagination")}>
 					{/* <Pagination
@@ -41,7 +50,6 @@ const CreateGame = () => {
 				{/* <Modal open={open} onClose={handleClose}>
 					<div className={cx("modal-style")}>{componentModal}</div>
 				</Modal> */}
-				hELlo
 			</div>
 		</div>
 	);

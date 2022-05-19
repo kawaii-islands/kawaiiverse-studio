@@ -4,250 +4,248 @@ $mobile: 576px;
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
 
 .container {
-    min-height: calc(100vh - 70px);
-    width: 100%;
-    background: #1b1349;
-    color: white;
-    padding-bottom: 20px;
+	min-height: calc(100vh - 70px);
+	width: 100%;
+	color: white;
+	padding-bottom: 20px;
 
-    .content {
-        width: 80%;
-        margin: 0 auto;
-        padding-top: 5%;
-        
-    }
+	.content {
+		width: 80%;
+		margin: 0 auto;
+		padding-top: 5%;
+	}
 
-    .skeleton {
-        height: 200px;
-        width: 100%;
-        border-radius: 8px;
-    }
+	.skeleton {
+		height: 200px;
+		width: 100%;
+		border-radius: 8px;
+	}
 
-    .grid-parent {
-        display: flex;
-        align-items: stretch;
-        // gap: 10px;
-    }
+	.grid-parent {
+		display: flex;
+		align-items: stretch;
+		// gap: 10px;
+	}
 
-    .card {
-        background: #ebe3ff;
-        border-radius: 8px;
-        min-height: 100%;
-    }
+	.card {
+		background: linear-gradient(180deg, #fdf5e8 0%, #fde7cf 100%);
+		border: 1px solid #cf9c8f;
+		border-radius: 8px;
+		min-height: 100%;
+	}
 
-    .create-card {
-        padding-top: 30px;
-        text-align: center;
-        cursor: pointer;
-        .create-paragraph {
-            color: #8355e5;
-            font-family: Montserrat;
-            font-size: 20px;
-            font-weight: 600;
-            padding-top: 25px;
-        }
-        .create-logo {
-            width: 60px;
-            height: 60px;
-        }
-    }
+	.create-card {
+		padding-top: 30px;
+		text-align: center;
+		cursor: pointer;
+		.create-paragraph {
+			color: #833f1d;
+			font-family: Play;
+			font-size: 20px;
+			font-weight: 600;
+			padding-top: 25px;
+		}
+		.create-logo {
+			width: 60px;
+			height: 60px;
+		}
+	}
 
-    .item-card {
-        .item-header {
-            font-family: Montserrat;
-            font-size: 20px;
-            font-weight: 500;
-            line-height: 30px;
-            letter-spacing: 0em;
-            color: #402a7d;
-            .game-logo {
-                width: 40px;
-                height: 40px;
-                margin-right: 16px;
-                border-radius: 50px;
-            }
-            // text-align: center;
-        }
-        .item-paragraph {
-            font-family: Montserrat;
-            font-size: 14px;
-            font-weight: 500;
-            line-height: 21px;
-            letter-spacing: 0em;
-            padding-top: 14px;
-            text-align: left;
-            color: #402a7d;
-            padding-left: 10px;
-            .game-mini {
-                width: 18px;
-                height: 18px;
-                margin-right: 16px;
-            }
-            .game-amount {
-                color: #8d34ff;
-            }
-            a{
-                text-decoration: none;
-            }
-        }
+	.item-card {
+		.item-header {
+			font-family: Play;
+			font-size: 20px;
+			font-weight: 700;
+			line-height: 30px;
+			letter-spacing: 0em;
+			color: #833f1d;
+			.game-logo {
+				width: 40px;
+				height: 40px;
+				margin-right: 16px;
+				border-radius: 50px;
+			}
+			// text-align: center;
+		}
+		.item-paragraph {
+			font-family: Play;
+			font-size: 14px;
+			font-weight: 500;
+			line-height: 21px;
+			letter-spacing: 0em;
+			padding-top: 14px;
+			text-align: left;
+			color: #833f1d;
+			padding-left: 10px;
+			.game-mini {
+				width: 18px;
+				height: 18px;
+				margin-right: 16px;
+			}
+			.game-amount {
+				color: #833f1d;
+			}
+			a {
+				text-decoration: none;
+			}
+		}
 
-        .create-action {
-            justify-content: center;
+		.create-action {
+			justify-content: center;
 			margin-bottom: 16px;
-			
-            .create-button {
-                font-weight: 700;
-                font-size: 14px;
-                line-height: 21px;
-                display: flex;
-                justify-content: flex-end;
-                gap: 12px;
-                color: white;
-                padding: 5px 24px;
-                width: fit-content;
-                color: white;
-                background: linear-gradient(270.94deg, #fb35ff 4.88%, #8d4abc 99.69%);
-                border-radius: 15.5px;
-            }
-        }
-    }
+
+			.create-button {
+				font-weight: 700;
+				font-size: 14px;
+				line-height: 21px;
+				display: flex;
+				justify-content: flex-end;
+				gap: 12px;
+				color: white;
+				padding: 5px 24px;
+				width: fit-content;
+				color: white;
+				background: linear-gradient(270.94deg, #fb35ff 4.88%, #8d4abc 99.69%);
+				border-radius: 15.5px;
+			}
+		}
+	}
 }
 .modal-style {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 30%;
-    min-height: 335px;
-    
-    transform: translate(-50%, -50%);
-    background-color: #ebe3ff;
-    border-radius: 8px;
-    text-align: center;
-    justify-content: center;
-    @media (max-width: $tablet) {
-        width: 80%;
-    }
-    .modal_header {
-        margin-top: 30px;
-        font-weight: 500;
-        font-size: 20px;
-    }
-    .error_tag {
-        margin: 0 auto;
-        width: 60%;
-        text-align: left;
-        &_text {
-            margin: 0;
-            padding-left: 10px;
-            padding-top: 8px;
-            color: #dc615d;
-            font-size: 14px;
-        }
-    }
-    .input {
-        padding-left: 10px;
-        background-color: #ebe3ff;
-        line-height: 45px;
-        margin-top: 15px;
-        width: 60%;
-        border: 1px solid rgba(82, 64, 130, 0.2);
-        box-sizing: border-box;
-        border-radius: 4px;
-    }
-    .input_error {
-        padding-left: 10px;
-        background-color: #ebe3ff;
-        line-height: 45px;
-        margin-top: 15px;
-        width: 60%;
-        border: 1px solid rgba(82, 64, 130, 0.2);
-        box-sizing: border-box;
-        border-radius: 4px;
-        border-color: #dc615d;
-        border-width: 1.5px;
-    }
-    .modal_create {
-        font-weight: 600;
-        font-size: 18px;
-        margin-top: 15px;
-        margin-bottom: 30px;
-        width: 70%;
-        background: linear-gradient(180deg, #6441a5 0%, #2a0845 100%);
-        border-radius: 4px;
-        cursor: pointer;
-        color: white;
-    }
-    .input_container {
-        position: relative;
-        .input_img {
-            position: absolute;
-            top: 28px;
-            width: 24px;
-            right: 13%;
-            height: 22px;
-            cursor: pointer;
-        }
-        &--image{
-            
-        }
-        .preview-img{
-            // position: absolute;
-            // top: 60px;
-            // right: 20%;
-            margin-top: 10px;
-            width: 60%;
-            height: 200px;
-            // border: 1px solid rgba(82, 64, 130, 0.2);
-        }
-    }
-    
-    .modal_success {
-        position: relative;
-        top: 50%;
-        transform: translateY(40%);
-    }
-    .modal_failed {
-        position: relative;
-        top: 50%;
-        transform: translateY(25%);
-    }
-    .loading_logo {
-        -webkit-transform: translateZ(0);
-        -ms-transform: translateZ(0);
-        transform: translateZ(0);
-        -webkit-animation: spin-animation 1.5s infinite linear;
-        animation: spin-animation 1.5s infinite linear;
-        display: inline-block;
-    }
-    @keyframes spin-animation {
-        0% {
-            -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-        }
-        100% {
-            -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-        }
-    }
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 30%;
+	min-height: 335px;
 
-    @-webkit-keyframes spin-animation {
-        0% {
-            -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-        }
-        100% {
-            -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-        }
-    }
-    .modal_text {
-        padding-top: 30px;
-        font-family: Montserrat;
-        font-size: 24px;
-        font-weight: 600;
-    }
+	transform: translate(-50%, -50%);
+	background-color: #ebe3ff;
+	border-radius: 8px;
+	text-align: center;
+	justify-content: center;
+	@media (max-width: $tablet) {
+		width: 80%;
+	}
+	.modal_header {
+		margin-top: 30px;
+		font-weight: 500;
+		font-size: 20px;
+	}
+	.error_tag {
+		margin: 0 auto;
+		width: 60%;
+		text-align: left;
+		&_text {
+			margin: 0;
+			padding-left: 10px;
+			padding-top: 8px;
+			color: #dc615d;
+			font-size: 14px;
+		}
+	}
+	.input {
+		padding-left: 10px;
+		background-color: #ebe3ff;
+		line-height: 45px;
+		margin-top: 15px;
+		width: 60%;
+		border: 1px solid rgba(82, 64, 130, 0.2);
+		box-sizing: border-box;
+		border-radius: 4px;
+	}
+	.input_error {
+		padding-left: 10px;
+		background-color: #ebe3ff;
+		line-height: 45px;
+		margin-top: 15px;
+		width: 60%;
+		border: 1px solid rgba(82, 64, 130, 0.2);
+		box-sizing: border-box;
+		border-radius: 4px;
+		border-color: #dc615d;
+		border-width: 1.5px;
+	}
+	.modal_create {
+		font-weight: 600;
+		font-size: 18px;
+		margin-top: 15px;
+		margin-bottom: 30px;
+		width: 70%;
+		background: linear-gradient(180deg, #6441a5 0%, #2a0845 100%);
+		border-radius: 4px;
+		cursor: pointer;
+		color: white;
+	}
+	.input_container {
+		position: relative;
+		.input_img {
+			position: absolute;
+			top: 28px;
+			width: 24px;
+			right: 13%;
+			height: 22px;
+			cursor: pointer;
+		}
+		&--image {
+		}
+		.preview-img {
+			// position: absolute;
+			// top: 60px;
+			// right: 20%;
+			margin-top: 10px;
+			width: 60%;
+			height: 200px;
+			// border: 1px solid rgba(82, 64, 130, 0.2);
+		}
+	}
+
+	.modal_success {
+		position: relative;
+		top: 50%;
+		transform: translateY(40%);
+	}
+	.modal_failed {
+		position: relative;
+		top: 50%;
+		transform: translateY(25%);
+	}
+	.loading_logo {
+		-webkit-transform: translateZ(0);
+		-ms-transform: translateZ(0);
+		transform: translateZ(0);
+		-webkit-animation: spin-animation 1.5s infinite linear;
+		animation: spin-animation 1.5s infinite linear;
+		display: inline-block;
+	}
+	@keyframes spin-animation {
+		0% {
+			-webkit-transform: rotate(0deg);
+			transform: rotate(0deg);
+		}
+		100% {
+			-webkit-transform: rotate(360deg);
+			transform: rotate(360deg);
+		}
+	}
+
+	@-webkit-keyframes spin-animation {
+		0% {
+			-webkit-transform: rotate(0deg);
+			transform: rotate(0deg);
+		}
+		100% {
+			-webkit-transform: rotate(360deg);
+			transform: rotate(360deg);
+		}
+	}
+	.modal_text {
+		padding-top: 30px;
+		font-family: Play;
+		font-size: 24px;
+		font-weight: 600;
+	}
 }
 .pagination {
-    text-align: center;
-    margin-top: 30px;
+	text-align: center;
+	margin-top: 30px;
 }
