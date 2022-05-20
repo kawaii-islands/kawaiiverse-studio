@@ -7,7 +7,7 @@ import Logo from "src/assets/images/logo.png";
 
 export default function Header() {
 	return (
-		<AppBar position="fixed" color="secondary">
+		<AppBar position="fixed" color="secondary" className="header">
 			<Toolbar className="app-header">
 				<Box display="flex">
 					<img className="app-header-logo" src={Logo} />

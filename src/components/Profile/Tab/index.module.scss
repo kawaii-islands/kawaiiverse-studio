@@ -1,0 +1,104 @@
+.filter {
+	background: #fdf5e8;
+	min-height: 100%;
+
+	.game-info {
+		display: flex;
+		flex-direction: column;
+		padding: 24px 42px;
+		align-items: center;
+		justify-content: center;
+		position: relative;
+
+		.image-box {
+			width: 80px;
+			height: 80px;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 2px;
+			z-index: 2;
+			background: #833f1d;
+			text-align: center;
+
+			.game-image {
+				width: 76px;
+				height: 76px;
+				border-radius: 50%;
+				padding: 0px;
+				z-index: 3;
+				background: #ffffff;
+			}
+		}
+
+		.game-name {
+			position: absolute;
+			bottom: -40%;
+			width: fit-content;
+			background: rgba(254, 253, 255, 0.25);
+			border: 1px solid rgba(131, 63, 29, 0.25);
+			border-radius: 8px;
+			padding: 18px 50px 8px 50px;
+			font-weight: 700;
+			font-size: 20px;
+			line-height: 150%;
+			color: #833f1d;
+			text-align: center;
+
+			.icon-copy {
+				font-size: 14px;
+				font-weight: 400;
+				cursor: pointer;
+				margin-bottom: -3px;
+
+				&:active {
+					transition-duration: 0.35s;
+					transform: scale(1.2);
+				}
+			}
+		}
+	}
+
+	.menu {
+		margin-top: 80px;
+
+		.menu-item {
+			padding: 18px 50px;
+			color: #833f1d;
+			cursor: pointer;
+			transition-duration: 0.35s;
+			display: flex;
+			align-items: center;
+
+			&:hover {
+				background: #a86c60;
+				color: #ffffff;
+			}
+
+			.menu-title {
+				font-weight: 600;
+				font-size: 16px;
+				line-height: 150%;
+				display: flex;
+				align-items: center;
+
+				img {
+					width: 32px;
+					height: 32px;
+					margin-right: 12px;
+				}
+			}
+		}
+
+		.active {
+			background: #a86c60;
+			color: #ffffff;
+
+			img {
+				-webkit-filter: invert(100%) sepia(57%) saturate(0) hue-rotate(233deg) brightness(120%) contrast(104%);
+				filter: invert(100%) sepia(57%) saturate(0) hue-rotate(233deg) brightness(120%) contrast(104%);
+			}
+		}
+	}
+}

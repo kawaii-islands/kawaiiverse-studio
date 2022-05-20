@@ -6,6 +6,9 @@ import { BrowserRouter } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import { Web3ReactProvider } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.min.js";
+import 'react-toastify/dist/ReactToastify.css';
 
 function getLibrary(provider) {
 	const library = new Web3Provider(provider);

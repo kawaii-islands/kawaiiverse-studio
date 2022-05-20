@@ -1,3 +1,7 @@
+.header {
+	box-shadow: none;
+}
+
 .app-header {
 	width: 100%;
 	justify-content: space-between;
@@ -13,11 +17,12 @@
 	line-height: 50px;
 	margin-left: 50px;
 	text-decoration: none;
-	color: white;
+	color: white !important;
 	cursor: pointer;
 	font-size: 20px;
 	font-weight: 700;
 	position: relative;
+	padding: 0px !important;
 
 	&::after {
 		position: absolute;
@@ -54,8 +59,8 @@
 		border: 2px solid #ffffff;
 		border-bottom: 0;
 		box-sizing: border-box;
-		box-shadow: inset 19px -19px 19px rgba(194, 194, 194, 0.177), inset -19px 19px 19px rgba(255, 255, 255, 0.177);
-		backdrop-filter: blur(10px);
+		// box-shadow: inset 19px -19px 19px rgba(194, 194, 194, 0.177), inset -19px 19px 19px rgba(255, 255, 255, 0.177);
+		// backdrop-filter: blur(10px);
 		border-radius: 22px 22px 0px 0px;
 		text-align: center;
 		padding: 25px 45px;
@@ -76,8 +81,8 @@
 		background: rgba(255, 255, 255, 0.5);
 		border: 2px solid #ffffff;
 		box-sizing: border-box;
-		box-shadow: inset 19px -19px 19px rgba(194, 194, 194, 0.177), inset -19px 19px 19px rgba(255, 255, 255, 0.177);
-		backdrop-filter: blur(10px);
+		// box-shadow: inset 19px -19px 19px rgba(194, 194, 194, 0.177), inset -19px 19px 19px rgba(255, 255, 255, 0.177);
+		// backdrop-filter: blur(10px);
 		border-radius: 0 0 22px 22px;
 		padding: 50px;
 	}

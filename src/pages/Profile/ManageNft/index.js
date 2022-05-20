@@ -1,0 +1,54 @@
+import React, { useEffect, useState } from "react";
+import LoadingPage from "src/components/common/LoadingPage/LoadingPage";
+import styles from "./index.module.scss";
+import cn from "classnames/bind";
+import { Button } from "@mui/material";
+import ViewNFT from "./ViewNFT/ViewNFT";
+import MintNFT from "./MintNFT/MintNFT";
+import { read } from "src/services/web3";
+import { BSC_CHAIN_ID } from "src/constants/blockchain";
+import FACTORY_ABI from "src/utils/abi/factory.json";
+import NFT1155_ABI from "src/utils/abi/KawaiiverseNFT1155.json";
+import { useWeb3React } from "@web3-react/core";
+import { FACTORY_ADDRESS } from "src/constants/address";
+import { useParams } from "react-router-dom";
+
+const cx = cn.bind(styles);
+
+const ManageNft = () => {
+    const { account } = useWeb3React();
+    const [loading, setLoading] = useState(true);
+    const urlParams = new URLSearchParams(window.location.search);
+    const [isMintNFT, setIsMintNFT] = useState();
+	const params = useParams();
+
+	console.log('params :>> ', params);
+
+    useEffect(() => {
+        if (urlParams.get("view") === "true") {
+            setIsMintNFT(false);
+        }
+
+        if (urlParams.get("view") === "false") {
+            setIsMintNFT(true);
+        }
+    }, [urlParams]);
+
+    return (
+        <div className={cx("profile")}>
+            <div className={cx("right")}>
+                <div className={cx("content")}>
+                    {isMintNFT ? (
+                        <div>
+                            <MintNFT setIsMintNFT={setIsMintNFT} gameSelected={params.address} />
+                        </div>
+                    ) : (
+                        <ViewNFT setIsMintNFT={setIsMintNFT} gameSelected={params.address} />
+                    )}
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default ManageNft;

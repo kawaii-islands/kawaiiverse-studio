@@ -1,6 +1,7 @@
 .pagination {
 	width: fit-content;
-	margin: 20px auto 0;
+	margin: 20px auto;
+
 	:global(.MuiPaginationItem-root) {
 		color: #833f1d;
 	}

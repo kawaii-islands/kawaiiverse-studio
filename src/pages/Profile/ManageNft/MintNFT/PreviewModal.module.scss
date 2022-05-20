@@ -1,0 +1,68 @@
+.modal-box {
+    border-radius: 8px;
+    padding: 10px;
+    max-width: 1080px;
+    z-index: 9999;
+	margin-top: 100px;
+
+    :global(.modal-content) {
+        width: 1080px;
+		background: #FDF5E8;
+        border-radius: 8px;
+    }
+
+    .modal-body {
+		background: #FDF5E8;
+        border-radius: 8px;
+        padding: 10px;
+
+        .modal-style {
+			background: #FDF5E8;
+            border-radius: 8px;
+            height: fit-content;
+
+            .close-icon {
+                text-align: right;
+                cursor: pointer;
+            }
+
+            .title {
+                text-align: center;
+                .big-title {
+                    font-weight: 700;
+                    font-size: 24px;
+                    line-height: 29px;
+					color: #833f1d;
+                    text-transform: uppercase;
+                }
+
+                .sub-title {
+                    text-align: center;
+                    font-weight: 400;
+                    font-size: 16px;
+                    line-height: 150%;
+					color: #944850;
+                    width: fit-content;
+                    margin: 20px auto;
+                }
+            }
+
+            .list-nft {
+                padding: 0px 35px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-wrap: wrap;
+
+				.nft-card {
+					margin: 10px;
+				}
+            }
+
+            .pagination {
+                text-align: center;
+                margin-top: 30px;
+            }
+        }
+    }
+}
