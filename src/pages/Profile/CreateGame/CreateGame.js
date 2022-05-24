@@ -131,7 +131,7 @@ const CreateGame = () => {
 			return;
 		}
 
-		const imageSize = Math.round(e.target.files[0].size / 1024);
+		const imageSize = Math.ceil(e.target.files[0].size / 1024);
 		const file = e.target.files[0];
 		setFileName(e.target.files[0].name);
 		setFileSize(imageSize);

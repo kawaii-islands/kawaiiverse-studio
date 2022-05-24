@@ -3,16 +3,19 @@ import { useWeb3React } from "@web3-react/core";
 import styles from "./index.module.scss";
 import cn from "classnames/bind";
 import { URL } from "src/constants/constant";
-import { useParams } from "react-router-dom";
 import { KAWAII1155_ADDRESS } from "src/constants/constant";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 import Filter from "src/components/Marketplace/Filter";
 import { Outlet } from "react-router-dom";
 import Tab from "src/components/Profile/Tab";
 import { read } from "src/services/web3";
+import { BSC_CHAIN_ID } from "src/constants/network";
+import { FACTORY_ADDRESS } from "src/constants/address";
+import FACTORY_ABI from "src/utils/abi/factory.json";
+import NFT1155_ABI from "src/utils/abi/KawaiiverseNFT1155.json";
 
 const cx = cn.bind(styles);
 
@@ -47,6 +50,8 @@ const Profile = () => {
 	}, [address]);
 
 	const getGameInfo = async () => {
+		if (!address) return;
+
 		try {
 			let gameName = await read("name", BSC_CHAIN_ID, address, NFT1155_ABI, []);
 			const res = await axios.get(`${URL}/v1/game/logo?contract=${address}`);

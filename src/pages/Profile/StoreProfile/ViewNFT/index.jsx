@@ -23,7 +23,7 @@ const ViewNFT = ({ gameSelected, setIsSellNFT, isSellNFT }) => {
 	const [currentPage, setCurrentPage] = useState(1);
 	const [listNft, setListNft] = useState();
 	const [search, setSearch] = useState("");
-	const [sort1, setSort] = useState("");
+	const [sort1, setSort] = useState(names[1]);
 	const [originalList, setOriginalList] = useState([]);
 	const [listSearch, setListSearch] = useState([]);
 
@@ -97,8 +97,8 @@ const ViewNFT = ({ gameSelected, setIsSellNFT, isSellNFT }) => {
 	return (
 		<div className={cx("view-nft")}>
 			<div className={cx("top")}>
-				<div className={cx("title")}>{listNft?.length} Items</div>
-				<div className={cx("group-search")}>
+				<div className={cx("left-title")}>
+					<div className={cx("title")}>{listNft?.length} Items</div>
 					<Input
 						disableUnderline
 						placeholder="Search for NFT"
@@ -110,10 +110,11 @@ const ViewNFT = ({ gameSelected, setIsSellNFT, isSellNFT }) => {
 						}
 						onChange={e => handleSearch(e)}
 					/>
+				</div>
 
+				<div className={cx("group-search")}>
 					<FormControl>
 						<Select
-							placeholder="Sort by"
 							className={cx("sort")}
 							displayEmpty
 							input={<OutlinedInput />}
@@ -144,7 +145,7 @@ const ViewNFT = ({ gameSelected, setIsSellNFT, isSellNFT }) => {
 					<ListSkeleton />
 				) : listNft.length > 0 ? (
 					<div className={cx("list-nft")}>
-						<List listNft={listNft} gameSelected={gameSelected} />
+						<List listNft={listNft} gameSelected={gameSelected} hasPrice={true} />
 					</div>
 				) : (
 					<div style={{ margin: "0 auto" }}>

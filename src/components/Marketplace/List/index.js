@@ -10,7 +10,7 @@ const cx = cn.bind(styles);
 
 const pageSize = 10;
 
-export default function List({ listNft, gameSelected }) {
+export default function List({ listNft, gameSelected, hasPrice }) {
 	const navigate = useNavigate();
 	const [currentPage, setCurrentPage] = useState(1);
 
@@ -20,7 +20,7 @@ export default function List({ listNft, gameSelected }) {
 				<Grid container spacing={2}>
 					{listNft?.slice((currentPage - 1) * pageSize, currentPage * pageSize).map((nft, index) => (
 						<Grid key={index} item onClick={() => navigate(`/view-nft/${gameSelected || nft.contract}/${nft.tokenId}`)}>
-							<NFTCard nftInfo={nft} hasPrice={false} />
+							<NFTCard nftInfo={nft} hasPrice={hasPrice} />
 						</Grid>
 					))}
 				</Grid>
@@ -28,7 +28,7 @@ export default function List({ listNft, gameSelected }) {
 			{listNft.length / pageSize > 1 && (
 				<div style={{ width: "100%" }}>
 					<Pagination
-						count={Math.round(listNft.length / pageSize)}
+						count={Math.ceil(listNft.length / pageSize)}
 						color="primary"
 						shape="rounded"
 						className={cx("pagination")}

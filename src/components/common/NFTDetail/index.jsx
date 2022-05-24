@@ -11,10 +11,12 @@ import defaultImage from "src/assets/icons/default_image.svg";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
+import { Button } from "@mui/material";
+import kwtToken from "src/assets/icons/kwt.png";
 
 const cx = cn.bind(styles);
 
-const NFTDetail = () => {
+const NFTDetail = ({ hasPrice }) => {
 	const { nftId, address } = useParams();
 	const [nftInfo, setNftInfo] = useState();
 	const [loading, setLoading] = useState(true);
@@ -89,11 +91,23 @@ const NFTDetail = () => {
 							Author: {nftInfo?.author?.slice(0, 8) + "..." + nftInfo?.author?.slice(-8)}
 						</div>
 					</div>
+					{!hasPrice && (
+						<div className={cx("description")}>
+							<div className={cx("subtitle")}>Price:</div>
+							<div className={cx("content", "price")}>
+								<div className={cx("number")}>
+									<img src={kwtToken} alt="kwt-token" width={28} height={28} />
+									<span className={cx("num-token")}>120</span>
+									<span className={cx("usd")}>$123</span>
+								</div>
+								<Button className={cx("btn-buy")}>Buy NFT</Button>
+							</div>
+						</div>
+					)}
 					<div className={cx("description")}>
 						<div className={cx("subtitle")}>Description:</div>
 						<div className={cx("content")}>{nftInfo?.description}</div>
 					</div>
-					{console.log("nftInfo :>> ", nftInfo)}
 					<div className={cx("description")}>
 						<div className={cx("subtitle")}>Attributes:</div>
 						<div className={cx("content")} style={{ padding: 0 }}>

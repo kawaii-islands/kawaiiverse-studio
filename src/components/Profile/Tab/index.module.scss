@@ -74,6 +74,11 @@
 			&:hover {
 				background: #a86c60;
 				color: #ffffff;
+
+				img {
+					-webkit-filter: invert(100%) sepia(57%) saturate(0) hue-rotate(233deg) brightness(120%) contrast(104%);
+					filter: invert(100%) sepia(57%) saturate(0) hue-rotate(233deg) brightness(120%) contrast(104%);
+				}
 			}
 
 			.menu-title {

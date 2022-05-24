@@ -28,7 +28,6 @@ const tab = [
 const Tab = ({  gameInfo }) => {
 	const navigate = useNavigate();
 	const location = useLocation();
-	console.log('location :>> ', location);
 	let { address } = useParams();
 
 	return (
@@ -36,11 +35,11 @@ const Tab = ({  gameInfo }) => {
 			<div className={cx("filter")}>
 				<div className={cx("game-info")}>
 					<div className={cx("image-box")}>
-						<img src={gameInfo.gameUrl || logoKawaii} alt="game" className={cx("game-image")} />
+						<img src={gameInfo?.gameUrl} alt="game" className={cx("game-image")} />
 					</div>
 
 					<div className={cx("game-name")}>
-						<div>{gameInfo.gameName || "Kawaii Islands"}</div>
+						<div>{gameInfo?.gameName}</div>
 						<div style={{ fontSize: "12px", fontWeight: "400" }}>
 							{address.slice(0, 6) + "..." + address.slice(-6)} &nbsp;{" "}
 							<ContentCopyRoundedIcon

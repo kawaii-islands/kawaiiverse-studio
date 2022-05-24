@@ -5,6 +5,7 @@ import cn from "classnames/bind";
 import closeIcon from "src/assets/icons/close-icon.svg";
 import Grid from "@mui/material/Grid";
 import defaultImage from "src/assets/icons/default_image.svg";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
 const cx = cn.bind(styles);
 
@@ -14,7 +15,7 @@ const DetailModal = ({ openDetailModal, onHide, selectedNft }) => {
 			<Modal.Body className={cx("modal-body")}>
 				<div className={cx("modal-style")}>
 					<div className={cx("close-icon")} onClick={onHide}>
-						<img src={closeIcon} alt="close-icon" />
+					<CloseRoundedIcon />
 					</div>
 
 					<div className={cx("title")}>
