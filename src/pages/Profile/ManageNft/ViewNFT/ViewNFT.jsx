@@ -165,7 +165,6 @@ const ViewNFT = ({ gameSelected, setIsMintNFT }) => {
                 ) : (
                     <div style={{ margin: "0 auto" }}>
                         <img src={noData} alt="no-data" />
-						{/* <div>No data</div> */}
                     </div>
                 )}
             </Row>

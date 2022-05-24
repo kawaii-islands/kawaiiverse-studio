@@ -22,8 +22,6 @@ const ManageNft = () => {
     const [isMintNFT, setIsMintNFT] = useState();
 	const params = useParams();
 
-	console.log('params :>> ', params);
-
     useEffect(() => {
         if (urlParams.get("view") === "true") {
             setIsMintNFT(false);

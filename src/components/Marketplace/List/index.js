@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 const cx = cn.bind(styles);
 
 const pageSize = 10;
-const mockData = [1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 
 export default function List({ listNft, gameSelected }) {
 	const navigate = useNavigate();
@@ -20,7 +19,7 @@ export default function List({ listNft, gameSelected }) {
 			<Box display="flex" justifyContent="center" flexWrap="wrap">
 				<Grid container spacing={2}>
 					{listNft?.slice((currentPage - 1) * pageSize, currentPage * pageSize).map((nft, index) => (
-						<Grid item onClick={() => navigate(`/view-nft/${gameSelected || nft.contract}/${nft.tokenId}`)}>
+						<Grid key={index} item onClick={() => navigate(`/view-nft/${gameSelected || nft.contract}/${nft.tokenId}`)}>
 							<NFTCard nftInfo={nft} hasPrice={false} />
 						</Grid>
 					))}
@@ -29,7 +28,7 @@ export default function List({ listNft, gameSelected }) {
 			{listNft.length / pageSize > 1 && (
 				<div style={{ width: "100%" }}>
 					<Pagination
-						count={Math.round(mockData.length / pageSize)}
+						count={Math.round(listNft.length / pageSize)}
 						color="primary"
 						shape="rounded"
 						className={cx("pagination")}

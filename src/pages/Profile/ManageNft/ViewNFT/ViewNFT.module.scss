@@ -54,6 +54,28 @@ $break-point-3: 767px;
 				}
 			}
 
+			.sort {
+				width: 200px;
+				font-weight: 700;
+				color: #833f1d;
+				:global(.MuiOutlinedInput-notchedOutline) {
+					border: none;
+				}
+				:global(.MuiSelect-select) {
+					padding: 10px;
+					background: transparent;
+					border: 1px solid rgba(148, 72, 80, 0.5);
+					border-radius: 6px;
+				}
+			}
+
+			.item {
+				color: #833f1d !important;
+				&:global(.Mui-selected) {
+					background-color: #f1ecec !important;
+				}
+			}
+
 			.button {
 				margin-left: 20px;
 				background: #ff7500;
