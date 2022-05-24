@@ -35,9 +35,11 @@ $mobile: 576px;
 	}
 
 	.create-card {
-		padding-top: 30px;
 		text-align: center;
 		cursor: pointer;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 		.create-paragraph {
 			color: #833f1d;
 			font-family: Play;
@@ -56,14 +58,32 @@ $mobile: 576px;
 			font-family: Play;
 			font-size: 20px;
 			font-weight: 700;
-			line-height: 30px;
 			letter-spacing: 0em;
 			color: #833f1d;
+			display: flex;
+			align-items: center;
+
+			.grid-parent {
+				width: 100%;
+			}
 			.game-logo {
 				width: 40px;
 				height: 40px;
 				margin-right: 16px;
 				border-radius: 50px;
+			}
+
+			.game-name {
+				text-align: left;
+				@media (max-width: $mobile) {
+					text-align: center;
+				}
+			}
+
+			.game-mini {
+				width: 18px;
+				height: 18px;
+				margin-left: 10px;
 			}
 			// text-align: center;
 		}
@@ -71,9 +91,9 @@ $mobile: 576px;
 			font-family: Play;
 			font-size: 14px;
 			font-weight: 500;
-			line-height: 21px;
+			line-height: 25px;
 			letter-spacing: 0em;
-			padding-top: 14px;
+			padding-top: 5px;
 			text-align: left;
 			color: #833f1d;
 			padding-left: 10px;
@@ -84,6 +104,7 @@ $mobile: 576px;
 			}
 			.game-amount {
 				color: #833f1d;
+				font-weight: 700;
 			}
 			a {
 				text-decoration: none;
@@ -92,21 +113,23 @@ $mobile: 576px;
 
 		.create-action {
 			justify-content: center;
-			margin-bottom: 16px;
+			padding-bottom: 14px;
 
 			.create-button {
+				font-family: Play;
 				font-weight: 700;
 				font-size: 14px;
 				line-height: 21px;
 				display: flex;
-				justify-content: flex-end;
+				// justify-content: flex-end;
+				width: 88%;
+				text-align: center;
 				gap: 12px;
 				color: white;
 				padding: 5px 24px;
-				width: fit-content;
 				color: white;
-				background: linear-gradient(270.94deg, #fb35ff 4.88%, #8d4abc 99.69%);
-				border-radius: 15.5px;
+				background: #ff7500;
+				border-radius: 6px;
 			}
 		}
 	}
@@ -115,11 +138,12 @@ $mobile: 576px;
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	width: 30%;
+	width: 40%;
 	min-height: 335px;
+	font-family: Play;
 
 	transform: translate(-50%, -50%);
-	background-color: #ebe3ff;
+	background: #fdf5e8;
 	border-radius: 8px;
 	text-align: center;
 	justify-content: center;
@@ -135,6 +159,7 @@ $mobile: 576px;
 		margin: 0 auto;
 		width: 60%;
 		text-align: left;
+
 		&_text {
 			margin: 0;
 			padding-left: 10px;
@@ -144,18 +169,52 @@ $mobile: 576px;
 		}
 	}
 	.input {
+		font-family: Play;
 		padding-left: 10px;
-		background-color: #ebe3ff;
+		background-color: #fdf5e8;
 		line-height: 45px;
 		margin-top: 15px;
 		width: 60%;
-		border: 1px solid rgba(82, 64, 130, 0.2);
-		box-sizing: border-box;
+		border: 1px solid rgba(217, 164, 170, 0.35);
 		border-radius: 4px;
+		box-sizing: border-box;
+		&_image {
+			font-family: Play;
+			padding-left: 10px;
+			background-color: #fdf5e8;
+			line-height: 65px;
+			margin-top: 15px;
+			width: 60%;
+			border: 1px solid rgba(217, 164, 170, 0.35);
+			border-radius: 4px;
+			box-sizing: border-box;
+		}
+	}
+	.input:focus {
+		outline: none !important;
+		border: 1px solid #d9a4aa;
+	}
+
+	::placeholder {
+		color: rgba(131, 63, 29, 0.35);
+		font-family: Play;
+		opacity: 1; /* Firefox */
+	}
+
+	:-ms-input-placeholder {
+		/* Internet Explorer 10-11 */
+		color: rgba(131, 63, 29, 0.35);
+		font-family: Play;
+	}
+
+	::-ms-input-placeholder {
+		/* Microsoft Edge */
+		color: rgba(131, 63, 29, 0.35);
+		font-family: Play;
 	}
 	.input_error {
 		padding-left: 10px;
-		background-color: #ebe3ff;
+		background-color: #fdf5e8;
 		line-height: 45px;
 		margin-top: 15px;
 		width: 60%;
@@ -163,31 +222,47 @@ $mobile: 576px;
 		box-sizing: border-box;
 		border-radius: 4px;
 		border-color: #dc615d;
+		border-width: 1px;
+	}
+	.input_error:focus {
+		outline: none !important;
+		border-color: #dc615d;
 		border-width: 1.5px;
 	}
 	.modal_create {
+		font-family: Play;
 		font-weight: 600;
 		font-size: 18px;
 		margin-top: 15px;
 		margin-bottom: 30px;
-		width: 70%;
-		background: linear-gradient(180deg, #6441a5 0%, #2a0845 100%);
+		width: 60%;
+		background: #ffb16f;
 		border-radius: 4px;
 		cursor: pointer;
 		color: white;
 	}
+	.input_image:focus {
+		outline: none !important;
+		border: 1px solid #d9a4aa;
+	}
 	.input_container {
 		position: relative;
+		.upload_img {
+			position: absolute;
+			transform: translateY(30%);
+			left: 21%;
+			height: 60px;
+		}
+
 		.input_img {
 			position: absolute;
-			top: 28px;
+			top: 40px;
 			width: 24px;
-			right: 13%;
+			right: 21%;
 			height: 22px;
 			cursor: pointer;
 		}
-		&--image {
-		}
+
 		.preview-img {
 			// position: absolute;
 			// top: 60px;
