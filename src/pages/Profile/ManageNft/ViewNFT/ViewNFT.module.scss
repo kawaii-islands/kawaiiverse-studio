@@ -1,0 +1,118 @@
+$break-point-1: 814px;
+$mobile: 576px;
+// $break-point-1: 1180px;
+$break-point-2: 912px;
+$break-point-3: 767px;
+.view-nft {
+	.top {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 30px;
+
+		.left-title {
+			display: flex;
+			align-items: center;
+			
+			.title {
+				font-weight: 700;
+				font-size: 20px;
+				line-height: 24px;
+				color: #833f1d;
+				padding-right: 20px;
+			}
+
+			.search {
+				width: 240px;
+				border: 1.5px solid rgba(148, 72, 80, 0.5);
+				border-radius: 6px;
+				padding: 4px 8px;
+				color: #833f1d !important;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				font-family: "Play", sans-serif;
+
+				.icon {
+					cursor: pointer;
+					color: #833f1d;
+				}
+			}
+		}
+
+		.group-search {
+			display: flex;
+			align-items: center;
+
+			.sort {
+				width: 200px;
+				font-weight: 700;
+				color: #833f1d;
+				:global(.MuiOutlinedInput-notchedOutline) {
+					border: none;
+				}
+				:global(.MuiSelect-select) {
+					padding: 10px;
+					background: transparent;
+					border: 1px solid rgba(148, 72, 80, 0.5);
+					border-radius: 6px;
+				}
+			}
+
+			.item {
+				font-weight: 500;
+				color: #833f1d !important;
+
+				&:global(.Mui-selected) {
+					background-color: #f1ecec !important;
+				}
+			}
+
+			.button {
+				margin-left: 20px;
+				background: #ff7500;
+				border-radius: 6px;
+				color: #f6f7fb;
+				font-weight: 700;
+				font-size: 16px;
+				line-height: 150%;
+				padding: 10px 24px;
+			}
+		}
+	}
+
+	.list-nft {
+		width: 100%;
+		display: flex;
+		flex-flow: row wrap;
+
+		&::after {
+			content: "";
+			flex: auto;
+		}
+	}
+}
+
+.pagination {
+	text-align: center;
+	margin-top: 30px;
+}
+.menu-dropdown {
+	background-color: #56428f !important;
+	padding: 0px;
+	li {
+		color: #fff !important;
+		// font-weight: 600;
+	}
+	li:hover {
+		background-color: #56428f !important;
+	}
+	&--active {
+		background: linear-gradient(94.08deg, #7f00ff -1.88%, #e100ff 100%);
+	}
+	:global {
+		.ant-dropdown {
+			background-color: #56428f !important;
+		}
+	}
+}

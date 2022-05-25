@@ -1,0 +1,47 @@
+$break-point-1: 814px;
+$mobile: 576px;
+.profile {
+	.row {
+		display: flex;
+
+		.left {
+			min-width: 300px;
+			min-height: 100vh;
+			@media (max-width: $break-point-1) {
+				display: none;
+			}
+		}
+
+		.right {
+			width: 100%;
+
+			.breadcrumbs {
+				padding: 25px 60px;
+				:global {
+					.MuiTypography-root {
+						color: #833f1d !important;
+						font-size: 16px;
+						text-transform: capitalize;
+					}
+					.MuiBreadcrumbs-li {
+						cursor: pointer;
+					}
+					.MuiSvgIcon-fontSizeMedium {
+						color: #cea061 !important;
+						// background-color: #625D83 !important;
+					}
+				}
+				padding-bottom: 18px;
+				margin-bottom: 40px;
+				border-bottom: 1px solid #d2b0a3;
+			}
+			@media (max-width: $break-point-1) {
+				padding: 40px 8px;
+			}
+
+			.content {
+				padding: 0px 60px;
+			}
+		}
+	}
+}

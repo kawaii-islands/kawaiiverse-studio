@@ -1,0 +1,257 @@
+$mobile: 576px;
+.mint-nft {
+	.back {
+		display: flex;
+		align-items: center;
+		font-weight: 700;
+		font-size: 18px;
+		line-height: 150%;
+		color: #833f1d;
+		text-transform: uppercase;
+		margin-bottom: 28px;
+		cursor: pointer;
+		width: fit-content;
+	}
+
+	.table {
+		font-size: 14px;
+		line-height: 150%;
+		@media (max-width: $mobile) {
+			font-size: 13px;
+			text-align: center;
+		}
+		&-header {
+			padding: 10px 20px;
+			background: #fff7ea;
+			border-radius: 4px;
+			color: #833f1d;
+			font-weight: 700;
+			margin-bottom: 5px;
+
+			.required-icon {
+				font-size: 14px;
+				color: #da0a0a;
+			}
+		}
+
+		.table-body {
+			position: relative;
+
+			.table-row {
+				background: #fff7ea;
+				backdrop-filter: blur(50px);
+				box-sizing: border-box;
+				margin-bottom: 5px;
+				border-radius: 4px;
+
+				.main-row {
+					padding: 10px 20px;
+					color: #833f1d;
+
+					.image-upload {
+						input {
+							display: none;
+						}
+
+						.upload-img-icon {
+							cursor: pointer !important;
+							padding-left: 5px;
+						}
+					}
+
+					.input {
+						color: #833f1d;
+						background: none;
+						border: none;
+						margin: 0 auto;
+						width: 80%;
+						padding: 4px;
+
+						&:focus {
+							outline: none !important;
+							border: none;
+							border-bottom: 1px solid rgba(210, 176, 163, 0.35);
+						}
+					}
+
+					.invalid {
+						border: 1px solid rgba(240, 134, 134, 0.99);
+						border-radius: 4px;
+
+						&:focus {
+							border-radius: 0px;
+						}
+					}
+
+					.error-mes {
+						color: #dc615d;
+					}
+
+					.preview {
+						color: #2cd7ff;
+					}
+
+					.delete-icon {
+						cursor: pointer;
+						padding: 6px;
+						border-radius: 50%;
+						color: #833f1d;
+						transition-duration: 0.5s;
+						font-size: 38px;
+
+						&:hover {
+							transform: scale(1.15);
+						}
+					}
+
+					.expand-icon {
+						cursor: pointer;
+						transition-duration: 0.35s;
+						font-size: 28px;
+						color: #833f1d;
+					}
+				}
+
+				.expand-row {
+					border-top: 1px solid rgba(210, 176, 163, 0.35);
+				}
+			}
+
+			.add-nft-open {
+				position: absolute;
+				right: -50px;
+				bottom: 455px;
+				cursor: pointer;
+			}
+		}
+
+		.add-nft {
+			background: #fff7ea;
+			border: 1px solid rgba(202, 186, 245, 0.3);
+			box-sizing: border-box;
+			backdrop-filter: blur(50px);
+			border-radius: 4px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 14px 20px;
+			color: #833f1d;
+			font-weight: 500;
+			font-size: 14px;
+			cursor: pointer;
+		}
+	}
+
+	.group-button {
+		display: flex;
+		align-items: center;
+		justify-content: right;
+		margin-top: 28px;
+
+		.submit {
+			padding: 8px 25px;
+			background: #ff7500;
+			border-radius: 4px;
+			font-weight: 500;
+			font-size: 16px;
+			line-height: 150%;
+			margin-left: 12px;
+			color: #ffffff;
+		}
+
+		.disable-submit {
+			@extend .submit;
+			background: rgba(223, 1, 255, 0.2);
+			color: rgba(255, 255, 255, 0.5);
+		}
+
+		.preview {
+			background: #a86c60;
+			border-radius: 4px;
+			padding: 8px 25px;
+			font-weight: 500;
+			font-size: 16px;
+			line-height: 150%;
+			color: #ffffff;
+		}
+
+		.disable-preview {
+			@extend .preview;
+			background: rgba(131, 1, 255, 0.2);
+			color: rgba(255, 255, 255, 0.5);
+		}
+	}
+}
+
+.loading-modal {
+	border-radius: 8px;
+	padding: 10px;
+	max-width: 370px;
+	z-index: 9999;
+
+	:global(.modal-content) {
+		width: 370px;
+		background: #fdf5e8;
+		border-radius: 8px;
+	}
+
+	.modal-body {
+		background: #fdf5e8;
+		border-radius: 8px;
+		// padding: 10px;
+
+		.top-body {
+			text-align: right;
+
+			.icon-cancel {
+				color: #e48d0a;
+				cursor: pointer;
+			}
+		}
+	}
+
+	.center-body {
+		margin: 20px;
+		text-align: center;
+
+		.icon-list {
+			color: #f8a629;
+			font-size: 120px;
+		}
+	}
+
+	.bottom-body {
+		text-align: center;
+		margin-top: 30px;
+		margin-bottom: 30px;
+
+		.title {
+			font-style: normal;
+			font-weight: 700;
+			font-size: 18px;
+			line-height: 150%;
+			text-align: center;
+			color: #833F1D;
+		}
+
+		.content {
+			font-style: normal;
+			font-weight: 400;
+			font-size: 16px;
+			line-height: 150%;
+			text-align: center;
+			color: #833F1D;
+			margin-top: 5px;
+			margin-bottom: 10px;
+		}
+
+		.MuiButton-root {
+			text-transform: none !important;
+			background: #FF7500;
+			border-radius: 4px;
+			color: white;
+			width: 88%;
+			margin-top: 10px;
+		}
+	}
+}

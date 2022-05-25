@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Play&display=swap");
 .app-layout {
 	margin-top: 70px;
-	background-image: url(https://s3-alpha-sig.figma.com/img/58af/f300/c228f3e6ec9fc0c7bce4da123d898a72?Expires=1653264000&Signature=CHvEsMQr8mgG2WgEW2J448zeyfmGqn9Q~GzpnAf~Wt6SHfDmOfPwd~swlJWvt8mXRWIMMGEHgVATiNrkRCjyO52qSEiDwV0B8IOrobrMTK-W3tSYeaNwdA~VAAzrh6yPPYLJiS6FbJA~tBVKLhHaTD3IXlTvRHSagZ6XXUqwAxWKxVss--1B4OJnIc-UuKm~b0N6vfo2WzV1n-bdf5EE0r~nf6hvGrHifLMqZ3~5ifcuBVZ3-ritMVKkJsLbwbWqfLk64~u914OksWWn6iCO-pg0x8o6r40CONC89EVMB3fG-~UDB3p~yQX~PczQlkpV9IeWf7QTYZGFrWX9svZpFA__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA);
+	/* background-image: url(https://s3-alpha-sig.figma.com/img/58af/f300/c228f3e6ec9fc0c7bce4da123d898a72?Expires=1653264000&Signature=CHvEsMQr8mgG2WgEW2J448zeyfmGqn9Q~GzpnAf~Wt6SHfDmOfPwd~swlJWvt8mXRWIMMGEHgVATiNrkRCjyO52qSEiDwV0B8IOrobrMTK-W3tSYeaNwdA~VAAzrh6yPPYLJiS6FbJA~tBVKLhHaTD3IXlTvRHSagZ6XXUqwAxWKxVss--1B4OJnIc-UuKm~b0N6vfo2WzV1n-bdf5EE0r~nf6hvGrHifLMqZ3~5ifcuBVZ3-ritMVKkJsLbwbWqfLk64~u914OksWWn6iCO-pg0x8o6r40CONC89EVMB3fG-~UDB3p~yQX~PczQlkpV9IeWf7QTYZGFrWX9svZpFA__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA); */
+	background: #FDECD9;
+	min-height: 100vh;
 }
