@@ -90,3 +90,16 @@ export const getCurrentBlock = () => {
 	const web3 = new Web3(RPC_URLS[BSC_CHAIN_ID]);
 	return web3.eth.getBlockNumber();
 };
+
+export const getListGame = async () => {
+	const numberOfGame = +(await read("nft1155Length", BSC_CHAIN_ID, addresses.FACTORY, FACTORY_ABI, []));
+	const listPromise = Array(numberOfGame)
+		.fill()
+		.map((_, idx) => read("nft1155", BSC_CHAIN_ID, addresses.FACTORY, FACTORY_ABI, [idx]));
+	const listGame = await Promise.all(listPromise);
+	const listName = await Promise.all(listGame.map(address => read("name", BSC_CHAIN_ID, address, NFT_1155_ABI, [])));
+	return listGame.map((address, idx) => ({
+		name: listName[idx],
+		address,
+	}));
+};

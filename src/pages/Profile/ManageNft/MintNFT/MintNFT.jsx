@@ -208,7 +208,7 @@ const MintNFT = ({ setIsMintNFT, gameSelected }) => {
 			}
 		}
 
-		setListErr(arr); 
+		setListErr(arr);
 		return flag;
 	};
 

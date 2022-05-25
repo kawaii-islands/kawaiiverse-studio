@@ -1,6 +1,5 @@
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { Col } from "antd";
 import cn from "classnames/bind";
 import styles from "./Card.module.scss";
 const cx = cn.bind(styles);

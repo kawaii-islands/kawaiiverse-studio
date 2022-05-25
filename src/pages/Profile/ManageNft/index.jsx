@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import LoadingPage from "src/components/common/LoadingPage/LoadingPage";
 import styles from "./index.module.scss";
 import cn from "classnames/bind";
 import { Button } from "@mui/material";

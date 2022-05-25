@@ -291,13 +291,9 @@ const Profile = () => {
 				<div className={cx("right")}>
 					<Toolbar />
 
-					<Row gutter={[20, 20]} className={cx("list")}>
-						{loadingListNFT ? (
-							<ListSkeleton page={"store"} />
-						) : (
-							<List listNft={displayList.reverse()} />
-						)}
-					</Row>
+					<div className={cx("list")}>
+						{loadingListNFT ? <ListSkeleton page={"store"} /> : <List listNft={displayList.reverse()} />}
+					</div>
 				</div>
 			</div>
 		</div>

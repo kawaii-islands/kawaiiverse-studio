@@ -87,3 +87,4 @@ export const getCurrentBlock = () => {
     const web3 = new Web3(RPC_URLS[BSC_CHAIN_ID]);
     return web3.eth.getBlockNumber();
 };
+

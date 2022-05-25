@@ -4,10 +4,19 @@ import SearchIcon from "@mui/icons-material/Search";
 import Game from "./Game";
 import styles from "./index.module.scss";
 import cn from "classnames/bind";
+import { getListGame } from "src/lib/web3";
+import { useQuery } from "react-query";
+import { useDispatch, useSelector } from "react-redux";
+import { setGames } from "src/lib/redux/slices/game";
 
 const cx = cn.bind(styles);
 
 export default function Filter() {
+	const dispatch = useDispatch();
+	const activeGames = useSelector(state => state?.filter?.games) || [];
+	const { error, isLoading, data } = useQuery("getListGame", getListGame);
+	if (data) dispatch(setGames(data));
+
 	return (
 		<div className={cx("container")}>
 			<Box display="flex">
@@ -25,8 +34,7 @@ export default function Filter() {
 				}
 				placeholder="Search game"
 			/>
-			<Game />
-			<Game />
+			{data && data.map(game => <Game key={game.address} game={game} active={activeGames.includes(game.address)} />)}
 		</div>
 	);
 }

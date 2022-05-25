@@ -4,11 +4,15 @@ import { Typography } from "@mui/material";
 import kwtLogo from "src/assets/icons/kwt.png";
 import { BSC_rpcUrls } from "src/constants/blockchain";
 import Web3 from "web3";
+import { useSelector } from "react-redux";
+import formatNumber from "src/utils/formatNumber";
 
 const web3 = new Web3(BSC_rpcUrls);
 const cx = cn.bind(styles);
 
 export default function NFTCard({ nftInfo, hasPrice }) {
+	const { kwtPrice } = useSelector(state => state?.price);
+	console.log("kwtPrice :>> ", kwtPrice);
 
 	return (
 		<div className={cx("card")}>
@@ -33,7 +37,7 @@ export default function NFTCard({ nftInfo, hasPrice }) {
 						{nftInfo?.price ? Number(web3.utils.fromWei(nftInfo?.price.toString())) : 0}
 					</Typography>
 					<Typography className={cx("usd")}>
-			
+						${nftInfo?.price && formatNumber(Number(web3.utils.fromWei(nftInfo?.price.toString())) * kwtPrice)}
 					</Typography>
 				</div>
 			)}
