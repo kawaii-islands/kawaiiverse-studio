@@ -1,76 +1,80 @@
-import React, { useEffect, useState } from "react";
-import styles from "./CreateGame.module.scss";
-import Grid from "@mui/material/Grid";
-import cn from "classnames/bind";
-import CardContent from "@mui/material/CardContent";
-import Modal from "@mui/material/Modal";
-import { URL } from "src/constants/constants";
-import Card from "@mui/material/Card";
-import Typography from "@mui/material/Typography";
 import Item from "./Item";
+import axios from "axios";
+import cn from "classnames/bind";
+import Grid from "@mui/material/Grid";
+import Card from "@mui/material/Card";
+import Modal from "@mui/material/Modal";
 import { create } from "ipfs-http-client";
-import logoCreate from "src/assets/icons/plus1.png";
+import Button from "@mui/material/Button";
+import { useEffect, useState } from "react";
+import styles from "./CreateGame.module.scss";
+import { URL } from "src/constants/constants";
+import Skeleton from "@mui/material/Skeleton";
 import { useWeb3React } from "@web3-react/core";
-import { BSC_CHAIN_ID, BSC_rpcUrls } from "src/constants/network";
+import addImage from "src/assets/images/add.png";
+import Typography from "@mui/material/Typography";
+import CardContent from "@mui/material/CardContent";
+import logoCreate from "src/assets/icons/plus1.png";
+import { BSC_CHAIN_ID } from "src/constants/network";
+import logoFailed from "src/assets/images/error1.png";
 import { FACTORY_ADDRESS } from "src/constants/address";
+import logoSuccess from "src/assets/images/success.png";
+import logoLoading from "src/assets/images/loading1.png";
+import Pagination from "src/components/common/Pagination";
 import FACTORY_ABI from "src/utils/abi/KawaiiFactory.json";
+import CircularProgress from "@mui/material/CircularProgress";
 import NFT1155_ABI from "src/utils/abi/KawaiiverseNFT1155.json";
 import { read, createNetworkOrSwitch, write } from "src/services/web3";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import logoSuccess from "src/assets/images/success.png";
-import logoFailed from "src/assets/images/error1.png";
-import logoLoading from "src/assets/images/loading1.png";
-import addImage from "src/assets/images/add.png";
-import axios from "axios";
-import Button from "@mui/material/Button";
-import CircularProgress from "@mui/material/CircularProgress";
 
 const cx = cn.bind(styles);
 const client = create("https://ipfs.infura.io:5001/api/v0");
 const PAGE_SIZE = 8;
 
 const CreateGame = () => {
-	const [open, setOpen] = useState(false);
-	const { account, chainId, library } = useWeb3React();
-	const [gameList, setGameList] = useState([]);
-	const [currentPage, setCurrentPage] = useState(1);
-	const [totalGame, setTotalGame] = useState();
-	const [loadingGameList, setLoadingGameList] = useState(false);
-	const [success, setSuccess] = useState(false);
-	const [failed, setFailed] = useState(false);
 	const [uploadImageLoading, setUploadImageLoading] = useState(false);
 	const [uploadGameLoading, setUploadGameLoading] = useState(false);
-	const [errorName, setErrorName] = useState(false);
+	const [loadingGameList, setLoadingGameList] = useState(false);
 	const [errorSymbol, setErrorSymbol] = useState(false);
+	const { account, chainId, library } = useWeb3React();
 	const [errorImage, setErrorImage] = useState(false);
+	const [errorName, setErrorName] = useState(false);
+	const [success, setSuccess] = useState(false);
+	const [totalPage, setTotalPage] = useState(1);
+	const [gameList, setGameList] = useState([]);
 	const [gameInfo, setgameInfo] = useState({});
-	const [fileName, setFileName] = useState();
-	const [fileUrl, setFileUrl] = useState();
+	const [failed, setFailed] = useState(false);
 	const [fileSize, setFileSize] = useState();
+	const [fileUrl, setFileUrl] = useState();
+	const [open, setOpen] = useState(false);
+	const [page, setPage] = useState(1);
 
 	useEffect(() => {
 		logInfo();
-	}, [account]);
+	}, [account, page]);
 
 	const logInfo = async type => {
 		if (!account) return;
-		console.log(Date.now());
+		setFileUrl();
+		setgameInfo({});
 		setGameList([]);
 		setLoadingGameList(true);
 		try {
 			let lists = [];
-			let upperBoundary;
 			const totalGame = await read("nftOfUserLength", BSC_CHAIN_ID, FACTORY_ADDRESS, FACTORY_ABI, [account]);
-			if ((currentPage - 1) * PAGE_SIZE + PAGE_SIZE > totalGame) {
-				upperBoundary = totalGame;
+			let fromIndex;
+			let toIndex;
+			setTotalPage(Math.ceil(totalGame / PAGE_SIZE));
+			if (page == 1) {
+				fromIndex = totalGame - 1;
 			} else {
-				upperBoundary = (currentPage - 1) * PAGE_SIZE + PAGE_SIZE;
+				fromIndex = totalGame - PAGE_SIZE * (page - 1) - 1;
 			}
-			setTotalGame(totalGame);
-			for (let index = (currentPage - 1) * PAGE_SIZE; index < upperBoundary; index++) {
+
+			if (fromIndex < PAGE_SIZE - 1) toIndex = 0;
+			else toIndex = fromIndex - PAGE_SIZE + 1;
+			for (let index = fromIndex; index >= toIndex; index--) {
 				let gameAddress = await read("nftOfUser", BSC_CHAIN_ID, FACTORY_ADDRESS, FACTORY_ABI, [account, index]);
 				let gameName = await read("name", BSC_CHAIN_ID, gameAddress, NFT1155_ABI, []);
-				console.log(gameAddress, gameName);
 				const res = await axios.get(`${URL}/v1/game/logo?contract=${gameAddress}`);
 				let gameUrl = "";
 				if (res.data.data[0]) {
@@ -78,7 +82,7 @@ const CreateGame = () => {
 				}
 				lists.push({ gameAddress, gameName, gameUrl });
 			}
-			setGameList(lists.reverse());
+			setGameList(lists);
 		} catch (err) {
 			console.log(err);
 			setLoadingGameList(false);
@@ -90,8 +94,9 @@ const CreateGame = () => {
 	const handleOpen = () => setOpen(true);
 
 	const handleClose = () => {
-		setOpen(false);
+		setFailed(false);
 		setSuccess(false);
+		setOpen(false);
 	};
 
 	const inputChangeHandler = (key, value) => {
@@ -133,7 +138,6 @@ const CreateGame = () => {
 
 		const imageSize = Math.ceil(e.target.files[0].size / 1024);
 		const file = e.target.files[0];
-		setFileName(e.target.files[0].name);
 		setFileSize(imageSize);
 
 		if (!checkImageSize(imageSize)) {
@@ -269,14 +273,13 @@ const CreateGame = () => {
 				};
 
 				const res = await axios.post(`${URL}/v1/game/logo`, bodyParams);
-				console.log("3");
 				if (res.data.message === "success") {
 					console.log(res);
 					setgameInfo({});
-					setFileName();
 					setFileSize();
 					setUploadGameLoading(false);
 					setSuccess(true);
+					logInfo();
 					setTimeout(() => {
 						handleClose();
 					}, 4000);
@@ -294,6 +297,10 @@ const CreateGame = () => {
 		}
 	};
 
+	const handleChange = (event, pageNumber) => {
+		setPage(pageNumber);
+	};
+
 	const skeletonArray = Array.from(Array(8).keys());
 
 	let componentGameList;
@@ -308,9 +315,13 @@ const CreateGame = () => {
 			<>
 				{skeletonArray.map((item, idx) => (
 					<Grid item md={4} sm={6} xs={12} key={idx}>
-						<SkeletonTheme baseColor="#3D1C6C" highlightColor="#402A7D" duration={2}>
-							<Skeleton className={cx("skeleton")} />
-						</SkeletonTheme>
+						<Skeleton
+							sx={{ bgcolor: "#ffddb9", borderRadius: "6px" }}
+							variant="rectangular"
+							animation="wave"
+							width="100%"
+							height="163px"
+						/>
 					</Grid>
 				))}
 			</>
@@ -324,11 +335,18 @@ const CreateGame = () => {
 	}
 
 	if (!uploadImageLoading && !uploadGameLoading) {
-		componentButtonCreate = (
-			<Button className={cx("modal_create")} onClick={handleCreate}>
-				Create now
-			</Button>
-		);
+		if (gameInfo.name !== undefined && gameInfo.symbol !== undefined && gameInfo.avatar !== undefined) {
+			componentButtonCreate = (
+				<Button className={cx("modal_create")} onClick={handleCreate}>
+					Create now
+				</Button>
+			);
+		} else
+			componentButtonCreate = (
+				<Button className={cx("modal_pending_create")} onClick={handleCreate}>
+					Create now
+				</Button>
+			);
 	} else {
 		componentButtonCreate = (
 			<Button className={cx("modal_create")}>
@@ -407,11 +425,10 @@ const CreateGame = () => {
 					/>
 					{componentErrorSymbol}
 					<div className={cx("input_container", "input_container--image")}>
-						{fileName ? <img src={fileUrl} alt="upload-img" className={cx("upload_img")} /> : <></>}
+						{fileUrl ? <img src={fileUrl} alt="loading image" className={cx("upload_img")} /> : <></>}
 
 						<input
 							placeholder={fileUrl ? "" : "Avatar"}
-							// value={fileName || ""}
 							className={errorImage ? cx("input_error") : cx("input_image")}
 							readOnly
 						/>
@@ -429,9 +446,7 @@ const CreateGame = () => {
 
 						{componentErrorImage}
 					</div>
-					<div className={cx("input_container", "input_container--image")}>
-						{/* {gameInfo.avatar && <img src={gameInfo.avatar || ""} alt="preview" className={cx("preview-img")} />} */}
-					</div>
+					<div className={cx("input_container", "input_container--image")}></div>
 					{componentButtonCreate}
 				</>
 			);
@@ -453,18 +468,10 @@ const CreateGame = () => {
 							</CardContent>
 						</Card>
 					</Grid>
-
 					{componentGameList}
 				</Grid>
 				<div className={cx("pagination")}>
-					{/* <Pagination
-						pageSize={PAGE_SIZE}
-						showSizeChanger={false}
-						// current={currentPage}
-						// total={totalGame}
-						// onChange={page => setCurrentPage(page)}
-						// itemRender={itemRender}
-					/> */}
+					<Pagination count={totalPage} page={page} onChange={handleChange} />
 				</div>
 				<Modal open={open} onClose={handleClose}>
 					<div className={cx("modal-style")}>{componentModal}</div>
