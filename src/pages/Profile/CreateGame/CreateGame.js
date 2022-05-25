@@ -25,6 +25,7 @@ import FACTORY_ABI from "src/utils/abi/KawaiiFactory.json";
 import CircularProgress from "@mui/material/CircularProgress";
 import NFT1155_ABI from "src/utils/abi/KawaiiverseNFT1155.json";
 import { read, createNetworkOrSwitch, write } from "src/services/web3";
+import LoadingModal from "src/components/common/LoadingModal2/LoadingModal";
 
 const cx = cn.bind(styles);
 const client = create("https://ipfs.infura.io:5001/api/v0");
@@ -34,19 +35,24 @@ const CreateGame = () => {
 	const [uploadImageLoading, setUploadImageLoading] = useState(false);
 	const [uploadGameLoading, setUploadGameLoading] = useState(false);
 	const [loadingGameList, setLoadingGameList] = useState(false);
+	const [loadingSubmit, setLoadingSubmit] = useState(false);
 	const [errorSymbol, setErrorSymbol] = useState(false);
 	const { account, chainId, library } = useWeb3React();
+	const [loadingTitle, setLoadingTitle] = useState("");
 	const [errorImage, setErrorImage] = useState(false);
+	const [stepLoading, setStepLoading] = useState(0);
 	const [errorName, setErrorName] = useState(false);
 	const [success, setSuccess] = useState(false);
 	const [totalPage, setTotalPage] = useState(1);
 	const [gameList, setGameList] = useState([]);
 	const [gameInfo, setgameInfo] = useState({});
+	const [loading, setLoading] = useState(true);
 	const [failed, setFailed] = useState(false);
 	const [fileSize, setFileSize] = useState();
 	const [fileUrl, setFileUrl] = useState();
 	const [open, setOpen] = useState(false);
 	const [page, setPage] = useState(1);
+	const [hash, setHash] = useState();
 
 	useEffect(() => {
 		logInfo();
@@ -249,7 +255,7 @@ const CreateGame = () => {
 						throw new Error("Please change network to Testnet Binance smart chain.");
 					}
 				}
-
+				setStepLoading(0);
 				await write(
 					"createNFT1155",
 					library.provider,
@@ -259,8 +265,12 @@ const CreateGame = () => {
 					{ from: account },
 					hash => {
 						console.log(hash);
+						setHash(hash);
+						setStepLoading(1);
 					}
 				);
+				setStepLoading(null);
+				setLoadingTitle("Sign in your wallet!");
 
 				const totalGame = await read("nftOfUserLength", BSC_CHAIN_ID, FACTORY_ADDRESS, FACTORY_ABI, [account]);
 				let gameAddress = await read("nftOfUser", BSC_CHAIN_ID, FACTORY_ADDRESS, FACTORY_ABI, [account, totalGame - 1]);
@@ -273,24 +283,33 @@ const CreateGame = () => {
 				};
 
 				const res = await axios.post(`${URL}/v1/game/logo`, bodyParams);
+
 				if (res.data.message === "success") {
 					console.log(res);
+					setStepLoading(2);
 					setgameInfo({});
 					setFileSize();
-					setUploadGameLoading(false);
 					setSuccess(true);
 					logInfo();
 					setTimeout(() => {
 						handleClose();
+						setUploadGameLoading(false);
 					}, 4000);
 				} else {
-					setUploadGameLoading(false);
-					setFailed(true);
+					// setUploadGameLoading(false);
+					setStepLoading(4);
+					// setLoadingTitle("Transaction failed");
 				}
 			} catch (err) {
-				setUploadGameLoading(false);
+				// setUploadGameLoading(false);
 				setFailed(true);
+				setStepLoading(4);
+				// setLoadingTitle("Transaction failed");
 				console.log(err.response);
+				setTimeout(() => {
+					handleClose();
+					setUploadGameLoading(false);
+				}, 4000);
 			}
 		} else {
 			setUploadGameLoading(false);
@@ -334,7 +353,7 @@ const CreateGame = () => {
 		));
 	}
 
-	if (!uploadImageLoading && !uploadGameLoading) {
+	if (!uploadImageLoading) {
 		if (gameInfo.name !== undefined && gameInfo.symbol !== undefined && gameInfo.avatar !== undefined) {
 			componentButtonCreate = (
 				<Button className={cx("modal_create")} onClick={handleCreate}>
@@ -379,79 +398,51 @@ const CreateGame = () => {
 		);
 	}
 
-	if (uploadGameLoading) {
-		componentModal = (
-			<div className={cx("modal_success")}>
-				<img src={logoLoading} alt="logo" className={cx("loading_logo")} />
-				<p className={cx("modal_text")}>LOADING</p>
+	componentModal = (
+		<>
+			<Typography className={cx("modal_header")}>CREATE GAME</Typography>
+			<input
+				placeholder="Name"
+				className={errorName ? cx("input_error") : cx("input")}
+				required
+				value={gameInfo.name || ""}
+				onChange={handleChangeName}
+			/>
+			{componentErrorName}
+			<input
+				placeholder="Game symbol"
+				className={errorSymbol ? cx("input_error") : cx("input")}
+				required
+				value={gameInfo.symbol || ""}
+				onChange={handleChangeSymbol}
+			/>
+			{componentErrorSymbol}
+			<div className={cx("input_container", "input_container--image")}>
+				{fileUrl ? <img src={fileUrl} alt="loading image" className={cx("upload_img")} /> : <></>}
+
+				<input
+					placeholder={fileUrl ? "" : "Avatar"}
+					className={errorImage ? cx("input_error") : cx("input_image")}
+					readOnly
+				/>
+				<label htmlFor="file-input">
+					<img src={addImage} alt="upload-img" className={cx("input_img")} />
+				</label>
+				<input
+					placeholder="String"
+					id="file-input"
+					type="file"
+					accept="image/*"
+					style={{ display: "none" }}
+					onChange={e => handleUploadImage(e)}
+				/>
+
+				{componentErrorImage}
 			</div>
-		);
-	} else {
-		if (success) {
-			componentModal = (
-				<div className={cx("modal_success")}>
-					<img src={logoSuccess} alt="logo" className={cx("success_logo")} />
-					<p className={cx("modal_text")}>SUCCESSFUL</p>
-				</div>
-			);
-		} else if (failed) {
-			componentModal = (
-				<div className={cx("modal_failed")}>
-					<img src={logoFailed} alt="logo" className={cx("success_logo")} />
-					<p className={cx("modal_text")}>TRANSACTION FAILED</p>
-				</div>
-			);
-			setTimeout(() => {
-				handleClose();
-			}, 4000);
-		} else {
-			componentModal = (
-				<>
-					<Typography className={cx("modal_header")}>CREATE GAME</Typography>
-					<input
-						placeholder="Name"
-						className={errorName ? cx("input_error") : cx("input")}
-						required
-						value={gameInfo.name || ""}
-						onChange={handleChangeName}
-					/>
-					{componentErrorName}
-					<input
-						placeholder="Game symbol"
-						className={errorSymbol ? cx("input_error") : cx("input")}
-						required
-						value={gameInfo.symbol || ""}
-						onChange={handleChangeSymbol}
-					/>
-					{componentErrorSymbol}
-					<div className={cx("input_container", "input_container--image")}>
-						{fileUrl ? <img src={fileUrl} alt="loading image" className={cx("upload_img")} /> : <></>}
-
-						<input
-							placeholder={fileUrl ? "" : "Avatar"}
-							className={errorImage ? cx("input_error") : cx("input_image")}
-							readOnly
-						/>
-						<label htmlFor="file-input">
-							<img src={addImage} alt="upload-img" className={cx("input_img")} />
-						</label>
-						<input
-							placeholder="String"
-							id="file-input"
-							type="file"
-							accept="image/*"
-							style={{ display: "none" }}
-							onChange={e => handleUploadImage(e)}
-						/>
-
-						{componentErrorImage}
-					</div>
-					<div className={cx("input_container", "input_container--image")}></div>
-					{componentButtonCreate}
-				</>
-			);
-		}
-	}
+			<div className={cx("input_container", "input_container--image")}></div>
+			{componentButtonCreate}
+		</>
+	);
 
 	return (
 		<div className={cx("container")}>
@@ -473,6 +464,22 @@ const CreateGame = () => {
 				<div className={cx("pagination")}>
 					<Pagination count={totalPage} page={page} onChange={handleChange} />
 				</div>
+				{uploadGameLoading && (
+					<LoadingModal
+						show={uploadGameLoading}
+						network={"BscScan"}
+						loading={loading}
+						title={loadingTitle}
+						stepLoading={stepLoading}
+						onHide={() => {
+							setUploadGameLoading(false);
+							setHash(undefined);
+							setStepLoading(0);
+						}}
+						hash={hash}
+						hideParent={() => {}}
+					/>
+				)}
 				<Modal open={open} onClose={handleClose}>
 					<div className={cx("modal-style")}>{componentModal}</div>
 				</Modal>

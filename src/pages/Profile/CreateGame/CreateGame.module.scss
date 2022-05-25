@@ -6,6 +6,9 @@ $mobile: 576px;
 	.MuiCard-root {
 		box-shadow: none;
 	}
+	.MuiModal-root {
+		z-index: 1 !important;
+	}
 }
 .container {
 	min-height: calc(100vh - 70px);
