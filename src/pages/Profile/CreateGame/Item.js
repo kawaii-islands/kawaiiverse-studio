@@ -12,11 +12,16 @@ import CardContent from "@mui/material/CardContent";
 import logoTrend from "src/assets/icons/trend1.png";
 import logoLayers from "src/assets/icons/layers1.png";
 import logoKawaii from "src/assets/images/logo_kawaii.png";
+import { useNavigate } from "react-router-dom";
+
+
 const cx = cn.bind(styles);
 
 const Item = ({ item }) => {
+	const navigate = useNavigate();
+
 	return (
-		<Card className={cx("item-card", "card")}>
+		<Card className={cx("item-card", "card")} onClick={() => navigate(`/account/manage-nft/${item.gameAddress}`)}>
 			<CardContent>
 				<div className={cx("item-header")}>
 					<img src={item.gameUrl != "" ? item.gameUrl : logoKawaii} alt="logo" className={cx("game-logo")} />
