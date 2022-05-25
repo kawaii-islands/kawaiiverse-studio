@@ -13,15 +13,23 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
 import { Button } from "@mui/material";
 import kwtToken from "src/assets/icons/kwt.png";
+import BuyModal from "./BuyModal";
+import formatNumber from "src/utils/formatNumber";
+import { BSC_rpcUrls } from "src/constants/blockchain";
+import Web3 from "web3";
+
+const web3 = new Web3(BSC_rpcUrls);
 
 const cx = cn.bind(styles);
 
 const NFTDetail = ({ hasPrice }) => {
+	const navigate = useNavigate();
+
 	const { nftId, address } = useParams();
 	const [nftInfo, setNftInfo] = useState();
 	const [loading, setLoading] = useState(true);
 	const { pathname } = useLocation();
-	const navigate = useNavigate();
+	const [showBuyModal, setShowBuyModal] = useState(false);
 
 	useEffect(() => {
 		getNftInfo();
@@ -73,9 +81,9 @@ const NFTDetail = ({ hasPrice }) => {
 
 			<div className={cx("main-content")}>
 				<div className={cx("left")}>
-					<div className={cx("back")} onClick={() => navigate(-1)}>
+					{/* <div className={cx("back")} onClick={() => navigate(-1)}>
 						<ArrowBackIosNewRoundedIcon style={{ color: "#833F1D" }} />
-					</div>
+					</div> */}
 
 					<div className={cx("image-box")}>
 						<img src={nftInfo?.imageUrl ? nftInfo.imageUrl : defaultImage} alt="nft" />
@@ -97,13 +105,18 @@ const NFTDetail = ({ hasPrice }) => {
 							<div className={cx("content", "price")}>
 								<div className={cx("number")}>
 									<img src={kwtToken} alt="kwt-token" width={28} height={28} />
-									<span className={cx("num-token")}>120</span>
+									<span className={cx("num-token")}>123</span>
 									<span className={cx("usd")}>$123</span>
 								</div>
-								<Button className={cx("btn-buy")}>Buy NFT</Button>
+								<Button className={cx("btn-buy")} onClick={() => setShowBuyModal(true)}>
+									Buy NFT
+								</Button>
 							</div>
 						</div>
 					)}
+
+					<BuyModal show={showBuyModal} setShow={setShowBuyModal} info={nftInfo} />
+
 					<div className={cx("description")}>
 						<div className={cx("subtitle")}>Description:</div>
 						<div className={cx("content")}>{nftInfo?.description}</div>

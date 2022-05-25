@@ -2,10 +2,14 @@ import styles from "./index.module.scss";
 import cn from "classnames/bind";
 import { Typography } from "@mui/material";
 import kwtLogo from "src/assets/icons/kwt.png";
+import { BSC_rpcUrls } from "src/constants/blockchain";
+import Web3 from "web3";
 
+const web3 = new Web3(BSC_rpcUrls);
 const cx = cn.bind(styles);
 
 export default function NFTCard({ nftInfo, hasPrice }) {
+
 	return (
 		<div className={cx("card")}>
 			<Typography variant="body2" className={cx("id")}>
@@ -15,7 +19,7 @@ export default function NFTCard({ nftInfo, hasPrice }) {
 				<img src={nftInfo?.imageUrl} />
 				{hasPrice && (
 					<Typography variant="body1" className={cx("balance")}>
-						2
+						{nftInfo?.amount - nftInfo?.alreadySale}
 					</Typography>
 				)}
 			</div>
@@ -25,8 +29,12 @@ export default function NFTCard({ nftInfo, hasPrice }) {
 			{hasPrice && (
 				<div className={cx("price")}>
 					<img src={kwtLogo} />
-					<Typography className={cx("amount")}>1,573.231</Typography>
-					<Typography className={cx("usd")}>$240</Typography>
+					<Typography className={cx("amount")}>
+						{nftInfo?.price ? Number(web3.utils.fromWei(nftInfo?.price.toString())) : 0}
+					</Typography>
+					<Typography className={cx("usd")}>
+			
+					</Typography>
 				</div>
 			)}
 		</div>

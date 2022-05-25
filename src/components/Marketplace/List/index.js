@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 const cx = cn.bind(styles);
 
-const pageSize = 10;
+const pageSize = 12;
 
 export default function List({ listNft, gameSelected, hasPrice }) {
 	const navigate = useNavigate();

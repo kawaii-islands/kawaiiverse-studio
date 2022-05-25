@@ -14,6 +14,26 @@ const ManageNft = React.lazy(() => import("src/pages/Profile/ManageNft"));
 const StoreProfile = React.lazy(() => import("src/pages/Profile/StoreProfile"));
 const NFTDetail = React.lazy(() => import("src/components/common/NFTDetail"));
 
+// const UpdatePrice = () => {
+// 	const dispatch = useDispatch();
+// 	const updatePrice = async () => {
+// 		try {
+// 			const [kwtData] = await Promise.all([
+// 				axios.get("https://api.coingecko.com/api/v3/simple/price?ids=kawaii-islands&vs_currencies=usd"),
+// 			]);
+// 			dispatch(setKwtPrice(kwtData?.data["kawaii-islands"]?.usd));
+// 		} catch (error) {}
+// 	};
+
+// 	useEffect(() => {
+// 		updatePrice();
+// 		const interval = setInterval(updatePrice, 1000 * 60);
+// 		return clearInterval(interval);
+// 	}, []);
+
+// 	return null;
+// };
+
 export default function App() {
 	return (
 		<ThemeProvider theme={theme}>
