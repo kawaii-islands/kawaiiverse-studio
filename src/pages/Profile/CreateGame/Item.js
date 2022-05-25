@@ -1,16 +1,17 @@
 import cn from "classnames/bind";
-import styles from "./CreateGame.module.scss";
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
+import styles from "./CreateGame.module.scss";
+import logoHome from "src/assets/icons/home.png";
+import { shortenAddress } from "src/utils/string";
+import Typography from "@mui/material/Typography";
+import logoEdit from "src/assets/icons/edit1.png";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import logoKawaii from "src/assets/images/logo_kawaii.png";
 import logoTrend from "src/assets/icons/trend1.png";
 import logoLayers from "src/assets/icons/layers1.png";
-import logoHome from "src/assets/icons/home.png";
-import logoEdit from "src/assets/icons/edit1.png";
+import logoKawaii from "src/assets/images/logo_kawaii.png";
 const cx = cn.bind(styles);
 
 const Item = ({ item }) => {
@@ -32,7 +33,7 @@ const Item = ({ item }) => {
 				</Typography>
 				<Typography className={cx("item-paragraph")}>
 					<img src={logoHome} alt="logo" className={cx("game-mini")} />
-					Address: <span className={cx("game-amount")}>0xabc...cba</span>
+					Address: <span className={cx("game-amount")}>{shortenAddress(item.gameAddress)}</span>
 				</Typography>
 			</CardContent>
 			<CardActions className={cx("create-action")}>

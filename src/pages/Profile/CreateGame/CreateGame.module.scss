@@ -2,11 +2,16 @@ $break-point-1: 814px;
 $tablet: 768px;
 $mobile: 576px;
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
-
+:global {
+	.MuiCard-root {
+		box-shadow: none;
+	}
+}
 .container {
 	min-height: calc(100vh - 70px);
 	width: 100%;
 	color: white;
+	background-color: #fdecd9;
 	padding-bottom: 20px;
 
 	.content {
@@ -97,6 +102,8 @@ $mobile: 576px;
 			text-align: left;
 			color: #833f1d;
 			padding-left: 10px;
+			display: flex;
+			align-items: center;
 			.game-mini {
 				width: 18px;
 				height: 18px;
@@ -105,6 +112,7 @@ $mobile: 576px;
 			.game-amount {
 				color: #833f1d;
 				font-weight: 700;
+				padding-left: 2px;
 			}
 			a {
 				text-decoration: none;
@@ -141,7 +149,7 @@ $mobile: 576px;
 	width: 40%;
 	min-height: 335px;
 	font-family: Play;
-
+	outline: none !important;
 	transform: translate(-50%, -50%);
 	background: #fdf5e8;
 	border-radius: 8px;
@@ -241,6 +249,18 @@ $mobile: 576px;
 		cursor: pointer;
 		color: white;
 	}
+	.modal_pending_create {
+		font-family: Play;
+		font-weight: 600;
+		font-size: 18px;
+		margin-top: 15px;
+		margin-bottom: 30px;
+		width: 60%;
+		background: #e9d4c3;
+		border-radius: 4px;
+		cursor: pointer;
+		color: white;
+	}
 	.input_image:focus {
 		outline: none !important;
 		border: 1px solid #d9a4aa;
@@ -278,11 +298,20 @@ $mobile: 576px;
 		position: relative;
 		top: 50%;
 		transform: translateY(40%);
+		.loading_logo {
+			width: 25%;
+		}
+		.success_logo {
+			width: 25%;
+		}
 	}
 	.modal_failed {
 		position: relative;
 		top: 50%;
 		transform: translateY(25%);
+		.success_logo {
+			width: 25%;
+		}
 	}
 	.loading_logo {
 		-webkit-transform: translateZ(0);
