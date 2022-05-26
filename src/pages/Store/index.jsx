@@ -88,6 +88,7 @@ const Profile = () => {
 
 	useEffect(() => {
 		getGameList();
+		
 	}, []);
 	useLayoutEffect(() => {
 		if (firstUpdate.current) {
@@ -252,6 +253,7 @@ const Profile = () => {
 
 			logGameData(gameListData);
 			setGameList(gameListData);
+			console.log(gameListData);
 
 			return gameListData;
 		} catch (error) {

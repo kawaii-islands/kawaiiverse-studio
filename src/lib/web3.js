@@ -2,6 +2,11 @@ import Web3 from "web3";
 import { RPC_URLS } from "src/constants/connectors";
 import { splitSignature } from "@ethersproject/bytes";
 import { BSC_CHAIN_ID_HEX, BSC_rpcUrls, BSC_blockExplorerUrls, BSC_CHAIN_ID } from "src/constants/network";
+import { FACTORY_ADDRESS } from "src/constants/address";
+import FACTORY_ABI from "src/utils/abi/factory.json";
+import NFT1155_ABI from "src/utils/abi/KawaiiverseNFT1155.json";
+import KAWAII_STORE_ABI from "src/utils/abi/KawaiiverseStore.json";
+import { KAWAIIVERSE_STORE_ADDRESS } from "src/constants/address";
 
 export const createNetworkOrSwitch = async provider => {
 	if (!provider.isMetaMask) {
@@ -92,14 +97,38 @@ export const getCurrentBlock = () => {
 };
 
 export const getListGame = async () => {
-	const numberOfGame = +(await read("nft1155Length", BSC_CHAIN_ID, addresses.FACTORY, FACTORY_ABI, []));
+	const numberOfGame = +(await read("nft1155Length", BSC_CHAIN_ID, FACTORY_ADDRESS, FACTORY_ABI, []));
+	console.log(numberOfGame);
 	const listPromise = Array(numberOfGame)
 		.fill()
-		.map((_, idx) => read("nft1155", BSC_CHAIN_ID, addresses.FACTORY, FACTORY_ABI, [idx]));
+		.map((_, idx) => read("nft1155", BSC_CHAIN_ID, FACTORY_ADDRESS, FACTORY_ABI, [idx]));
 	const listGame = await Promise.all(listPromise);
-	const listName = await Promise.all(listGame.map(address => read("name", BSC_CHAIN_ID, address, NFT_1155_ABI, [])));
+	const listName = await Promise.all(listGame.map(address => read("name", BSC_CHAIN_ID, address, NFT1155_ABI, [])));
 	return listGame.map((address, idx) => ({
 		name: listName[idx],
+		address,
+	}));
+};
+
+export const getListSellingGame = async () => {
+	console.log("hello");
+	const numberOfsellingGame = +(await read(
+		"lengthListNFT1155",
+		BSC_CHAIN_ID,
+		KAWAIIVERSE_STORE_ADDRESS,
+		KAWAII_STORE_ABI,
+		[]
+	));
+	console.log(numberOfsellingGame);
+	const listPromise = Array(numberOfsellingGame)
+		.fill()
+		.map((_, idx) => read("listNFT1155", BSC_CHAIN_ID, KAWAIIVERSE_STORE_ADDRESS, KAWAII_STORE_ABI, [idx]));
+	const listSellingGame = await Promise.all(listPromise);
+	const listSellingName = await Promise.all(
+		listSellingGame.map(address => read("name", BSC_CHAIN_ID, address, NFT1155_ABI, []))
+	);
+	return listSellingGame.map((address, idx) => ({
+		name: listSellingName[idx],
 		address,
 	}));
 };
