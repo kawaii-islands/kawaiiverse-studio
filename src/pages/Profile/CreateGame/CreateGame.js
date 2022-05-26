@@ -422,7 +422,7 @@ const CreateGame = () => {
 
 				<input
 					placeholder={fileUrl ? "" : "Avatar"}
-					className={errorImage ? cx("input_error") : cx("input_image")}
+					className={errorImage ? cx("input_error_image") : cx("input_image")}
 					readOnly
 				/>
 				<label htmlFor="file-input">
