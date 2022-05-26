@@ -9,29 +9,23 @@ const cx = cn.bind(styles);
 
 export default function Game({ game, active }) {
 	const dispatch = useDispatch();
-	const activeGames = useSelector(state => state?.filter?.games) || [];
+	const activeGames = useSelector(state => state?.filter) || [];
+
 	const onClick = () => {
-		if (activeGames.includes(game.address)) {
-			dispatch(
-				setFilter({
-					games: activeGames.filter(address => address !== game.address),
-				})
-			);
+		if (activeGames.length && activeGames.find(item => item.gameAddress === game.gameAddress)) {
+			let arr = activeGames.filter(item => item.gameAddress !== game.gameAddress)
+			dispatch(setFilter([...arr]));
 		} else {
-			dispatch(
-				setFilter({
-					games: [...activeGames, game.address],
-				})
-			);
+			dispatch(setFilter([...activeGames, game]));
 		}
 	};
 
 	return (
 		<>
 			<div className={cx("game")} onClick={onClick}>
-				<img src={GameAvatar} className={cx("avatar", active && "active")} />
+				<img src={game.logoUrl} className={cx("avatar", active && "active")} />
 				<Typography variant="body1" className={cx("name", active && "active")}>
-					{game.name}
+					{game.gameName}
 				</Typography>
 			</div>
 			{/* <div className={cx("attribute")}>

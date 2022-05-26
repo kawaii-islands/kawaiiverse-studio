@@ -33,6 +33,7 @@
 			margin-right: 30px;
 			border: 1px solid #a86c60;
 			border-radius: 8px;
+			text-align: center;
 
 			img {
 				max-width: 100%;
@@ -62,12 +63,14 @@
 				}
 				.input {
 					border: 1px solid #b99d95;
-					width: 150px;
+					width: 120px;
 					height: 44px;
 					border-radius: 6px;
 					padding-right: 14px;
 					margin-bottom: 16px;
 					color: #833f1d;
+					text-align: center;
+
 					:global(.MuiOutlinedInput-notchedOutline) {
 						outline: none;
 						border: none;
@@ -85,7 +88,13 @@
 			}
 			.button {
 				width: 100%;
-				color: white;
+				background: #ff7500;
+				border-radius: 6px;
+				color: #f6f7fb;
+				font-weight: 700;
+				font-size: 16px;
+				line-height: 150%;
+				padding: 10px 24px;
 			}
 		}
 	}
