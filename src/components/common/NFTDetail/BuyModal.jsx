@@ -6,14 +6,12 @@ import { Close } from "@mui/icons-material";
 import tokenIcon from "src/assets/icons/kwt.png";
 import { Box } from "@mui/system";
 import { useMemo, useState } from "react";
-// import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import formatNumber from "src/utils/formatNumber";
 
 const cx = cn.bind(styles);
 
 export default function BuyModal({ show, setShow, auction, info }) {
-	// const { kwtPrice } = useSelector(state => state?.price);
-	// const currentPrice = useMemo(() => getCurrentPriceOnChain(auction), [auction]);
 	const [amount, setAmount] = useState(0);
 
 	const buy = async () => {};

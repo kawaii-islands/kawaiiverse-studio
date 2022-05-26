@@ -15,8 +15,11 @@ import { Button } from "@mui/material";
 import kwtToken from "src/assets/icons/kwt.png";
 import BuyModal from "./BuyModal";
 import formatNumber from "src/utils/formatNumber";
-import { BSC_rpcUrls } from "src/constants/blockchain";
+import { BSC_CHAIN_ID, BSC_rpcUrls } from "src/constants/blockchain";
 import Web3 from "web3";
+import { KAWAIIVERSE_STORE_ADDRESS, KAWAII_TOKEN_ADDRESS, RELAY_ADDRESS } from "src/constants/address";
+import KAWAII_STORE_ABI from "src/utils/abi/KawaiiverseStore.json";
+import { read, write, sign, createNetworkOrSwitch } from "src/services/web3";
 
 const web3 = new Web3(BSC_rpcUrls);
 
@@ -39,21 +42,44 @@ const NFTDetail = ({ hasPrice }) => {
 	pathnames.splice(5, 1);
 	pathnames.splice(2, 1);
 
+	// const getNftInfo = async () => {
+	// 	setLoading(true);
+	// 	try {
+	// 		const res = await axios.get(`${URL}/v1/nft/${address.toLowerCase()}/${nftId}`);
+	// 		setNftInfo(res.data.data);
+	// 		console.log(res.data.data);
+	// 		console.log("res :>> ", res);
+	// 	} catch (error) {
+	// 		console.log(error);
+	// 	}
+	// 	setLoading(false);
+	// };
+
 	const getNftInfo = async () => {
 		setLoading(true);
 		try {
 			const res = await axios.get(`${URL}/v1/nft/${address.toLowerCase()}/${nftId}`);
-			setNftInfo(res.data.data);
-			console.log(res.data.data);
-			console.log("res :>> ", res);
+			let gameItem = await read("dataNFT1155s", BSC_CHAIN_ID, KAWAIIVERSE_STORE_ADDRESS, KAWAII_STORE_ABI, [
+				address,
+				index,
+			]);
+
+			console.log("gameItem :>> ", gameItem);
+			if (res.status === 200) {
+				gameItem = { ...gameItem, ...res.data.data };
+			}
+			gameItem.index = index;
+			setNftInfo(gameItem);
 		} catch (error) {
 			console.log(error);
+		} finally {
+			setLoading(false);
 		}
-		setLoading(false);
 	};
 
 	return (
 		<div className={cx("nft-detail")}>
+			{console.log("nftInfo :>> ", nftInfo)}
 			{/* <div className={cx("breadcrums")}>
 				{" "}
 				<Breadcrumbs separator={<NavigateNextIcon />} aria-label="breadcrumb">
@@ -99,15 +125,17 @@ const NFTDetail = ({ hasPrice }) => {
 							Author: {nftInfo?.author?.slice(0, 8) + "..." + nftInfo?.author?.slice(-8)}
 						</div>
 					</div>
-					{!hasPrice && (
+					{nftInfo?.price && (
 						<div className={cx("description")}>
 							<div className={cx("subtitle")}>Price:</div>
 							<div className={cx("content", "price")}>
 								<div className={cx("number")}>
 									<img src={kwtToken} alt="kwt-token" width={28} height={28} />
+
 									<span className={cx("num-token")}>123</span>
 									<span className={cx("usd")}>$123</span>
 								</div>
+
 								<Button className={cx("btn-buy")} onClick={() => setShowBuyModal(true)}>
 									Buy NFT
 								</Button>

@@ -289,24 +289,28 @@ const SellItemNFT = ({ gameSelected, setIsSellNFT, isSellNFT }) => {
 				}
 			);
 
-			listSell.forEach(item => {
+			const listData = listSell.forEach(item => {
 				let nft = {};
-				nft.tokenId = item.tokenId;
-				nft.amount = item.quantity;
-				nft.price = nft.price;
+				nft.tokenId = Number(item.tokenId);
+				nft.amount = Number(item.quantity);
+				nft.price = Number(web3.utils.toWei(item.price));
 				nft.tokenUnit = "0x6fe3d0f096fc932a905accd1eb1783f6e4cec717";
-				nft.supply = item.supply;
+				nft.supply = Number(item.supply);
 				return nft;
 			});
 
-			const signature = await getSignature();
 
-			let bodyParams = {
-				contract: address,
-				data: listSell,
-				owner: account,
-				sign: sign,
-			};
+			// setStepLoading(null);
+			// setLoadingTitle("Sign in your wallet!");
+
+			// const signature = await getSignature();
+
+			// let bodyParams = {
+			// 	contract: address,
+			// 	owner: account,
+			// 	data: listData,
+			// 	sign: signature,
+			// };
 
 			// const res = await axios.post(`${URL}/v1/sale`, bodyParams);
 			// if (res.status === 200) {
@@ -319,10 +323,10 @@ const SellItemNFT = ({ gameSelected, setIsSellNFT, isSellNFT }) => {
 			// }
 
 			setStepLoading(2);
-			setListSell([]);
-			getListNft();
-			setSubmitted(false);
-			setSuccess(true);
+				setListSell([]);
+				getListNft();
+				setSubmitted(false);
+				setSuccess(true);
 		} catch (err) {
 			console.log(err);
 			setStepLoading(3);

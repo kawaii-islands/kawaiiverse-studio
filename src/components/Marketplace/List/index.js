@@ -20,7 +20,7 @@ export default function List({ listNft, gameSelected, hasPrice }) {
 				<Grid container spacing={2}>
 					{listNft?.slice((currentPage - 1) * pageSize, currentPage * pageSize).map((nft, index) => (
 						<Grid key={index} item onClick={() => navigate(`/view-nft/${gameSelected || nft.contract}/${nft.tokenId}`)}>
-							<NFTCard nftInfo={nft} hasPrice={hasPrice} />
+							<NFTCard nftInfo={nft} hasPrice={hasPrice}/>
 						</Grid>
 					))}
 				</Grid>

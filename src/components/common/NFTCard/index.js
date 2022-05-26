@@ -12,7 +12,6 @@ const cx = cn.bind(styles);
 
 export default function NFTCard({ nftInfo, hasPrice }) {
 	const { kwtPrice } = useSelector(state => state?.price);
-	console.log("kwtPrice :>> ", kwtPrice);
 
 	return (
 		<div className={cx("card")}>

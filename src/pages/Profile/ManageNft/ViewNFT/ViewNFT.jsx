@@ -58,40 +58,6 @@ const ViewNFT = ({ gameSelected, setIsMintNFT }) => {
 		});
 		setListNft([...result]);
 	};
-	const handleSort = sort => {
-		if (sort === sort1) {
-			setSort("");
-			setListNft(originalList);
-			if (search !== "") {
-				let listSearch = listNft.filter(nft => {
-					if (nft.name) {
-						return nft?.name.toUpperCase().includes(search.toUpperCase()) || nft?.tokenId.toString().includes(search);
-					}
-					return false;
-				});
-				setListSearch([...listSearch]);
-			}
-			return;
-		}
-		setSort(sort);
-		let newList = search !== "" ? [...listSearch] : [...listNft];
-
-		if (sort === "low") {
-			newList = newList.sort(function (a, b) {
-				return Number(a.price) - Number(b.price);
-			});
-		}
-		if (sort === "high") {
-			newList = newList.sort(function (a, b) {
-				return Number(b.price) - Number(a.price);
-			});
-		}
-		if (search !== "") {
-			setListSearch(newList);
-			return;
-		}
-		setListNft(newList);
-	};
 
 	return (
 		<div className={cx("view-nft")}>
@@ -112,7 +78,7 @@ const ViewNFT = ({ gameSelected, setIsMintNFT }) => {
 				</div>
 
 				<div className={cx("group-search")}>
-					<FormControl>
+					{/* <FormControl>
 						<Select
 							className={cx("sort")}
 							displayEmpty
@@ -120,13 +86,13 @@ const ViewNFT = ({ gameSelected, setIsMintNFT }) => {
 							value={sort1}
 							onChange={e => setSort(e.target.value)}
 							size="small">
-							{names.map(name => (
+							{names.map((name, id) => (
 								<MenuItem key={name} value={name} className={cx("item")}>
 									{name}
 								</MenuItem>
 							))}
 						</Select>
-					</FormControl>
+					</FormControl> */}
 
 					<Button
 						className={cx("button")}

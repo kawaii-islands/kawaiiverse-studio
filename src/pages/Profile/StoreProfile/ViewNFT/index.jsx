@@ -20,7 +20,7 @@ import NFT1155_ABI from "src/utils/abi/KawaiiverseNFT1155.json";
 
 const cx = cn.bind(styles);
 
-const names = ["Price: Low to High", "Price: High to Low"];
+const names = ["Price: Low to High", "Price: High to Low", "Newest", "Oldest"];
 
 const ViewNFT = ({ gameSelected, setIsSellNFT, isSellNFT }) => {
 	const navigate = useNavigate();
@@ -32,7 +32,7 @@ const ViewNFT = ({ gameSelected, setIsSellNFT, isSellNFT }) => {
 	const [currentPage, setCurrentPage] = useState(1);
 	const [listNft, setListNft] = useState();
 	const [search, setSearch] = useState("");
-	const [sort1, setSort] = useState(names[1]);
+	const [sort1, setSort] = useState(names[2]);
 	const [originalList, setOriginalList] = useState([]);
 	const [listSearch, setListSearch] = useState([]);
 	const [gameItemList, setGameItemList] = useState([]);
@@ -76,7 +76,7 @@ const ViewNFT = ({ gameSelected, setIsSellNFT, isSellNFT }) => {
 			setSort("");
 			setListNft(originalList);
 			if (search !== "") {
-				let listSearch = listNft?.filter(nft => {
+				let listSearch = listNft.filter(nft => {
 					if (nft.name) {
 						return nft?.name.toUpperCase().includes(search.toUpperCase()) || nft?.tokenId.toString().includes(search);
 					}
@@ -86,19 +86,30 @@ const ViewNFT = ({ gameSelected, setIsSellNFT, isSellNFT }) => {
 			}
 			return;
 		}
+
 		setSort(sort);
 		let newList = search !== "" ? [...listSearch] : [...listNft];
 
-		if (sort === "low") {
+		if (sort === 0) {
 			newList = newList.sort(function (a, b) {
 				return Number(a.price) - Number(b.price);
 			});
 		}
-		if (sort === "high") {
+
+		if (sort === 1) {
 			newList = newList.sort(function (a, b) {
 				return Number(b.price) - Number(a.price);
 			});
 		}
+
+		if (sort === 2) {
+			newList = [...originalList];
+		}
+
+		if (sort === 3) {
+			newList = [...originalList].reverse();
+		}
+
 		if (search !== "") {
 			setListSearch(newList);
 			return;
@@ -244,8 +255,8 @@ const ViewNFT = ({ gameSelected, setIsSellNFT, isSellNFT }) => {
 							value={sort1}
 							onChange={e => setSort(e.target.value)}
 							size="small">
-							{names.map(name => (
-								<MenuItem key={name} value={name} className={cx("item")}>
+							{names.map((name, id) => (
+								<MenuItem key={name} value={name} className={cx("item")} onClick={() => handleSort(id)}>
 									{name}
 								</MenuItem>
 							))}
