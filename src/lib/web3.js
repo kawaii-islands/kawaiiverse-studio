@@ -7,6 +7,8 @@ import FACTORY_ABI from "src/utils/abi/factory.json";
 import NFT1155_ABI from "src/utils/abi/KawaiiverseNFT1155.json";
 import KAWAII_STORE_ABI from "src/utils/abi/KawaiiverseStore.json";
 import { KAWAIIVERSE_STORE_ADDRESS } from "src/constants/address";
+import axios from "axios";
+import { URL } from "src/constants/constant";
 
 export const createNetworkOrSwitch = async provider => {
 	if (!provider.isMetaMask) {
@@ -110,25 +112,37 @@ export const getListGame = async () => {
 	}));
 };
 
+const getGameLength = async () => {
+	let length = await read("lengthListNFT1155", BSC_CHAIN_ID, KAWAIIVERSE_STORE_ADDRESS, KAWAII_STORE_ABI, []);
+	return length;
+};
+
+const getGameAddress = async gameIndex => {
+	let address = await read("listNFT1155", BSC_CHAIN_ID, KAWAIIVERSE_STORE_ADDRESS, KAWAII_STORE_ABI, [gameIndex]);
+	return address;
+};
+
 export const getListSellingGame = async () => {
-	console.log("hello");
-	const numberOfsellingGame = +(await read(
-		"lengthListNFT1155",
-		BSC_CHAIN_ID,
-		KAWAIIVERSE_STORE_ADDRESS,
-		KAWAII_STORE_ABI,
-		[]
-	));
-	console.log(numberOfsellingGame);
-	const listPromise = Array(numberOfsellingGame)
-		.fill()
-		.map((_, idx) => read("listNFT1155", BSC_CHAIN_ID, KAWAIIVERSE_STORE_ADDRESS, KAWAII_STORE_ABI, [idx]));
-	const listSellingGame = await Promise.all(listPromise);
-	const listSellingName = await Promise.all(
-		listSellingGame.map(address => read("name", BSC_CHAIN_ID, address, NFT1155_ABI, []))
-	);
-	return listSellingGame.map((address, idx) => ({
-		name: listSellingName[idx],
-		address,
-	}));
+	try {
+		const totalGame = await getGameLength();
+		const tmpArray = Array.from({ length: totalGame }, (v, i) => i);
+
+		const listSellingGame = await Promise.all(
+			tmpArray.map(async (nftId, index) => {
+				let gameAddress = await getGameAddress(index);
+				let gameName = await read("name", BSC_CHAIN_ID, gameAddress, NFT1155_ABI, []);
+				
+				let res = await axios.get(`${URL}/v1/game/logo?contract=${gameAddress}`);
+				if (res.status === 200 && res.data.data[0]) {
+					return { gameAddress, gameName, logoUrl: res.data.data[0].logoUrl };
+				}
+
+				return { gameAddress, gameName };
+			})
+		);
+
+		return listSellingGame;
+	} catch (error) {
+		console.log(error);
+	}
 };

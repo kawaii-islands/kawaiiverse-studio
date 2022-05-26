@@ -8,15 +8,25 @@ import { getListGame, getListSellingGame } from "src/lib/web3";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { setGames } from "src/lib/redux/slices/game";
-
+import { useEffect, useState } from "react";
 
 const cx = cn.bind(styles);
 
 export default function Filter() {
+	const [listGame, setListGame] = useState([]);
 	const dispatch = useDispatch();
-	const activeGames = useSelector(state => state?.filter?.games) || [];
+	const activeGames = useSelector(state => state?.filter) || [];
 	const { error, isLoading, data } = useQuery("getListSellingGame", getListSellingGame);
 	if (data) dispatch(setGames(data));
+
+	useEffect(() => {
+		setListGame(data);
+	}, [data]);
+
+	const handleSearch = value => {
+		let result = data.filter(game => game.gameName.includes(value));
+		setListGame([...result]);
+	};
 
 	return (
 		<div className={cx("container")}>
@@ -34,8 +44,16 @@ export default function Filter() {
 					</InputAdornment>
 				}
 				placeholder="Search game"
+				onChange={e => handleSearch(e.target.value)}
 			/>
-			{data && data.map(game => <Game key={game.address} game={game} active={activeGames.includes(game.address)} />)}
+			{listGame &&
+				listGame.map(game => (
+					<Game
+						key={game.gameAddress}
+						game={game}
+						active={activeGames.length && activeGames?.find(item => item.gameAddress === game.gameAddress)}
+					/>
+				))}
 		</div>
 	);
 }

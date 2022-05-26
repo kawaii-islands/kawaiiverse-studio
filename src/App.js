@@ -64,6 +64,7 @@ export default function App() {
 										<Route path="store/:address" element={<StoreProfile />} />
 									</Route>
 									<Route path="view-nft/:address/:nftId" element={<NFTDetail />} />
+									<Route path="view-nft/:address/:nftId/:index" element={<NFTDetail />} />
 								</Routes>
 							</Suspense>
 						</div>
