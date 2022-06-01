@@ -20,7 +20,7 @@ const persistor = persistStore(store);
 
 const Store = React.lazy(() => import("src/pages/Store"));
 const CreateGame = React.lazy(() => import("src/pages/Profile/CreateGame/CreateGame"));
-const Profile = React.lazy(() => import("src/pages/Profile/index"));
+const Profile = React.lazy(() => import("src/pages/Profile"));
 const ManageNft = React.lazy(() => import("src/pages/Profile/ManageNft"));
 const StoreProfile = React.lazy(() => import("src/pages/Profile/StoreProfile"));
 const NFTDetail = React.lazy(() => import("src/components/common/NFTDetail"));
@@ -64,6 +64,7 @@ export default function App() {
 										<Route path="store/:address" element={<StoreProfile />} />
 									</Route>
 									<Route path="view-nft/:address/:nftId" element={<NFTDetail />} />
+									<Route path="view-nft/:address/:nftId/:index" element={<NFTDetail />} />
 								</Routes>
 							</Suspense>
 						</div>

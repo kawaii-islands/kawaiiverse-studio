@@ -10,7 +10,7 @@ const cx = cn.bind(styles);
 
 const pageSize = 12;
 
-export default function List({ listNft, gameSelected, hasPrice }) {
+export default function List({ listNft, gameSelected, hasPrice, canBuy }) {
 	const navigate = useNavigate();
 	const [currentPage, setCurrentPage] = useState(1);
 
@@ -19,8 +19,17 @@ export default function List({ listNft, gameSelected, hasPrice }) {
 			<Box display="flex" justifyContent="center" flexWrap="wrap">
 				<Grid container spacing={2}>
 					{listNft?.slice((currentPage - 1) * pageSize, currentPage * pageSize).map((nft, index) => (
-						<Grid key={index} item onClick={() => navigate(`/view-nft/${gameSelected || nft.contract}/${nft.tokenId}`)}>
-							<NFTCard nftInfo={nft} hasPrice={hasPrice}/>
+						<Grid
+							key={index}
+							item
+							onClick={() => {
+								if (canBuy) {
+									navigate(`/view-nft/${nft.contract}/${nft.tokenId}/${nft.index}`);
+								} else {
+									navigate(`/view-nft/${gameSelected}/${nft.tokenId}`);
+								}
+							}}>
+							<NFTCard nftInfo={nft} hasPrice={hasPrice} />
 						</Grid>
 					))}
 				</Grid>
