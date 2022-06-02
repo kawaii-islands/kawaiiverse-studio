@@ -34,7 +34,7 @@ const ListModal = ({ open, onHide, listNft, title, desc, selectNft }) => {
 		let listSearch = listNft.filter(nft => {
 			if (nft.name) {
 				return (
-					nft?.name.toUpperCase().includes(e.target.value.toUpperCase()) ||
+					nft?.name.toLowerCase().includes(e.target.value.toLowerCase()) ||
 					nft?.tokenId.toString().includes(e.target.value)
 				);
 			}

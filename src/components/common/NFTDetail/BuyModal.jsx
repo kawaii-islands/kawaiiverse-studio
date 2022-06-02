@@ -5,11 +5,7 @@ import cartIcon from "src/assets/icons/cart.svg";
 import { Close } from "@mui/icons-material";
 import tokenIcon from "src/assets/icons/kwt.png";
 import { Box } from "@mui/system";
-<<<<<<< HEAD
 import { useMemo, useState } from "react";
-=======
-import { useState } from "react";
->>>>>>> 77dc76373aa2244af0761fe10901e9e05410f6ab
 import { useSelector } from "react-redux";
 import formatNumber from "src/utils/formatNumber";
 import Web3 from "web3";

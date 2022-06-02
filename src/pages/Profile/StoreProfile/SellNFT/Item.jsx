@@ -93,6 +93,7 @@ const Item = ({
 		if (!nft.tokenId) {
 			return;
 		}
+
 		nft.quantity = nft.quantity || 0;
 
 		// setShowError(false);
@@ -110,11 +111,15 @@ const Item = ({
 		const updateNft2 = JSON.parse(JSON.stringify(updateNft));
 		// clone deep
 
+		console.log('name :>> ', name);
+		console.log('nft :>> ', nft);
+		console.log('updateNft :>> ', updateNft);
+
 		if (name === "minus") {
-			updateNft[0]["quantity"] = Math.max(Number(nft.quantity) - 1, 0);
+			updateNft2[0]["quantity"] = Math.max(Number(nft.quantity) - 1, 0);
 		}
 		if (name === "plus") {
-			updateNft[0]["quantity"] = Math.min(Number(nft.quantity) + 1, nft.supply);
+			updateNft2[0]["quantity"] = Math.min(Number(nft.quantity) + 1, nft.supply);
 		}
 		const newList = listSell.map((item, idx) => {
 			if (idx === index) {

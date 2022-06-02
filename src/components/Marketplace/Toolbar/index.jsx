@@ -20,22 +20,11 @@ import { setFilter } from "src/lib/redux/slices/filter";
 
 const cx = cn.bind(styles);
 
-const names = [
-	"Oliver Hansen",
-	"Van Henry",
-	"April Tucker",
-	"Ralph Hubbard",
-	"Omar Alexander",
-	"Carlos Abbott",
-	"Miriam Wagner",
-	"Bradley Wilkerson",
-	"Virginia Andrews",
-	"Kelly Snyder",
-];
+const names = ["Price: Low to High", "Price: High to Low", "Newest", "Oldest"];
 
 export default function Toolbar({ listNft, setListNft, originalList }) {
 	const dispatch = useDispatch();
-	const [sort, setSort] = useState("Oliver Hansen");
+	const [sort1, setSort] = useState(names[2]);
 	const activeGames = useSelector(state => state?.filter) || [];
 	const [searchValue, setSearchValue] = useState();
 
@@ -63,45 +52,91 @@ export default function Toolbar({ listNft, setListNft, originalList }) {
 		setListNft([...result]);
 	};
 
+	const handleSort = sort => {
+		if (sort === sort1) {
+			setSort("");
+			setListNft(originalList);
+			if (search !== "") {
+				let listSearch = listNft.filter(nft => {
+					if (nft.name) {
+						return nft?.name.toUpperCase().includes(search.toUpperCase()) || nft?.tokenId.toString().includes(search);
+					}
+					return false;
+				});
+				setListSearch([...listSearch]);
+			}
+			return;
+		}
+
+		setSort(sort);
+		let newList = search !== "" ? [...listSearch] : [...listNft];
+
+		if (sort === 0) {
+			newList = newList.sort(function (a, b) {
+				return Number(a.price) - Number(b.price);
+			});
+		}
+
+		if (sort === 1) {
+			newList = newList.sort(function (a, b) {
+				return Number(b.price) - Number(a.price);
+			});
+		}
+
+		if (sort === 2) {
+			newList = [...originalList];
+		}
+
+		if (sort === 3) {
+			newList = [...originalList].reverse();
+		}
+
+		if (search !== "") {
+			setListSearch(newList);
+			return;
+		}
+		setListNft(newList);
+	};
+
 	return (
 		<>
-			<Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
+			<Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "12px" }}>
 				<Box sx={{ display: "flex", alignContent: "center" }}>
 					<Typography variant="h6" className={cx("total")}>
 						{listNft?.length} Items
 					</Typography>
-					<OutlinedInput
-						className={cx("search")}
-						variant="filled"
-						placeholder="Search for NFT"
-						endAdornment={
-							<InputAdornment position="start">
-								<SearchIcon />
-							</InputAdornment>
-						}
-						// value={searchValue}
-						onChange={e => handleSearch(e.target.value)}
-					/>
 				</Box>
-				<FormControl>
+				<OutlinedInput
+					className={cx("search")}
+					variant="filled"
+					placeholder="Search for NFT"
+					endAdornment={
+						<InputAdornment position="start">
+							<SearchIcon />
+						</InputAdornment>
+					}
+					// value={searchValue}
+					onChange={e => handleSearch(e.target.value)}
+				/>
+				{/* <FormControl>
 					<Select
 						className={cx("sort")}
 						displayEmpty
 						input={<OutlinedInput />}
-						value={sort}
+						value={sort1}
 						onChange={e => setSort(e.target.value)}
 						size="small">
-						{names.map(name => (
-							<MenuItem key={name} value={name} className={cx("item")}>
+						{names.map((name, id) => (
+							<MenuItem key={name} value={name} className={cx("item")} onClick={() => handleSort(id)}>
 								{name}
 							</MenuItem>
 						))}
 					</Select>
-				</FormControl>
+				</FormControl> */}
 			</Box>
 
 			{activeGames.length > 0 && (
-				<div style={{ display: "flex", alignItems: "center" }}>
+				<div style={{ display: "flex", alignItems: "center", marginTop: '12px' }}>
 					{activeGames.map((game, idx) => (
 						<Box display="flex" alignItems="center" flexWrap="wrap" key={idx}>
 							<Chip

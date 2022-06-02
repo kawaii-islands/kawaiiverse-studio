@@ -110,7 +110,7 @@ const ViewNFT = ({ gameSelected, setIsMintNFT }) => {
 					<ListSkeleton />
 				) : listNft.length > 0 ? (
 					<div className={cx("list-nft")}>
-						<List listNft={listNft} gameSelected={gameSelected} hasPrice={false} />
+						<List listNft={listNft} gameSelected={gameSelected} hasPrice={false} canBuy={false} />
 					</div>
 				) : (
 					<div style={{ margin: "0 auto" }}>

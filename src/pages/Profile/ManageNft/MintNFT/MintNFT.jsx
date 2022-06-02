@@ -11,6 +11,7 @@ import axios from "axios";
 import { URL, KAWAII1155_ADDRESS } from "src/constants/constant";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ExpandLessRoundedIcon from '@mui/icons-material/ExpandLessRounded';
 import addNftIcon from "src/assets/icons/add-nft-icon.svg";
 import PreviewModal from "./PreviewModal";
 import { toast } from "react-toastify";
@@ -529,10 +530,15 @@ const MintNFT = ({ setIsMintNFT, gameSelected }) => {
 									/>
 								</Col>
 								<Col span={1} style={{ cursor: "pointer", textAlign: "right" }}>
-									<ExpandMoreIcon
-										className={cx("expand-icon")}
-										onClick={() => setOpenMintNFTBox(openMintNFTBox === index ? null : index)}
-									/>
+									{openMintNFTBox === index ? (
+										<ExpandLessRoundedIcon 	className={cx("expand-icon")}
+										onClick={() => setOpenMintNFTBox(openMintNFTBox === index ? null : index)} />
+									) : (
+										<ExpandMoreIcon
+											className={cx("expand-icon")}
+											onClick={() => setOpenMintNFTBox(openMintNFTBox === index ? null : index)}
+										/>
+									)}
 								</Col>
 							</Row>
 							{openMintNFTBox === index && (

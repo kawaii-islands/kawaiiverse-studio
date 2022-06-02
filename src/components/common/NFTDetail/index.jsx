@@ -15,12 +15,12 @@ import formatNumber from "src/utils/formatNumber";
 import { BSC_CHAIN_ID, BSC_rpcUrls } from "src/constants/blockchain";
 import Web3 from "web3";
 import { read } from "src/lib/web3";
-import { BSC_CHAIN_ID } from "src/constants/blockchain";
 import { KAWAIIVERSE_STORE_ADDRESS } from "src/constants/address";
 import KAWAII_STORE_ABI from "src/utils/abi/KawaiiverseStore.json";
 import { useSelector } from "react-redux";
 import { useWeb3React } from "@web3-react/core";
 import { toast } from "react-toastify";
+import { useSearchParams } from "react-router-dom";
 
 const web3 = new Web3(BSC_rpcUrls);
 
@@ -35,6 +35,9 @@ const NFTDetail = () => {
 	const [loading, setLoading] = useState(true);
 	const { pathname } = useLocation();
 	const [showBuyModal, setShowBuyModal] = useState(false);
+	const [searchParams, setSearchParams] = useSearchParams();
+	const hasPrice = searchParams.get("hasPrice");
+	const canBuy = searchParams.get("canBuy");
 
 	useEffect(() => {
 		if (index) {
@@ -48,34 +51,10 @@ const NFTDetail = () => {
 	pathnames.splice(5, 1);
 	pathnames.splice(2, 1);
 
-	// const getNftInfo = async () => {
-	// 	setLoading(true);
-	// 	try {
-	// 		const res = await axios.get(`${URL}/v1/nft/${address.toLowerCase()}/${nftId}`);
-	// 		setNftInfo(res.data.data);
-	// 		console.log(res.data.data);
-	// 		console.log("res :>> ", res);
-	// 	} catch (error) {
-	// 		console.log(error);
-	// 	}
-	// 	setLoading(false);
-	// };
-
 	const getNftInfo = async () => {
 		setLoading(true);
 		try {
 			const res = await axios.get(`${URL}/v1/nft/${address.toLowerCase()}/${nftId}`);
-			let gameItem = await read("dataNFT1155s", BSC_CHAIN_ID, KAWAIIVERSE_STORE_ADDRESS, KAWAII_STORE_ABI, [
-				address,
-				index,
-			]);
-
-			console.log("gameItem :>> ", gameItem);
-			if (res.status === 200) {
-				gameItem = { ...gameItem, ...res.data.data };
-			}
-			gameItem.index = index;
-			setNftInfo(gameItem);
 			setNftInfo(res.data.data);
 		} catch (error) {
 			console.log(error);
@@ -146,9 +125,11 @@ const NFTDetail = () => {
 										${nftInfo?.price && formatNumber(Number(web3.utils.fromWei(nftInfo?.price.toString())) * kwtPrice)}
 									</span>
 								</div>
-								<Button className={cx("btn-buy")} onClick={buyNft}>
-									Buy NFT
-								</Button>
+								{canBuy === "true" && (
+									<Button className={cx("btn-buy")} onClick={buyNft}>
+										Buy NFT
+									</Button>
+								)}
 							</div>
 						</div>
 					)}

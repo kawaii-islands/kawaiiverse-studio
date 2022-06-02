@@ -26,6 +26,12 @@ export default function NFTCard({ nftInfo, hasPrice }) {
 					</Typography>
 				)}
 			</div>
+			{nftInfo?.game && (
+				<Typography variant="body1" className={cx("game")}>
+					<img src={nftInfo?.game?.logoUrl} alt="logo-game" className={cx("game-logo")} />
+					<span>{nftInfo?.game?.gameName}</span>
+				</Typography>
+			)}
 			<Typography variant="body1" className={cx("name")}>
 				{nftInfo?.name}
 			</Typography>
