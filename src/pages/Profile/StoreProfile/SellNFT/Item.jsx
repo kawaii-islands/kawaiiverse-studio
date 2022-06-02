@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-
-import { Col, Row } from "antd";
+import { Row, Col } from "antd";
 import cn from "classnames/bind";
 import styles from "./Item.module.scss";
 import addRowItem from "src/assets/icons/add-nft-icon.svg";
 import ListModal from "src/components/Profile/ListModal/ListModal";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+import { Grid } from "@mui/material";
 
 const cx = cn.bind(styles);
 const Item = ({
@@ -111,9 +111,9 @@ const Item = ({
 		const updateNft2 = JSON.parse(JSON.stringify(updateNft));
 		// clone deep
 
-		console.log('name :>> ', name);
-		console.log('nft :>> ', nft);
-		console.log('updateNft :>> ', updateNft);
+		console.log("name :>> ", name);
+		console.log("nft :>> ", nft);
+		console.log("updateNft :>> ", updateNft);
 
 		if (name === "minus") {
 			updateNft2[0]["quantity"] = Math.max(Number(nft.quantity) - 1, 0);
@@ -146,7 +146,7 @@ const Item = ({
 
 	return (
 		<>
-			<Row className={cx("container", deleted && !success && "container-hide")}>
+			<div className={cx("container", deleted && !success && "container-hide")}>
 				{!nft._id ? (
 					<div className={cx("add")} onClick={() => setShowModal(true)}>
 						<img src={addRowItem} alt="add" className={cx("add-icon")} />{" "}
@@ -154,18 +154,18 @@ const Item = ({
 					</div>
 				) : (
 					<>
-						<Row>
-							<Col span={3} style={{ textAlign: "center" }} className={cx("search")}>
+						<Grid container>
+							<Grid item xs={1} style={{ textAlign: "left", paddingLeft: "20px" }} className={cx("search")}>
 								<img alt="nft" src={nft.imageUrl} className={cx("nft-image")} />
-							</Col>
-							<Col span={3} style={{ textAlign: "center" }} className={cx("search")}>
+							</Grid>
+							<Grid item xs={2} style={{ textAlign: "left", paddingLeft: "20px" }} className={cx("search")}>
 								{nft.tokenId}
-							</Col>
-							<Col span={3} style={{ textAlign: "center" }} className={cx("search")}>
+							</Grid>
+							<Grid item xs={2} style={{ textAlign: "left", paddingLeft: "20px" }} className={cx("search")}>
 								{nft.name}
-							</Col>
+							</Grid>
 
-							<Col span={4} style={{ textAlign: "center" }} className={cx("input-wrapper")}>
+							<Grid item xs={2} style={{ textAlign: "left", paddingLeft: "20px" }} className={cx("input-wrapper")}>
 								<input
 									className={cx("price-input", showError.price && "error-input")}
 									value={nft.price || 0}
@@ -177,8 +177,8 @@ const Item = ({
 									name="price"
 									pattern="^[1-9][0-9]*$"
 								/>
-							</Col>
-							<Col span={5} style={{ textAlign: "center" }} className={cx("input-wrapper")}>
+							</Grid>
+							<Grid item xs={3} className={cx("input-wrapper")}>
 								<div className={cx("quantity")}>
 									<div className={cx("quantity-btn", "quantity-minus")} onClick={() => changeQuantity("minus")}>
 										-
@@ -201,33 +201,33 @@ const Item = ({
 										+
 									</div>
 								</div>
-							</Col>
-							<Col span={3} style={{ textAlign: "center" }}>
+							</Grid>
+							<Grid item xs={1} style={{ textAlign: "center" }}>
 								{nft.supply || 0}
-							</Col>
-							<Col span={3} style={{ textAlign: "center" }}>
+							</Grid>
+							<Grid item xs={1} style={{ textAlign: "left", paddingLeft: "20px" }}>
 								{/* <input type="checkbox" style={{background: "#A4B8EA"}} /> */}
 								<div onClick={() => deleteRow(nft)} className={cx("delete-icon")}>
 									<DeleteOutlinedIcon />
 								</div>
-							</Col>
-						</Row>
-						<Row className={cx("row-error")}>
-							<Col span={3} style={{ textAlign: "center" }}></Col>
-							<Col span={3} style={{ textAlign: "center" }}></Col>
-							<Col span={3} style={{ textAlign: "center" }}></Col>
-							<Col span={4} style={{ textAlign: "center" }}>
+							</Grid>
+						</Grid>
+						<Grid container className={cx("row-error")}>
+							<Grid item xs={1} style={{ textAlign: "center" }}></Grid>
+							<Grid item xs={2} style={{ textAlign: "center" }}></Grid>
+							<Grid item xs={2} style={{ textAlign: "center" }}></Grid>
+							<Grid item xs={2} style={{ textAlign: "left", paddingLeft: "20px" }}>
 								{showError.price && <div className={cx("error")}>Price greater than 0</div>}
-							</Col>
-							<Col span={5} style={{ textAlign: "center" }}>
+							</Grid>
+							<Grid item xs={3} style={{ textAlign: "center" }}>
 								{showError.quantity && <div className={cx("error")}>Quantity greater than 0</div>}
-							</Col>
-							<Col span={3} style={{ textAlign: "center" }}></Col>
-							<Col span={3} style={{ textAlign: "center" }}></Col>
-						</Row>
+							</Grid>
+							<Grid item xs={1} style={{ textAlign: "center" }}></Grid>
+							<Grid item xs={1} style={{ textAlign: "center" }}></Grid>
+						</Grid>
 					</>
 				)}
-			</Row>
+			</div>
 
 			<ListModal
 				open={showModal}

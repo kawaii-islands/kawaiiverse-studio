@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import styles from "./MintNFTBox.module.scss";
 import cn from "classnames/bind";
-import { Col, Row, Spin, Menu, Dropdown } from "antd";
+import { Menu, Dropdown } from "antd";
 import { useNavigate } from "react-router-dom";
 import subtractIcon from "src/assets/icons/subtract.svg";
 import uploadImageIcon from "src/assets/icons/uploadImage.svg";
 import plusCircleIcon from "src/assets/icons/plus_circle.svg";
 import TableAddAttribute from "./TableAddAttribute";
 import inforIcon from "src/assets/icons/InforIcon.svg";
-import { Button } from "@mui/material";
+import { Autocomplete, Button, Grid, TextField } from "@mui/material";
 import { create } from "ipfs-http-client";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
@@ -194,11 +194,19 @@ const MintNFTBox = ({
 	return (
 		<div className={cx("mintNFT-box")}>
 			<div className={cx("main-box")}>
-				<Row className={cx("one-field")}>
-					<Col span={4} className={cx("title")}>
+				<Grid container className={cx("one-field")}>
+					<Grid item xs={2} className={cx("title")}>
 						Category:
-					</Col>
-					<Col span={20}>
+					</Grid>
+					<Grid item xs={10}>
+						{/* <Autocomplete
+							className={cx("drop-down")}
+							disablePortal
+							id="combo-box-demo"
+							size="small"
+							options={listCategoryDisplay}
+							renderInput={params => <TextField {...params} label="Category" />}
+						/> */}
 						<Dropdown overlay={menuCategory} className={cx("drop-down")} trigger={["click"]}>
 							<div className={cx("drop-down-label")}>
 								<input
@@ -212,14 +220,14 @@ const MintNFTBox = ({
 								/>
 							</div>
 						</Dropdown>
-					</Col>
-				</Row>
+					</Grid>
+				</Grid>
 
-				<Row className={cx("one-field")}>
-					<Col span={4} className={cx("title")}>
+				<Grid container className={cx("one-field")}>
+					<Grid item xs={2} className={cx("title")}>
 						Rarity:
-					</Col>
-					<Col span={20}>
+					</Grid>
+					<Grid item xs={10}>
 						<Dropdown overlay={menuRarity} className={cx("drop-down")} trigger={["click"]}>
 							<div className={cx("drop-down-label")}>
 								<input
@@ -233,28 +241,28 @@ const MintNFTBox = ({
 								/>
 							</div>
 						</Dropdown>
-					</Col>
-				</Row>
+					</Grid>
+				</Grid>
 
-				<Row className={cx("one-field")}>
-					<Col span={4} className={cx("title")}>
+				<Grid container className={cx("one-field")}>
+					<Grid item xs={2} className={cx("title")}>
 						Description:
-					</Col>
-					<Col span={20}>
+					</Grid>
+					<Grid item xs={10}>
 						<input
 							value={data.description}
 							placeholder="Enter description"
 							className={cx("input")}
 							onChange={e => setStateForNftData("description", e.target.value)}
 						/>
-					</Col>
-				</Row>
+					</Grid>
+				</Grid>
 
-				<Row className={cx("one-field")}>
-					<Col span={4} className={cx("title")}>
+				<Grid container className={cx("one-field")} style={{ alignItems: "flex-start" }}>
+					<Grid item xs={2} className={cx("title")}>
 						Attributes:
-					</Col>
-					<Col span={20} className={cx("table-attribute")}>
+					</Grid>
+					<Grid item xs={10} className={cx("table-attribute")}>
 						<div className={cx("table")}>
 							<TableAddAttribute
 								listAttribute={listAttribute}
@@ -278,8 +286,8 @@ const MintNFTBox = ({
 							<AddRoundedIcon className={cx("add-icon")} />
 							Add attribute
 						</div>
-					</Col>
-				</Row>
+					</Grid>
+				</Grid>
 			</div>
 		</div>
 	);

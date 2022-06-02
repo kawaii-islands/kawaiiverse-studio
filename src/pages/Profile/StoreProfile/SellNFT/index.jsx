@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import axios from "axios";
 import cn from "classnames/bind";
 import styles from "./index.module.scss";
-import { Col, Row } from "antd";
 import { toast } from "react-toastify";
 import Item from "./Item";
 import Web3 from "web3";
@@ -19,7 +18,7 @@ import { URL } from "src/constants/constant";
 import NFT1155_ABI from "src/utils/abi/KawaiiverseNFT1155.json";
 import { useNavigate, useParams } from "react-router";
 import { LeftOutlined } from "@ant-design/icons";
-import { Spin } from "antd";
+import Spin from "src/components/common/Spin";
 const cx = cn.bind(styles);
 const web3 = new Web3(BSC_rpcUrls);
 
@@ -299,7 +298,6 @@ const SellItemNFT = ({ gameSelected, setIsSellNFT, isSellNFT }) => {
 				return nft;
 			});
 
-
 			// setStepLoading(null);
 			// setLoadingTitle("Sign in your wallet!");
 
@@ -323,10 +321,10 @@ const SellItemNFT = ({ gameSelected, setIsSellNFT, isSellNFT }) => {
 			// }
 
 			setStepLoading(2);
-				setListSell([]);
-				getListNft();
-				setSubmitted(false);
-				setSuccess(true);
+			setListSell([]);
+			getListNft();
+			setSubmitted(false);
+			setSuccess(true);
 		} catch (err) {
 			console.log(err);
 			setStepLoading(3);
@@ -367,33 +365,35 @@ const SellItemNFT = ({ gameSelected, setIsSellNFT, isSellNFT }) => {
 				/>
 				SELL NFT
 			</div>
-			<Row className={cx("table-header")}>
-				<Col span={3} style={{ textAlign: "center" }} className={cx("search")}>
+			<Grid container className={cx("table-header")}>
+				<Grid item xs={1} className={cx("search")} style={{ textAlign: "left", paddingLeft: '20px' }}>
 					NFT
-				</Col>
-				<Col span={3} style={{ textAlign: "center" }}>
+				</Grid>
+				<Grid item xs={2} style={{ textAlign: "left", paddingLeft: '20px' }}>
 					Token ID
-				</Col>
-				<Col span={3} style={{ textAlign: "center" }}>
+				</Grid>
+				<Grid item xs={2} style={{ textAlign: "left", paddingLeft: '20px' }}>
 					Name
-				</Col>
+				</Grid>
 
-				<Col span={4} style={{ textAlign: "center" }}>
+				<Grid item xs={2} style={{ textAlign: "left", paddingLeft: '20px' }}>
 					KWT/NFT
-				</Col>
-				<Col span={5} style={{ textAlign: "center" }}>
+				</Grid>
+				<Grid item xs={3} style={{ textAlign: "center" }}>
 					Quantity
-				</Col>
-				<Col span={3} style={{ textAlign: "center" }}>
+				</Grid>
+				<Grid item xs={1} style={{ textAlign: "left", paddingLeft: '20px' }}>
 					Supply
-				</Col>
-				<Col span={3} style={{ textAlign: "center" }}>
+				</Grid>
+				<Grid item xs={1} style={{ textAlign: "left", paddingLeft: '20px' }}>
 					{/* <input type="checkbox" /> */}
-				</Col>
-			</Row>
+				</Grid>
+			</Grid>
 			<div className={cx("table-body")}>
 				{loadingGetList ? (
-					<Spin className={cx("spin")} />
+					<div className={cx("spin-icon")}>
+						<Spin />
+					</div>
 				) : (
 					[...listSell, 1].map((i, idx) => (
 						<Item

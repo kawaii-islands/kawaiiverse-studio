@@ -21,12 +21,26 @@ $mobile: 576px;
 
 		.one-field {
 			@extend .one-field;
-			align-items: flex-start !important;
+			align-items: flex-start;
 			margin-bottom: 30px;
 
 			.drop-down {
 				background: transparent;
 				width: fit-content;
+
+				// :global(.css-1s2yyq0-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline) {
+				// 	border: 1px solid rgba(210, 176, 163, 0.35);
+				// }
+
+				// :global(.css-pa8hiu-MuiFormLabel-root-MuiInputLabel-root.Mui-focused) {
+				// 	color: #833f1d;
+				// }
+
+				// :global(.MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon.css-1auycx3-MuiAutocomplete-root
+				// 		.MuiOutlinedInput-root) {
+				// 	color: #833f1d !important;
+				// 	font-size: 14px !important;
+				// }
 
 				&-label {
 					cursor: default;
@@ -59,7 +73,7 @@ $mobile: 576px;
 					.add-icon {
 						cursor: pointer;
 						margin-right: 8px;
-						color: #FC3832;
+						color: #fc3832;
 						font-size: 18px;
 					}
 				}

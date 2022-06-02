@@ -3,14 +3,13 @@ import styles from "../../ManageNft/ViewNFT/ViewNFT.module.scss";
 import cn from "classnames/bind";
 import ListSkeleton from "src/components/common/ListSkeleton/ListSkeleton";
 import List from "src/components/Marketplace/List";
-import { Row, Menu } from "antd";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { URL } from "src/constants/constant";
 import { Search as SearchIcon } from "@material-ui/icons";
 import { toast } from "react-toastify";
 import noData from "src/assets/icons/noData.png";
-import { Input, OutlinedInput, InputAdornment, MenuItem, FormControl, Select, Button } from "@mui/material";
+import { Input, OutlinedInput, InputAdornment, Button, Grid } from "@mui/material";
 
 const cx = cn.bind(styles);
 
@@ -105,7 +104,7 @@ const ViewNFT = ({ gameSelected, setIsMintNFT }) => {
 				</div>
 			</div>
 
-			<Row>
+			<Grid container>
 				{loading ? (
 					<ListSkeleton />
 				) : listNft.length > 0 ? (
@@ -117,7 +116,7 @@ const ViewNFT = ({ gameSelected, setIsMintNFT }) => {
 						<img src={noData} alt="no-data" />
 					</div>
 				)}
-			</Row>
+			</Grid>
 		</div>
 	);
 };
