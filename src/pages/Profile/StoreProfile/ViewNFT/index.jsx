@@ -3,7 +3,6 @@ import styles from "../../ManageNft/ViewNFT/ViewNFT.module.scss";
 import cn from "classnames/bind";
 import ListSkeleton from "src/components/common/ListSkeleton/ListSkeleton";
 import List from "src/components/Marketplace/List";
-import { Row, Menu } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { URL } from "src/constants/constant";
@@ -29,7 +28,6 @@ const ViewNFT = ({ gameSelected, setIsSellNFT, isSellNFT }) => {
 
 	const [loading, setLoading] = useState(true);
 	const [listNftByContract, setListNftByContract] = useState();
-	const [currentPage, setCurrentPage] = useState(1);
 	const [listNft, setListNft] = useState();
 	const [search, setSearch] = useState("");
 	const [sort1, setSort] = useState(names[2]);
@@ -274,7 +272,7 @@ const ViewNFT = ({ gameSelected, setIsSellNFT, isSellNFT }) => {
 				</div>
 			</div>
 
-			<Row>
+			<div className={cx("list-nft")}>
 				{loading ? (
 					<ListSkeleton />
 				) : listNft.length > 0 ? (
@@ -282,11 +280,11 @@ const ViewNFT = ({ gameSelected, setIsSellNFT, isSellNFT }) => {
 						<List listNft={listNft} gameSelected={gameSelected} hasPrice={true} canBuy={false} />
 					</div>
 				) : (
-					<div style={{ margin: "0 auto" }}>
+					<div style={{ textAlign: "center", width: "100%" }}>
 						<img src={noData} alt="no-data" />
 					</div>
 				)}
-			</Row>
+			</div>
 		</div>
 	);
 };

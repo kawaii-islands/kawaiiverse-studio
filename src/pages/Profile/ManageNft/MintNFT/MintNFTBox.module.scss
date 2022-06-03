@@ -24,32 +24,32 @@ $mobile: 576px;
 			align-items: flex-start;
 			margin-bottom: 30px;
 
-			.drop-down {
-				background: transparent;
-				width: fit-content;
+			.dropdown {
+				:focus {
+					box-shadow: none !important;
+				}
 
-				// :global(.css-1s2yyq0-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline) {
-				// 	border: 1px solid rgba(210, 176, 163, 0.35);
-				// }
-
-				// :global(.css-pa8hiu-MuiFormLabel-root-MuiInputLabel-root.Mui-focused) {
-				// 	color: #833f1d;
-				// }
-
-				// :global(.MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon.css-1auycx3-MuiAutocomplete-root
-				// 		.MuiOutlinedInput-root) {
-				// 	color: #833f1d !important;
-				// 	font-size: 14px !important;
-				// }
-
-				&-label {
-					cursor: default;
-					display: flex;
-					align-items: center;
-					justify-content: space-between;
-					min-width: 82px;
-					color: #833f1d;
+				.dropdown-input {
+					background: transparent;
+					width: 180px;
+					border: none;
 					padding: 0px;
+
+					:focus {
+						border: none !important;
+						box-shadow: none !important;
+					}
+				}
+
+				.dropdown-menu {
+					border: none;
+					padding: 0px;
+
+					.menu-item {
+						color: #833f1d;
+						font-size: 14px;
+						padding: 3px auto;
+					}
 				}
 			}
 
@@ -174,7 +174,7 @@ $mobile: 576px;
 		@extend .input;
 		width: 80%;
 		margin: 0px !important;
-		margin-left: 5px !important;
+		font-size: 14px;
 	}
 }
 

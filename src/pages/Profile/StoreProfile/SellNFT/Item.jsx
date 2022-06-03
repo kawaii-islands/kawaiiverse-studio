@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col } from "antd";
 import cn from "classnames/bind";
 import styles from "./Item.module.scss";
 import addRowItem from "src/assets/icons/add-nft-icon.svg";
@@ -18,7 +17,6 @@ const Item = ({
 	addItem,
 	submitted,
 	setSubmitted,
-
 	success,
 	setSuccess,
 	nft,

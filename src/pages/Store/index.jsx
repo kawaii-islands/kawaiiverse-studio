@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useLayoutEffect, useRef } from "react";
 import styles from "./index.module.scss";
 import cn from "classnames/bind";
-import { Col, Row } from "antd";
 import { Button } from "@mui/material";
 import { read } from "src/services/web3";
 import { BSC_CHAIN_ID } from "src/constants/blockchain";
@@ -29,16 +28,11 @@ const cx = cn.bind(styles);
 
 const PAGE_SIZE = 15;
 const Profile = () => {
-	const { account } = useWeb3React();
 	const [loadingListNFT, setLoadingListNFT] = useState(true);
-	const [loadingPage, setLoadingPage] = useState(false);
 	const [gameList, setGameList] = useState([]);
 	const [gameSelected, setGameSelected] = useState([]);
 	const [listNft, setListNft] = useState([]);
-	const [search, setSearch] = useState("");
-	const [listSearch, setListSearch] = useState([]);
 	const [originalList, setOriginalList] = useState([]);
-	const [sort1, setSort] = useState("");
 	const firstUpdate = useRef(true);
 	const { error, isLoading, data } = useQuery("getListSellingGame", getListSellingGame);
 	const activeGames = useSelector(state => state?.filter) || [];

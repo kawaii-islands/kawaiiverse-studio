@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./MintNFTBox.module.scss";
 import cn from "classnames/bind";
-import { Menu, Dropdown } from "antd";
 import { useNavigate } from "react-router-dom";
-import subtractIcon from "src/assets/icons/subtract.svg";
-import uploadImageIcon from "src/assets/icons/uploadImage.svg";
-import plusCircleIcon from "src/assets/icons/plus_circle.svg";
 import TableAddAttribute from "./TableAddAttribute";
 import inforIcon from "src/assets/icons/InforIcon.svg";
 import { Autocomplete, Button, Grid, TextField } from "@mui/material";
@@ -15,6 +11,7 @@ import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import axios from "axios";
 import { URL } from "src/constants/constant";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
+import { Dropdown } from "react-bootstrap";
 
 const cx = cn.bind(styles);
 
@@ -171,26 +168,6 @@ const MintNFTBox = ({
 		setListRarityDisplay(result);
 	};
 
-	const menuRarity = (
-		<Menu className={cx("menu-dropdown")}>
-			{listRarityDisplay?.map((rarity, idx) => (
-				<Menu.Item key={idx} onClick={() => setStateForNftData("rarity", rarity)}>
-					<div>{rarity}</div>
-				</Menu.Item>
-			))}
-		</Menu>
-	);
-
-	const menuCategory = (
-		<Menu className={cx("menu-dropdown")}>
-			{listCategoryDisplay?.map((category, idx) => (
-				<Menu.Item key={idx} onClick={() => setStateForNftData("category", category)}>
-					<div>{category}</div>
-				</Menu.Item>
-			))}
-		</Menu>
-	);
-
 	return (
 		<div className={cx("mintNFT-box")}>
 			<div className={cx("main-box")}>
@@ -199,17 +176,10 @@ const MintNFTBox = ({
 						Category:
 					</Grid>
 					<Grid item xs={10}>
-						{/* <Autocomplete
-							className={cx("drop-down")}
-							disablePortal
-							id="combo-box-demo"
-							size="small"
-							options={listCategoryDisplay}
-							renderInput={params => <TextField {...params} label="Category" />}
-						/> */}
-						<Dropdown overlay={menuCategory} className={cx("drop-down")} trigger={["click"]}>
-							<div className={cx("drop-down-label")}>
+						<Dropdown className={cx("dropdown")}>
+							<Dropdown.Toggle id="dropdown-basic" className={cx("dropdown-input")}>
 								<input
+									style={{ width: "100%" }}
 									value={data.category}
 									placeholder="Enter category"
 									className={cx("input")}
@@ -218,7 +188,18 @@ const MintNFTBox = ({
 										handleSelectCategory(e.target.value);
 									}}
 								/>
-							</div>
+							</Dropdown.Toggle>
+
+							<Dropdown.Menu className={cx("dropdown-menu")}>
+								{listCategoryDisplay?.map((category, idx) => (
+									<Dropdown.Item
+										key={idx}
+										onClick={() => setStateForNftData("category", category)}
+										className={cx("menu-item")}>
+										{category}
+									</Dropdown.Item>
+								))}
+							</Dropdown.Menu>
 						</Dropdown>
 					</Grid>
 				</Grid>
@@ -228,9 +209,10 @@ const MintNFTBox = ({
 						Rarity:
 					</Grid>
 					<Grid item xs={10}>
-						<Dropdown overlay={menuRarity} className={cx("drop-down")} trigger={["click"]}>
-							<div className={cx("drop-down-label")}>
+						<Dropdown className={cx("dropdown")}>
+							<Dropdown.Toggle id="dropdown-basic" className={cx("dropdown-input")}>
 								<input
+									style={{ width: "100%" }}
 									value={data.rarity}
 									placeholder="Enter rarity"
 									className={cx("input")}
@@ -239,7 +221,18 @@ const MintNFTBox = ({
 										handleSelectRarity(e.target.value);
 									}}
 								/>
-							</div>
+							</Dropdown.Toggle>
+
+							<Dropdown.Menu className={cx("dropdown-menu")}>
+								{listRarityDisplay?.map((rarity, idx) => (
+									<Dropdown.Item
+										key={idx}
+										onClick={() => setStateForNftData("rarity", rarity)}
+										className={cx("menu-item")}>
+										{rarity}
+									</Dropdown.Item>
+								))}
+							</Dropdown.Menu>
 						</Dropdown>
 					</Grid>
 				</Grid>

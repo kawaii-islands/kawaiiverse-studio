@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./TableAddAttribute.module.scss";
 import cn from "classnames/bind";
-import { Grid } from "@mui/material";
+import { Grid, Tooltip } from "@mui/material";
 import Spin from "src/components/common/Spin";
 import { create } from "ipfs-http-client";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
@@ -12,6 +12,7 @@ import { DownOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { URL } from "src/constants/constant";
 import _ from "lodash";
+import infoIcon from "src/assets/icons/info_icon.svg";
 
 const cx = cn.bind(styles);
 const client = create("https://ipfs.infura.io:5001/api/v0");
@@ -173,24 +174,21 @@ const TableAddAttribute = ({
 
 	const menuAttrName = (
 		<Menu className={cx("menu-dropdown")}>
-			<Menu.ItemGroup title="Current Attribute Name">
-				{listAttrCurrent.map((attr, id) => (
-					<Menu.Item
-						key={`current-${id}`}
-						onClick={() => handleSelectAttribute(attr.type, attr.image, "current", attr.valueType)}>
-						{attr.type}
-					</Menu.Item>
-				))}
-			</Menu.ItemGroup>
-			<Menu.ItemGroup title="Before Attribute Name">
-				{listAttrBefore.map((attr, id) => (
-					<Menu.Item
-						key={`before-${id}`}
-						onClick={() => handleSelectAttribute(attr.type, attr.image, "before", attr.valueType)}>
-						{attr.type}
-					</Menu.Item>
-				))}
-			</Menu.ItemGroup>
+			{listAttrCurrent.map((attr, id) => (
+				<Menu.Item
+					key={`current-${id}`}
+					onClick={() => handleSelectAttribute(attr.type, attr.image, "current", attr.valueType)}>
+					{attr.type}
+				</Menu.Item>
+			))}
+
+			{listAttrBefore.map((attr, id) => (
+				<Menu.Item
+					key={`before-${id}`}
+					onClick={() => handleSelectAttribute(attr.type, attr.image, "before", attr.valueType)}>
+					{attr.type}
+				</Menu.Item>
+			))}
 		</Menu>
 	);
 
@@ -238,7 +236,10 @@ const TableAddAttribute = ({
 		<div className={cx("table")}>
 			<Grid container className={cx("header")}>
 				<Grid item xs={2} className={cx("header-cell")}>
-					Name
+					<span>Name</span> &nbsp;
+					<Tooltip title="Lorem ...." placement="top">
+						<img src={infoIcon} alt="info" />
+					</Tooltip>
 				</Grid>
 				<Grid item xs={4} className={cx("header-cell")}>
 					Image
@@ -281,7 +282,7 @@ const TableAddAttribute = ({
 					</Grid>
 					<Grid item xs={4} className={cx("data-cell")}>
 						{loadingUploadAttributeImg && indexImg === idx ? (
-							<Spin style={{ marginLeft: "10px" }} size="small" />
+							<Spin style={{ marginLeft: "10px" }} />
 						) : (
 							<img
 								src={item?.image ? item?.image : defaultImage}

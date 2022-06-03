@@ -106,6 +106,7 @@ const NFTDetail = () => {
 						<div className={cx("tokenId")}>#{nftInfo?.tokenId}</div>
 						<div className={cx("name")}>{nftInfo?.name || "NFT name"}</div>
 						<div className={cx("text")}>Category: {nftInfo?.category}</div>
+						<div className={cx("text")}>Rarity: {nftInfo?.rarity}</div>
 						<div className={cx("text")}>Supply: {nftInfo?.supply}</div>
 						{nftInfo?.alreadySale && (
 							<div className={cx("text")}>Available: {Number(nftInfo?.amount) - Number(nftInfo?.alreadySale)}</div>
