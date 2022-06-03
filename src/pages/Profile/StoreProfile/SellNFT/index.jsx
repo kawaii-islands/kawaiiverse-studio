@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import Item from "./Item";
 import Web3 from "web3";
 import { useWeb3React } from "@web3-react/core";
-import { read, sign, write, createNetworkOrSwitch } from "src/services/web3";
+import { read, sign, write, createNetworkOrSwitch } from "src/lib/web3";
 import { KAWAIIVERSE_STORE_ADDRESS, RELAY_ADDRESS } from "src/constants/address";
 import KAWAIIVERSE_NFT1155_ABI from "src/utils/abi/KawaiiverseNFT1155.json";
 import KAWAII_STORE_ABI from "src/utils/abi/KawaiiverseStore.json";
@@ -62,13 +62,15 @@ const SellItemNFT = ({ gameSelected, setIsSellNFT, isSellNFT }) => {
 			// return;
 			if (res.status === 200) {
 				let allList = res.data.data;
-				for (let i = 0; i < allList.length; i++) {
-					for (let j = 0; j < nftSaleList.length; j++) {
-						if (Number(allList[i].tokenId) === Number(nftSaleList[j].tokenId)) {
-							allList[i].supply = Number(allList[i].supply) - Number(nftSaleList[j].amount);
+
+				allList.forEach((nft, index) => {
+					nftSaleList.forEach((nftSale, id) => {
+						if (Number(nftSale.tokenId) === Number(nft.tokenId)) {
+							nft.supply = Number(nft.supply) - Number(nftSale.amount);
 						}
-					}
-				}
+					});
+				});
+
 				allList = allList.filter(nft => {
 					return nft.supply > 0;
 				});
@@ -366,26 +368,26 @@ const SellItemNFT = ({ gameSelected, setIsSellNFT, isSellNFT }) => {
 				SELL NFT
 			</div>
 			<Grid container className={cx("table-header")}>
-				<Grid item xs={1} className={cx("search")} style={{ textAlign: "left", paddingLeft: '20px' }}>
+				<Grid item xs={1} className={cx("search")} style={{ textAlign: "left", paddingLeft: "20px" }}>
 					NFT
 				</Grid>
-				<Grid item xs={2} style={{ textAlign: "left", paddingLeft: '20px' }}>
+				<Grid item xs={2} style={{ textAlign: "left", paddingLeft: "20px" }}>
 					Token ID
 				</Grid>
-				<Grid item xs={2} style={{ textAlign: "left", paddingLeft: '20px' }}>
+				<Grid item xs={2} style={{ textAlign: "left", paddingLeft: "20px" }}>
 					Name
 				</Grid>
 
-				<Grid item xs={2} style={{ textAlign: "left", paddingLeft: '20px' }}>
+				<Grid item xs={2} style={{ textAlign: "left", paddingLeft: "20px" }}>
 					KWT/NFT
 				</Grid>
 				<Grid item xs={3} style={{ textAlign: "center" }}>
 					Quantity
 				</Grid>
-				<Grid item xs={1} style={{ textAlign: "left", paddingLeft: '20px' }}>
+				<Grid item xs={1} style={{ textAlign: "left", paddingLeft: "20px" }}>
 					Supply
 				</Grid>
-				<Grid item xs={1} style={{ textAlign: "left", paddingLeft: '20px' }}>
+				<Grid item xs={1} style={{ textAlign: "left", paddingLeft: "20px" }}>
 					{/* <input type="checkbox" /> */}
 				</Grid>
 			</Grid>

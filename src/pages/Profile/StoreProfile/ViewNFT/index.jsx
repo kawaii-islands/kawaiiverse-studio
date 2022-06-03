@@ -6,12 +6,12 @@ import List from "src/components/Marketplace/List";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { URL } from "src/constants/constant";
-import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
+import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import { toast } from "react-toastify";
 import noData from "src/assets/icons/noData.png";
 import { Input, OutlinedInput, InputAdornment, MenuItem, FormControl, Select, Button } from "@mui/material";
 import { useWeb3React } from "@web3-react/core";
-import { read } from "src/services/web3";
+import { read } from "src/lib/web3";
 import { BSC_CHAIN_ID } from "src/constants/blockchain";
 import KAWAII_STORE_ABI from "src/utils/abi/KawaiiverseStore.json";
 import { KAWAIIVERSE_STORE_ADDRESS } from "src/constants/address";
@@ -203,13 +203,16 @@ const ViewNFT = ({ gameSelected, setIsSellNFT, isSellNFT }) => {
 					return nft.nftAddress === address && nft.owner === account;
 				});
 				// return;
-				for (let i = 0; i < nftSaleList?.length; i++) {
-					for (let j = 0; j < allList?.length; j++) {
-						if (Number(nftSaleList[i].tokenId) === Number(allList[j].tokenId)) {
-							nftSaleList[i] = { ...nftSaleList[i], ...allList[j] };
+				nftSaleList.forEach((nftSale, index) => {
+					allList.forEach((nft, id) => {
+						if (Number(nftSale.tokenId) === Number(nft.tokenId)) {
+							nftSaleList[index] = { ...nftSale, ...nft };
+							
 						}
-					}
-				}
+					});
+				});
+
+				console.log('nftSale :>> ', nftSaleList);
 
 				setOriginalList([...nftSaleList].reverse());
 				setGameItemList([...nftSaleList].reverse());

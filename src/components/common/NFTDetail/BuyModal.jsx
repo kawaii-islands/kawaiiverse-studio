@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import formatNumber from "src/utils/formatNumber";
 import Web3 from "web3";
 import { BSC_CHAIN_ID, BSC_rpcUrls } from "src/constants/blockchain";
-import { read, write, createNetworkOrSwitch } from "src/services/web3";
+import { read, write, createNetworkOrSwitch } from "src/lib/web3";
 import { toast } from "react-toastify";
 import { useWeb3React } from "@web3-react/core";
 import { useParams } from "react-router-dom";

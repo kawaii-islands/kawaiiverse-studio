@@ -4,7 +4,7 @@ import cn from "classnames/bind";
 import { Button } from "@mui/material";
 import ViewNFT from "./ViewNFT/ViewNFT";
 import MintNFT from "./MintNFT/MintNFT";
-import { read } from "src/services/web3";
+import { read } from "src/lib/web3";
 import { BSC_CHAIN_ID } from "src/constants/blockchain";
 import FACTORY_ABI from "src/utils/abi/factory.json";
 import NFT1155_ABI from "src/utils/abi/KawaiiverseNFT1155.json";

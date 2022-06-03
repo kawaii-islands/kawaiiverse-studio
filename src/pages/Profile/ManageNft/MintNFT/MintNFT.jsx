@@ -15,7 +15,7 @@ import ExpandLessRoundedIcon from "@mui/icons-material/ExpandLessRounded";
 import addNftIcon from "src/assets/icons/add-nft-icon.svg";
 import PreviewModal from "./PreviewModal";
 import { toast } from "react-toastify";
-import { read, createNetworkOrSwitch, write } from "src/services/web3";
+import { read, createNetworkOrSwitch, write } from "src/lib/web3";
 import KAWAIIVERSE_NFT1155_ABI from "src/utils/abi/KawaiiverseNFT1155.json";
 import { BSC_CHAIN_ID, BSC_rpcUrls } from "src/constants/blockchain";
 import LoadingModal from "src/components/common/LoadingModal2/LoadingModal";
@@ -160,52 +160,52 @@ const MintNFT = ({ setIsMintNFT, gameSelected }) => {
 		let arr = [...listErr];
 		let flag = false;
 
-		for (let i = 0; i < data.length; i++) {
-			if (!data[i].tokenId) {
+		data.forEach(item => {
+			if (!item.tokenId) {
 				arr[i] = { ...arr[i], tokenIdErr: true };
 				flag = true;
-			} else if (data[i].tokenId < 0) {
+			} else if (item.tokenId < 0) {
 				flag = true;
 			}
 
-			if (!data[i].name) {
+			if (!item.name) {
 				arr[i] = { ...arr[i], nameErr: true };
 				flag = true;
 			}
 
-			if (!data[i].supply) {
+			if (!item.supply) {
 				arr[i] = { ...arr[i], supplyErr: true };
 				flag = true;
-			} else if (data[i].supply <= 0) {
+			} else if (item.supply <= 0) {
 				flag = true;
 			}
 
-			if (!data[i].imageUrl) {
+			if (!item.imageUrl) {
 				arr[i] = { ...arr[i], imageUrlErr: true };
 				flag = true;
 			}
 
 			let check = [];
-			listNftByContract?.filter(nft => parseInt(nft.tokenId) === parseInt(data[i].tokenId));
+			listNftByContract?.filter(nft => parseInt(nft.tokenId) === parseInt(item.tokenId));
 			let checkDuplicate = [];
-			listNft?.filter(nft => parseInt(nft.tokenId) === parseInt(data[i].tokenId));
+			listNft?.filter(nft => parseInt(nft.tokenId) === parseInt(item.tokenId));
 
 			if (check?.length > 0 || checkDuplicate?.length > 0) {
 				flag = true;
 			}
 
-			for (let j = 0; j < data[i].attributes.length; j++) {
-				if (data[i].attributes[j].type && !data[i].attributes[j].value) {
+			for (let j = 0; j < item.attributes.length; j++) {
+				if (item.attributes[j].type && !item.attributes[j].value) {
 					flag = true;
 					break;
 				}
 
-				if (!data[i].attributes[j].type && data[i].attributes[j].value) {
+				if (!item.attributes[j].type && item.attributes[j].value) {
 					flag = true;
 					break;
 				}
 			}
-		}
+		});
 
 		setListErr(arr);
 		return flag;

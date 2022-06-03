@@ -19,7 +19,7 @@ import CreateGameModal from "./CreateGameModal"
 import Pagination from "src/components/common/Pagination";
 import FACTORY_ABI from "src/utils/abi/KawaiiFactory.json";
 import NFT1155_ABI from "src/utils/abi/KawaiiverseNFT1155.json";
-import { read } from "src/services/web3";
+import { read } from "src/lib/web3";
 import LoadingModal from "src/components/common/LoadingModal2/LoadingModal";
 
 const cx = cn.bind(styles);
@@ -43,7 +43,7 @@ const CreateGame = () => {
 		logInfo();
 	}, [account, page]);
 
-	const logInfo = async type => {
+	const logInfo = async type => { 
 		if (!account) return;
 		setGameList([]);
 		setLoadingGameList(true);

@@ -1,26 +1,15 @@
 import React, { useEffect, useState, useLayoutEffect, useRef } from "react";
 import styles from "./index.module.scss";
 import cn from "classnames/bind";
-import { Button } from "@mui/material";
-import { read } from "src/services/web3";
+import { read } from "src/lib/web3";
 import { BSC_CHAIN_ID } from "src/constants/blockchain";
-import FACTORY_ABI from "src/utils/abi/factory.json";
-import NFT1155_ABI from "src/utils/abi/KawaiiverseNFT1155.json";
-import { useWeb3React } from "@web3-react/core";
-import { FACTORY_ADDRESS } from "src/constants/address";
 import KAWAII_STORE_ABI from "src/utils/abi/KawaiiverseStore.json";
 import { KAWAIIVERSE_STORE_ADDRESS } from "src/constants/address";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { useParams } from "react-router-dom";
-import { KAWAII1155_ADDRESS } from "src/constants/constant";
 import { URL } from "src/constants/constant";
-import cancel from "src/assets/icons/cancel.svg";
 import List from "src/components/Marketplace/List";
-import ListSkeleton from "src/components/common/ListSkeleton/ListSkeleton";
-import Filter from "src/components/Marketplace/Filter";
 import Toolbar from "src/components/Marketplace/Toolbar";
-import { useQuery } from "react-query";
 import { getListSellingGame } from "src/lib/web3";
 import { useSelector } from "react-redux";
 

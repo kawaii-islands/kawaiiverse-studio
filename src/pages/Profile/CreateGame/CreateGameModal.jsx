@@ -12,7 +12,7 @@ import { BSC_CHAIN_ID } from "src/constants/network";
 import { FACTORY_ADDRESS } from "src/constants/address";
 import FACTORY_ABI from "src/utils/abi/KawaiiFactory.json";
 import CircularProgress from "@mui/material/CircularProgress";
-import { read, createNetworkOrSwitch, write } from "src/services/web3";
+import { read, createNetworkOrSwitch, write } from "src/lib/web3";
 
 const cx = cn.bind(styles);
 const client = create("https://ipfs.infura.io:5001/api/v0");
