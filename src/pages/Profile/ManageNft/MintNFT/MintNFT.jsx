@@ -23,8 +23,6 @@ import uploadImageIcon from "src/assets/icons/uploadImage.svg";
 import { create } from "ipfs-http-client";
 import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
 import { Modal } from "react-bootstrap";
-import ListAltRoundedIcon from "@mui/icons-material/ListAltRounded";
-import CancelIcon from "@material-ui/icons/Cancel";
 import { useNavigate } from "react-router-dom";
 import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
 import defaultImage from "src/assets/icons/default_image.svg";

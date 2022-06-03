@@ -6,7 +6,7 @@ import List from "src/components/Marketplace/List";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { URL } from "src/constants/constant";
-import { Search as SearchIcon } from "@material-ui/icons";
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import { toast } from "react-toastify";
 import noData from "src/assets/icons/noData.png";
 import { Input, OutlinedInput, InputAdornment, MenuItem, FormControl, Select, Button } from "@mui/material";
@@ -237,7 +237,7 @@ const ViewNFT = ({ gameSelected, setIsSellNFT, isSellNFT }) => {
 						className={cx("search")}
 						endAdornment={
 							<InputAdornment position="end">
-								<SearchIcon className={cx("icon")} />
+								<SearchRoundedIcon className={cx("icon")} />
 							</InputAdornment>
 						}
 						onChange={e => handleSearch(e)}
