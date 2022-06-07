@@ -6,7 +6,7 @@ import closeIcon from "src/assets/icons/close-icon.svg";
 import DetailModal from "./DetailModal";
 import defaultImage from "src/assets/icons/default_image.svg";
 import NFTCard from "src/components/common/NFTCard";
-import { Pagination } from "@mui/material";
+import Pagination from "src/components/common/Pagination";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
 const cx = cn.bind(styles);
@@ -54,14 +54,13 @@ const PreviewModal = ({ open, onHide, listNft }) => {
 							</div>
 						))}
 					</div>
+
 					<div className={cx("pagination")}>
-						{listNft.length > pageSize && (
-							<Pagination
-								count={Math.ceil(listNft.length / pageSize)}
-								shape="rounded"
-								onChange={(e, page) => setCurrentPage(page)}
-							/>
-						)}
+						<Pagination
+							count={Math.ceil(listNft.length / pageSize)}
+							shape="rounded"
+							onChange={(e, page) => setCurrentPage(page)}
+						/>
 					</div>
 
 					<DetailModal

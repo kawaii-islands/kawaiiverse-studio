@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from "react";
 import styles from "./MintNFT.module.scss";
 import cn from "classnames/bind";
-import { Col, Row, Spin } from "antd";
+import Spin from "src/components/common/Spin";
 import plusIcon from "src/assets/icons/plus.svg";
 import MintNFTBox from "./MintNFTBox";
-import { Button } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import { useWeb3React } from "@web3-react/core";
 import Web3 from "web3";
 import axios from "axios";
 import { URL, KAWAII1155_ADDRESS } from "src/constants/constant";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ExpandLessRoundedIcon from "@mui/icons-material/ExpandLessRounded";
 import addNftIcon from "src/assets/icons/add-nft-icon.svg";
 import PreviewModal from "./PreviewModal";
 import { toast } from "react-toastify";
-import { read, createNetworkOrSwitch, write } from "src/services/web3";
+import { read, createNetworkOrSwitch, write } from "src/lib/web3";
 import KAWAIIVERSE_NFT1155_ABI from "src/utils/abi/KawaiiverseNFT1155.json";
 import { BSC_CHAIN_ID, BSC_rpcUrls } from "src/constants/blockchain";
 import LoadingModal from "src/components/common/LoadingModal2/LoadingModal";
@@ -22,8 +23,6 @@ import uploadImageIcon from "src/assets/icons/uploadImage.svg";
 import { create } from "ipfs-http-client";
 import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
 import { Modal } from "react-bootstrap";
-import ListAltRoundedIcon from "@mui/icons-material/ListAltRounded";
-import CancelIcon from "@material-ui/icons/Cancel";
 import { useNavigate } from "react-router-dom";
 import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
 import defaultImage from "src/assets/icons/default_image.svg";
@@ -161,52 +160,52 @@ const MintNFT = ({ setIsMintNFT, gameSelected }) => {
 		let arr = [...listErr];
 		let flag = false;
 
-		for (let i = 0; i < data.length; i++) {
-			if (!data[i].tokenId) {
+		data.forEach(item => {
+			if (!item.tokenId) {
 				arr[i] = { ...arr[i], tokenIdErr: true };
 				flag = true;
-			} else if (data[i].tokenId < 0) {
+			} else if (item.tokenId < 0) {
 				flag = true;
 			}
 
-			if (!data[i].name) {
+			if (!item.name) {
 				arr[i] = { ...arr[i], nameErr: true };
 				flag = true;
 			}
 
-			if (!data[i].supply) {
+			if (!item.supply) {
 				arr[i] = { ...arr[i], supplyErr: true };
 				flag = true;
-			} else if (data[i].supply <= 0) {
+			} else if (item.supply <= 0) {
 				flag = true;
 			}
 
-			if (!data[i].imageUrl) {
+			if (!item.imageUrl) {
 				arr[i] = { ...arr[i], imageUrlErr: true };
 				flag = true;
 			}
 
 			let check = [];
-			listNftByContract?.filter(nft => parseInt(nft.tokenId) === parseInt(data[i].tokenId));
+			listNftByContract?.filter(nft => parseInt(nft.tokenId) === parseInt(item.tokenId));
 			let checkDuplicate = [];
-			listNft?.filter(nft => parseInt(nft.tokenId) === parseInt(data[i].tokenId));
+			listNft?.filter(nft => parseInt(nft.tokenId) === parseInt(item.tokenId));
 
 			if (check?.length > 0 || checkDuplicate?.length > 0) {
 				flag = true;
 			}
 
-			for (let j = 0; j < data[i].attributes.length; j++) {
-				if (data[i].attributes[j].type && !data[i].attributes[j].value) {
+			for (let j = 0; j < item.attributes.length; j++) {
+				if (item.attributes[j].type && !item.attributes[j].value) {
 					flag = true;
 					break;
 				}
 
-				if (!data[i].attributes[j].type && data[i].attributes[j].value) {
+				if (!item.attributes[j].type && item.attributes[j].value) {
 					flag = true;
 					break;
 				}
 			}
-		}
+		});
 
 		setListErr(arr);
 		return flag;
@@ -381,28 +380,27 @@ const MintNFT = ({ setIsMintNFT, gameSelected }) => {
 				<span>Mint NFT</span>
 			</div>
 			<div className={cx("table")}>
-				<Row className={cx("table-header")}>
-					<Col span={5}>
+				<Grid container className={cx("table-header")}>
+					<Grid item xs={2}>
 						TokenID <span className={cx("required-icon")}>*</span>
-					</Col>
-					<Col span={5}>
+					</Grid>
+					<Grid item xs={3}>
 						Name <span className={cx("required-icon")}>*</span>
-					</Col>
-					<Col span={4}>
+					</Grid>
+					<Grid item xs={2}>
 						Supply <span className={cx("required-icon")}>*</span>
-					</Col>
-					<Col span={8}>
+					</Grid>
+					<Grid item xs={4}>
 						Image <span className={cx("required-icon")}>*</span>
-					</Col>
-					<Col span={1}></Col>
-					<Col span={1}></Col>
-				</Row>
+					</Grid>
+					<Grid item xs={1}></Grid>
+				</Grid>
 
 				<div className={cx("table-body")}>
 					{listNft.map((item, index) => (
 						<div className={cx("table-row")} key={`main-${index}`}>
-							<Row className={cx("main-row")} style={{ alignItems: isSubmitted ? "flex-start" : "center" }}>
-								<Col span={5}>
+							<Grid container className={cx("main-row")} style={{ alignItems: isSubmitted ? "flex-start" : "center" }}>
+								<Grid item xs={2}>
 									<input
 										placeholder="123456"
 										value={item?.tokenId}
@@ -432,8 +430,8 @@ const MintNFT = ({ setIsMintNFT, gameSelected }) => {
 												return <div style={{ color: "#9e494d" }}>TokenId existed!</div>;
 											}
 										})()}
-								</Col>
-								<Col span={5}>
+								</Grid>
+								<Grid item xs={3}>
 									<input
 										placeholder="Name"
 										value={item?.name}
@@ -446,8 +444,8 @@ const MintNFT = ({ setIsMintNFT, gameSelected }) => {
 									{listErr[index].nameErr && !item.name && (
 										<div style={{ color: "#9e494d" }}>Please enter NFT name!</div>
 									)}
-								</Col>
-								<Col span={4}>
+								</Grid>
+								<Grid item xs={2}>
 									<input
 										placeholder="100"
 										value={item?.supply}
@@ -466,10 +464,10 @@ const MintNFT = ({ setIsMintNFT, gameSelected }) => {
 										((isNaN(item.supply) || item.supply <= 0) && (
 											<div style={{ color: "#9e494d" }}>Supply must be positive number!</div>
 										))}
-								</Col>
-								<Col span={8}>
-									<Row style={{ alignItems: "center" }}>
-										<Col span={4}>
+								</Grid>
+								<Grid item xs={4}>
+									<Grid container style={{ alignItems: "center" }}>
+										<Grid item xs={2}>
 											{loadingUploadImg && imageIdx === index ? (
 												<Spin />
 											) : (
@@ -480,8 +478,8 @@ const MintNFT = ({ setIsMintNFT, gameSelected }) => {
 													height={36}
 												/>
 											)}
-										</Col>
-										<Col span={12}>
+										</Grid>
+										<Grid item xs={7}>
 											<input
 												placeholder="https://images..."
 												value={item?.imageUrl}
@@ -493,8 +491,8 @@ const MintNFT = ({ setIsMintNFT, gameSelected }) => {
 												}}
 												style={{ width: "80%" }}
 											/>
-										</Col>
-										<Col span={8}>
+										</Grid>
+										<Grid item xs={3}>
 											<span>or: </span>
 											<span className={cx("image-upload")}>
 												<label htmlFor={`image-${index}`}>
@@ -508,14 +506,14 @@ const MintNFT = ({ setIsMintNFT, gameSelected }) => {
 													onChange={e => handleUploadImage(e, index)}
 												/>
 											</span>
-										</Col>
-									</Row>
+										</Grid>
+									</Grid>
 
 									{listErr[index].imageUrlErr && !item.imageUrl && (
 										<div style={{ color: "#9e494d" }}>Please enter image url!</div>
 									)}
-								</Col>
-								<Col span={1} style={{ cursor: "pointer" }}>
+								</Grid>
+								<Grid item xs={1} style={{ cursor: "pointer", display: "flex", alignItems: "center" }}>
 									<DeleteOutlinedIcon
 										className={cx("delete-icon")}
 										onClick={() => {
@@ -527,14 +525,21 @@ const MintNFT = ({ setIsMintNFT, gameSelected }) => {
 											setListNft(arr);
 										}}
 									/>
-								</Col>
-								<Col span={1} style={{ cursor: "pointer", textAlign: "right" }}>
-									<ExpandMoreIcon
-										className={cx("expand-icon")}
-										onClick={() => setOpenMintNFTBox(openMintNFTBox === index ? null : index)}
-									/>
-								</Col>
-							</Row>
+									<div>
+										{openMintNFTBox === index ? (
+											<ExpandLessRoundedIcon
+												className={cx("expand-icon")}
+												onClick={() => setOpenMintNFTBox(openMintNFTBox === index ? null : index)}
+											/>
+										) : (
+											<ExpandMoreIcon
+												className={cx("expand-icon")}
+												onClick={() => setOpenMintNFTBox(openMintNFTBox === index ? null : index)}
+											/>
+										)}
+									</div>
+								</Grid>
+							</Grid>
 							{openMintNFTBox === index && (
 								<MintNFTBox
 									data={item}

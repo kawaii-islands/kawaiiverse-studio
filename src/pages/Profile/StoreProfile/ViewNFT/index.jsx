@@ -3,16 +3,15 @@ import styles from "../../ManageNft/ViewNFT/ViewNFT.module.scss";
 import cn from "classnames/bind";
 import ListSkeleton from "src/components/common/ListSkeleton/ListSkeleton";
 import List from "src/components/Marketplace/List";
-import { Row, Menu } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { URL } from "src/constants/constant";
-import { Search as SearchIcon } from "@material-ui/icons";
+import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import { toast } from "react-toastify";
 import noData from "src/assets/icons/noData.png";
 import { Input, OutlinedInput, InputAdornment, MenuItem, FormControl, Select, Button } from "@mui/material";
 import { useWeb3React } from "@web3-react/core";
-import { read } from "src/services/web3";
+import { read } from "src/lib/web3";
 import { BSC_CHAIN_ID } from "src/constants/blockchain";
 import KAWAII_STORE_ABI from "src/utils/abi/KawaiiverseStore.json";
 import { KAWAIIVERSE_STORE_ADDRESS } from "src/constants/address";
@@ -20,7 +19,7 @@ import NFT1155_ABI from "src/utils/abi/KawaiiverseNFT1155.json";
 
 const cx = cn.bind(styles);
 
-const names = ["Price: Low to High", "Price: High to Low"];
+const names = ["Price: Low to High", "Price: High to Low", "Newest", "Oldest"];
 
 const ViewNFT = ({ gameSelected, setIsSellNFT, isSellNFT }) => {
 	const navigate = useNavigate();
@@ -29,10 +28,9 @@ const ViewNFT = ({ gameSelected, setIsSellNFT, isSellNFT }) => {
 
 	const [loading, setLoading] = useState(true);
 	const [listNftByContract, setListNftByContract] = useState();
-	const [currentPage, setCurrentPage] = useState(1);
 	const [listNft, setListNft] = useState();
 	const [search, setSearch] = useState("");
-	const [sort1, setSort] = useState(names[1]);
+	const [sort1, setSort] = useState(names[2]);
 	const [originalList, setOriginalList] = useState([]);
 	const [listSearch, setListSearch] = useState([]);
 	const [gameItemList, setGameItemList] = useState([]);
@@ -76,7 +74,7 @@ const ViewNFT = ({ gameSelected, setIsSellNFT, isSellNFT }) => {
 			setSort("");
 			setListNft(originalList);
 			if (search !== "") {
-				let listSearch = listNft?.filter(nft => {
+				let listSearch = listNft.filter(nft => {
 					if (nft.name) {
 						return nft?.name.toUpperCase().includes(search.toUpperCase()) || nft?.tokenId.toString().includes(search);
 					}
@@ -86,19 +84,30 @@ const ViewNFT = ({ gameSelected, setIsSellNFT, isSellNFT }) => {
 			}
 			return;
 		}
+
 		setSort(sort);
 		let newList = search !== "" ? [...listSearch] : [...listNft];
 
-		if (sort === "low") {
+		if (sort === 0) {
 			newList = newList.sort(function (a, b) {
 				return Number(a.price) - Number(b.price);
 			});
 		}
-		if (sort === "high") {
+
+		if (sort === 1) {
 			newList = newList.sort(function (a, b) {
 				return Number(b.price) - Number(a.price);
 			});
 		}
+
+		if (sort === 2) {
+			newList = [...originalList];
+		}
+
+		if (sort === 3) {
+			newList = [...originalList].reverse();
+		}
+
 		if (search !== "") {
 			setListSearch(newList);
 			return;
@@ -194,13 +203,16 @@ const ViewNFT = ({ gameSelected, setIsSellNFT, isSellNFT }) => {
 					return nft.nftAddress === address && nft.owner === account;
 				});
 				// return;
-				for (let i = 0; i < nftSaleList?.length; i++) {
-					for (let j = 0; j < allList?.length; j++) {
-						if (Number(nftSaleList[i].tokenId) === Number(allList[j].tokenId)) {
-							nftSaleList[i] = { ...nftSaleList[i], ...allList[j] };
+				nftSaleList.forEach((nftSale, index) => {
+					allList.forEach((nft, id) => {
+						if (Number(nftSale.tokenId) === Number(nft.tokenId)) {
+							nftSaleList[index] = { ...nftSale, ...nft };
+							
 						}
-					}
-				}
+					});
+				});
+
+				console.log('nftSale :>> ', nftSaleList);
 
 				setOriginalList([...nftSaleList].reverse());
 				setGameItemList([...nftSaleList].reverse());
@@ -228,7 +240,7 @@ const ViewNFT = ({ gameSelected, setIsSellNFT, isSellNFT }) => {
 						className={cx("search")}
 						endAdornment={
 							<InputAdornment position="end">
-								<SearchIcon className={cx("icon")} />
+								<SearchRoundedIcon className={cx("icon")} />
 							</InputAdornment>
 						}
 						onChange={e => handleSearch(e)}
@@ -244,8 +256,8 @@ const ViewNFT = ({ gameSelected, setIsSellNFT, isSellNFT }) => {
 							value={sort1}
 							onChange={e => setSort(e.target.value)}
 							size="small">
-							{names.map(name => (
-								<MenuItem key={name} value={name} className={cx("item")}>
+							{names.map((name, id) => (
+								<MenuItem key={name} value={name} className={cx("item")} onClick={() => handleSort(id)}>
 									{name}
 								</MenuItem>
 							))}
@@ -263,19 +275,19 @@ const ViewNFT = ({ gameSelected, setIsSellNFT, isSellNFT }) => {
 				</div>
 			</div>
 
-			<Row>
+			<div className={cx("list-nft")}>
 				{loading ? (
 					<ListSkeleton />
 				) : listNft.length > 0 ? (
 					<div className={cx("list-nft")}>
-						<List listNft={listNft} gameSelected={gameSelected} hasPrice={true} />
+						<List listNft={listNft} gameSelected={gameSelected} hasPrice={true} canBuy={false} />
 					</div>
 				) : (
-					<div style={{ margin: "0 auto" }}>
+					<div style={{ textAlign: "center", width: "100%" }}>
 						<img src={noData} alt="no-data" />
 					</div>
 				)}
-			</Row>
+			</div>
 		</div>
 	);
 };

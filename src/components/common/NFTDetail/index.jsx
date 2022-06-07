@@ -12,15 +12,15 @@ import { Button } from "@mui/material";
 import kwtToken from "src/assets/icons/kwt.png";
 import BuyModal from "./BuyModal";
 import formatNumber from "src/utils/formatNumber";
-import { BSC_rpcUrls } from "src/constants/blockchain";
+import { BSC_CHAIN_ID, BSC_rpcUrls } from "src/constants/blockchain";
 import Web3 from "web3";
 import { read } from "src/lib/web3";
-import { BSC_CHAIN_ID } from "src/constants/blockchain";
 import { KAWAIIVERSE_STORE_ADDRESS } from "src/constants/address";
 import KAWAII_STORE_ABI from "src/utils/abi/KawaiiverseStore.json";
 import { useSelector } from "react-redux";
 import { useWeb3React } from "@web3-react/core";
 import { toast } from "react-toastify";
+import { useSearchParams } from "react-router-dom";
 
 const web3 = new Web3(BSC_rpcUrls);
 
@@ -35,6 +35,9 @@ const NFTDetail = () => {
 	const [loading, setLoading] = useState(true);
 	const { pathname } = useLocation();
 	const [showBuyModal, setShowBuyModal] = useState(false);
+	const [searchParams, setSearchParams] = useSearchParams();
+	const hasPrice = searchParams.get("hasPrice");
+	const canBuy = searchParams.get("canBuy");
 
 	useEffect(() => {
 		if (index) {
@@ -55,8 +58,9 @@ const NFTDetail = () => {
 			setNftInfo(res.data.data);
 		} catch (error) {
 			console.log(error);
+		} finally {
+			setLoading(false);
 		}
-		setLoading(false);
 	};
 
 	const getBuyNftInfo = async () => {
@@ -102,6 +106,7 @@ const NFTDetail = () => {
 						<div className={cx("tokenId")}>#{nftInfo?.tokenId}</div>
 						<div className={cx("name")}>{nftInfo?.name || "NFT name"}</div>
 						<div className={cx("text")}>Category: {nftInfo?.category}</div>
+						<div className={cx("text")}>Rarity: {nftInfo?.rarity}</div>
 						<div className={cx("text")}>Supply: {nftInfo?.supply}</div>
 						{nftInfo?.alreadySale && (
 							<div className={cx("text")}>Available: {Number(nftInfo?.amount) - Number(nftInfo?.alreadySale)}</div>
@@ -121,9 +126,11 @@ const NFTDetail = () => {
 										${nftInfo?.price && formatNumber(Number(web3.utils.fromWei(nftInfo?.price.toString())) * kwtPrice)}
 									</span>
 								</div>
-								<Button className={cx("btn-buy")} onClick={buyNft}>
-									Buy NFT
-								</Button>
+								{canBuy === "true" && (
+									<Button className={cx("btn-buy")} onClick={buyNft}>
+										Buy NFT
+									</Button>
+								)}
 							</div>
 						</div>
 					)}

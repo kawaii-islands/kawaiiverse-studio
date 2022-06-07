@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import { useWeb3React } from "@web3-react/core";
 import { useEagerConnect, useInactiveListener } from "src/utils/hooks/metamask";
 import { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom' ;
+import { useNavigate } from "react-router-dom";
 import ConnectWalletModal from "./ConnectWalletModal";
 
 export default function ConnectWalletButton() {
@@ -23,7 +23,12 @@ export default function ConnectWalletButton() {
 
 	return (
 		<>
-			<Button variant="contained" onClick={() => {account ? navigate('/profile') : setShowConnectModal(true)}}>
+			<Button
+				variant="contained"
+				onClick={() => {
+					account ? navigate("/profile") : setShowConnectModal(true);
+				}}
+				className="connect-wallet-btn">
 				{account ? "My account" : "Connet wallet"}
 			</Button>
 			<ConnectWalletModal show={showConnectModal} setShow={setShowConnectModal} />

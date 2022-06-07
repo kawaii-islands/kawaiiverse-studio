@@ -9,7 +9,7 @@ import { useNavigate, useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 import { Outlet } from "react-router-dom";
 import Tab from "src/components/Profile/Tab";
-import { read } from "src/services/web3";
+import { read } from "src/lib/web3";
 import { BSC_CHAIN_ID } from "src/constants/network";
 import { FACTORY_ADDRESS } from "src/constants/address";
 import FACTORY_ABI from "src/utils/abi/factory.json";
@@ -24,7 +24,6 @@ const Profile = () => {
 	const [loading, setLoading] = useState(true);
 	const [isGameTab, setIsGameTab] = useState(false);
 	const [openFilterModal, setOpenFilterModal] = useState(false);
-	const [gameList, setGameList] = useState([]);
 	const { address } = useParams();
 	const [gameSelected, setGameSelected] = useState(address);
 	const [gameInfo, setGameInfo] = useState({
@@ -39,7 +38,6 @@ const Profile = () => {
 	}, []);
 
 	useEffect(() => {
-		logInfo();
 	}, [account]);
 
 	useEffect(() => {
@@ -62,25 +60,7 @@ const Profile = () => {
 			console.log(error);
 		}
 	};
-
-	const logInfo = async () => {
-		if (account) {
-			setGameList([]);
-			const list = [];
-			try {
-				const totalGame = await read("nftOfUserLength", BSC_CHAIN_ID, FACTORY_ADDRESS, FACTORY_ABI, [account]);
-				for (let index = 0; index < totalGame; index++) {
-					let gameAddress = await read("nftOfUser", BSC_CHAIN_ID, FACTORY_ADDRESS, FACTORY_ABI, [account, index]);
-					let gameName = await read("name", BSC_CHAIN_ID, gameAddress, NFT1155_ABI, []);
-					list.push({ gameAddress, gameName });
-				}
-				setGameList(list);
-			} catch (err) {
-				console.log(err);
-			}
-		}
-	};
-
+	
 	return (
 		<div className={cx("profile")}>
 			<div className={cx("row")}>

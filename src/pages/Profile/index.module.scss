@@ -2,18 +2,23 @@ $break-point-1: 814px;
 $mobile: 576px;
 .profile {
 	.row {
+		height: 100%;
 		display: flex;
 
 		.left {
-			min-width: 300px;
-			min-height: 100vh;
+			width: 300px;
+			height: calc(100vh - 70px);
+			overflow-y: auto;
+
 			@media (max-width: $break-point-1) {
 				display: none;
 			}
 		}
 
 		.right {
-			width: 100%;
+			width: calc(100% - 300px);
+			height: calc(100vh - 70x);
+			overflow-y: auto;
 
 			.breadcrumbs {
 				padding: 25px 60px;

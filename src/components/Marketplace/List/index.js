@@ -1,6 +1,7 @@
 import { Box } from "@mui/system";
 import NFTCard from "src/components/common/NFTCard";
-import { Grid, Pagination } from "@mui/material";
+import { Grid } from "@mui/material";
+import Pagination from "src/components/common/Pagination";
 import styles from "./index.module.scss";
 import cn from "classnames/bind";
 import { useState } from "react";
@@ -13,38 +14,39 @@ const pageSize = 12;
 export default function List({ listNft, gameSelected, hasPrice, canBuy }) {
 	const navigate = useNavigate();
 	const [currentPage, setCurrentPage] = useState(1);
+	console.log('listNft :>> ', listNft);
 
 	return (
 		<>
-			<Box display="flex" justifyContent="center" flexWrap="wrap">
+			<Box display="flex" justifyContent="center" flexWrap="wrap" style={{ marginBottom: "30px" }}>
 				<Grid container spacing={2}>
 					{listNft?.slice((currentPage - 1) * pageSize, currentPage * pageSize).map((nft, index) => (
 						<Grid
 							key={index}
 							item
 							onClick={() => {
-								if (canBuy) {
-									navigate(`/view-nft/${nft.contract}/${nft.tokenId}/${nft.index}`);
+								if (hasPrice && canBuy) {
+									navigate(`/view-nft/${nft.contract}/${nft.tokenId}/${nft.index}?hasPrice=true&canBuy=true`);
+								} else if (hasPrice) {
+									navigate(`/view-nft/${gameSelected}/${nft.tokenId}/${nft.index}?hasPrice=true&canBuy=false`);
 								} else {
-									navigate(`/view-nft/${gameSelected}/${nft.tokenId}`);
+									navigate(`/view-nft/${gameSelected}/${nft.tokenId}?hasPrice=true&canBuy=false`);
 								}
 							}}>
-							<NFTCard nftInfo={nft} hasPrice={hasPrice} />
+							<NFTCard nftInfo={nft} hasPrice={hasPrice} canBuy={canBuy} />
 						</Grid>
 					))}
 				</Grid>
 			</Box>
-			{listNft.length / pageSize > 1 && (
-				<div style={{ width: "100%" }}>
-					<Pagination
-						count={Math.ceil(listNft.length / pageSize)}
-						color="primary"
-						shape="rounded"
-						className={cx("pagination")}
-						onChange={(e, page) => setCurrentPage(page)}
-					/>
-				</div>
-			)}
+
+			<div style={{ width: "100%" }}>
+				<Pagination
+					count={Math.ceil(listNft.length / pageSize)}
+					color="primary"
+					shape="rounded"
+					onChange={(e, page) => setCurrentPage(page)}
+				/>
+			</div>
 		</>
 	);
 }

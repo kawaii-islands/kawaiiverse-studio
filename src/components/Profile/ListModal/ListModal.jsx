@@ -5,11 +5,12 @@ import styles from "./ListModal.module.scss";
 import cn from "classnames/bind";
 import closeIcon from "src/assets/icons/close-icon.svg";
 import { InputAdornment, Input, Button, Typography, Pagination } from "@mui/material";
-import { Search as SearchIcon } from "@material-ui/icons";
+import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import checkIcon from "src/assets/icons/success.png";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-const cx = cn.bind(styles);
+import noData from "src/assets/icons/noData.png";
 
+const cx = cn.bind(styles);
 const pageSize = 4;
 
 const ListModal = ({ open, onHide, listNft, title, desc, selectNft }) => {
@@ -34,7 +35,7 @@ const ListModal = ({ open, onHide, listNft, title, desc, selectNft }) => {
 		let listSearch = listNft.filter(nft => {
 			if (nft.name) {
 				return (
-					nft?.name.toUpperCase().includes(e.target.value.toUpperCase()) ||
+					nft?.name.toLowerCase().includes(e.target.value.toLowerCase()) ||
 					nft?.tokenId.toString().includes(e.target.value)
 				);
 			}
@@ -82,7 +83,7 @@ const ListModal = ({ open, onHide, listNft, title, desc, selectNft }) => {
 							className={cx("search")}
 							endAdornment={
 								<InputAdornment position="end">
-									<SearchIcon className={cx("icon")} />
+									<SearchRoundedIcon className={cx("search-icon")} />
 								</InputAdornment>
 							}
 						/>
@@ -100,34 +101,40 @@ const ListModal = ({ open, onHide, listNft, title, desc, selectNft }) => {
 					</div>
 
 					<div className={cx("list-nft")}>
-						{displayList.slice((currentPage - 1) * pageSize, currentPage * pageSize).map((item, index) => {
-							const isExist = listSelected.find(nft => nft.tokenId === item.tokenId);
-							return (
-								<div
-									className={cx("nft-item", "card", isExist && "nft-item-active")}
-									key={index}
-									onClick={() => {
-										// selectNft(item);
-										clickNft(item);
-									}}>
-									<div className={cx(isExist ? "check" : "no-check")}>
-										<img src={checkIcon} />
-									</div>
-									<Typography variant="body2" className={cx("id")}>
-										{item?.tokenId}
-									</Typography>
-									<div className={cx("avatar")}>
-										<img src={item?.imageUrl} />
-										<Typography variant="body1" className={cx("balance")}>
-											{item?.supply}
+						{displayList?.length > 0 ? (
+							displayList.slice((currentPage - 1) * pageSize, currentPage * pageSize).map((item, index) => {
+								const isExist = listSelected.find(nft => nft.tokenId === item.tokenId);
+								return (
+									<div
+										className={cx("nft-item", "card", isExist && "nft-item-active")}
+										key={index}
+										onClick={() => {
+											// selectNft(item);
+											clickNft(item);
+										}}>
+										<div className={cx(isExist ? "check" : "no-check")}>
+											<img src={checkIcon} />
+										</div>
+										<Typography variant="body2" className={cx("id")}>
+											{item?.tokenId}
+										</Typography>
+										<div className={cx("avatar")}>
+											<img src={item?.imageUrl} />
+											<Typography variant="body1" className={cx("balance")}>
+												{item?.supply}
+											</Typography>
+										</div>
+										<Typography variant="body1" className={cx("name")}>
+											{item?.name}
 										</Typography>
 									</div>
-									<Typography variant="body1" className={cx("name")}>
-										{item?.name}
-									</Typography>
-								</div>
-							);
-						})}
+								);
+							})
+						) : (
+							<div style={{ margin: "0 auto" }}>
+							<img src={noData} alt="no-data" />
+						</div>
+						)}
 					</div>
 
 					{displayList.length / pageSize > 1 && (

@@ -21,21 +21,35 @@ $mobile: 576px;
 
 		.one-field {
 			@extend .one-field;
-			align-items: flex-start !important;
+			align-items: flex-start;
 			margin-bottom: 30px;
 
-			.drop-down {
-				background: transparent;
-				width: fit-content;
+			.dropdown {
+				:focus {
+					box-shadow: none !important;
+				}
 
-				&-label {
-					cursor: default;
-					display: flex;
-					align-items: center;
-					justify-content: space-between;
-					min-width: 82px;
-					color: #833f1d;
+				.dropdown-input {
+					background: transparent;
+					width: 180px;
+					border: none;
 					padding: 0px;
+
+					:focus {
+						border: none !important;
+						box-shadow: none !important;
+					}
+				}
+
+				.dropdown-menu {
+					border: none;
+					padding: 0px;
+
+					.menu-item {
+						color: #833f1d;
+						font-size: 14px;
+						padding: 3px auto;
+					}
 				}
 			}
 
@@ -59,7 +73,7 @@ $mobile: 576px;
 					.add-icon {
 						cursor: pointer;
 						margin-right: 8px;
-						color: #FC3832;
+						color: #fc3832;
 						font-size: 18px;
 					}
 				}
@@ -160,7 +174,7 @@ $mobile: 576px;
 		@extend .input;
 		width: 80%;
 		margin: 0px !important;
-		margin-left: 5px !important;
+		font-size: 14px;
 	}
 }
 

@@ -100,7 +100,7 @@ export const getCurrentBlock = () => {
 
 export const getListGame = async () => {
 	const numberOfGame = +(await read("nft1155Length", BSC_CHAIN_ID, FACTORY_ADDRESS, FACTORY_ABI, []));
-	console.log(numberOfGame);
+	console.log(numberOfGame); 
 	const listPromise = Array(numberOfGame)
 		.fill()
 		.map((_, idx) => read("nft1155", BSC_CHAIN_ID, FACTORY_ADDRESS, FACTORY_ABI, [idx]));
