@@ -12,6 +12,9 @@ import List from "src/components/Marketplace/List";
 import Toolbar from "src/components/Marketplace/Toolbar";
 import { getListSellingGame } from "src/lib/web3";
 import { useSelector } from "react-redux";
+import { useQuery } from "react-query";
+import Filter from "src/components/Marketplace/Filter";
+import ListSkeleton from "src/components/common/ListSkeleton/ListSkeleton";
 
 const cx = cn.bind(styles);
 

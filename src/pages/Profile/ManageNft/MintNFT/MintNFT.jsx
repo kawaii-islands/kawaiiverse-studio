@@ -108,7 +108,7 @@ const MintNFT = ({ setIsMintNFT, gameSelected }) => {
 
 	useEffect(() => {
 		const listPending = window.localStorage.getItem("listNftPending");
-		if (stepLoading === 3 && listPending.length > 0) {
+		if (stepLoading === 3 && listPending?.length > 0) {
 			setLoadingSubmit(false);
 			setShowPendingModal(true);
 		}

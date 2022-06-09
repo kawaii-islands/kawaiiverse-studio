@@ -64,7 +64,8 @@ const ListModal = ({ open, onHide, listNft, title, desc, selectNft }) => {
 		setListSelected([]);
 	};
 
-	const displayList = listSearch.length || search ? listSearch : listNft;
+	const displayList1 = listSearch.length || search ? listSearch : listNft;
+	const displayList = [...displayList1].reverse();
 
 	return (
 		<Modal show={open} onHide={onHide} backdrop="static" centered className={cx("modal")}>
@@ -132,8 +133,8 @@ const ListModal = ({ open, onHide, listNft, title, desc, selectNft }) => {
 							})
 						) : (
 							<div style={{ margin: "0 auto" }}>
-							<img src={noData} alt="no-data" />
-						</div>
+								<img src={noData} alt="no-data" />
+							</div>
 						)}
 					</div>
 
