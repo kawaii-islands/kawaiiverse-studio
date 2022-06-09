@@ -136,7 +136,7 @@ export default function Toolbar({ listNft, setListNft, originalList }) {
 			</Box>
 
 			{activeGames.length > 0 && (
-				<div style={{ display: "flex", alignItems: "center", marginTop: '12px' }}>
+				<div style={{ display: "flex", alignItems: "center", marginTop: '12px', flexWrap: 'wrap' }}>
 					{activeGames.map((game, idx) => (
 						<Box display="flex" alignItems="center" flexWrap="wrap" key={idx}>
 							<Chip

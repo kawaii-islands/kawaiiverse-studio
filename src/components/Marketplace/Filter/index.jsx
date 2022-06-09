@@ -24,7 +24,7 @@ export default function Filter() {
 	}, [data]);
 
 	const handleSearch = value => {
-		let result = data.filter(game => game.gameName.includes(value));
+		let result = data.filter(game => game.gameName.toLowerCase().includes(value.toLowerCase()));
 		setListGame([...result]);
 	};
 
