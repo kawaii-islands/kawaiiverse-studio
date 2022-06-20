@@ -99,7 +99,7 @@ export default function BuyModal({ show, setShow, info }) {
 			{showModalLoading && (
 				<LoadingModal
 					show={showModalLoading}
-					network={"BscScan"}
+					network={"KawaiiScan"}
 					loading={loadingModal}
 					title={loadingTitle}
 					stepLoading={stepLoading}

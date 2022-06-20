@@ -247,7 +247,7 @@ const TableAddAttribute = ({
 				<Grid item xs={5} className={cx("header-cell-last")}>
 					Value
 				</Grid>
-				<Grid xs={1}></Grid>
+				<Grid item xs={1}></Grid>
 			</Grid>
 
 			{listAttribute.map((item, idx) => (
@@ -389,7 +389,7 @@ const TableAddAttribute = ({
 						</div>
 						{listAttributeError[idx]?.valueNull && <div style={{ color: "#9e494d" }}>{"Please enter value!"}</div>}
 					</Grid>
-					<Grid xs={1} className={cx("data-cell")} style={{ padding: "0px" }}>
+					<Grid item xs={1} className={cx("data-cell")} style={{ padding: "0px" }}>
 						<DeleteOutlinedIcon
 							className={cx("delete-icon")}
 							onClick={() => {

@@ -16,7 +16,7 @@ export default function NFTCard({ nftInfo, hasPrice }) {
 	return (
 		<div className={cx("card")}>
 			<Typography variant="body2" className={cx("id")}>
-				{nftInfo?.tokenId}
+				#{nftInfo?.tokenId}
 			</Typography>
 			<div className={cx("avatar")}>
 				<img src={nftInfo?.imageUrl} />

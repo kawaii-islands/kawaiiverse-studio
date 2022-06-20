@@ -15,7 +15,7 @@ import CardContent from "@mui/material/CardContent";
 import logoCreate from "src/assets/icons/plus1.png";
 import { BSC_CHAIN_ID } from "src/constants/network";
 import { FACTORY_ADDRESS } from "src/constants/address";
-import CreateGameModal from "./CreateGameModal"
+import CreateGameModal from "./CreateGameModal";
 import Pagination from "src/components/common/Pagination";
 import FACTORY_ABI from "src/utils/abi/KawaiiFactory.json";
 import NFT1155_ABI from "src/utils/abi/KawaiiverseNFT1155.json";
@@ -43,7 +43,7 @@ const CreateGame = () => {
 		logInfo();
 	}, [account, page]);
 
-	const logInfo = async type => { 
+	const logInfo = async type => {
 		if (!account) return;
 		setGameList([]);
 		setLoadingGameList(true);
@@ -61,7 +61,6 @@ const CreateGame = () => {
 
 			if (fromIndex < PAGE_SIZE - 1) toIndex = 0;
 			else toIndex = fromIndex - PAGE_SIZE + 1;
-			
 
 			const listPromise = Array(PAGE_SIZE)
 				.fill()
@@ -83,9 +82,8 @@ const CreateGame = () => {
 			lists = listGame.map((address, idx) => ({
 				gameAddress: address,
 				gameName: listName[idx],
-				gameUrl: listUrl[idx]
+				gameUrl: listUrl[idx],
 			}));
-
 
 			setGameList(lists);
 		} catch (err) {
@@ -157,7 +155,7 @@ const CreateGame = () => {
 				{uploadGameLoading && (
 					<LoadingModal
 						show={uploadGameLoading}
-						network={"BscScan"}
+						network={"KawaiiScan"}
 						loading={loading}
 						title={loadingTitle}
 						stepLoading={stepLoading}
@@ -168,19 +166,20 @@ const CreateGame = () => {
 						}}
 						hash={hash}
 						hideParent={() => {}}
+						notViewNft={true}
 					/>
 				)}
 				<Modal open={open} onClose={handleClose}>
 					<div className={cx("modal-style")}>
-						<CreateGameModal 
-							setLoadingTitle={setLoadingTitle} 
-							setStepLoading={setStepLoading} 
-							setUploadGameLoading={setUploadGameLoading} 
+						<CreateGameModal
+							setLoadingTitle={setLoadingTitle}
+							setStepLoading={setStepLoading}
+							setUploadGameLoading={setUploadGameLoading}
 							handleClose={handleClose}
 							setHash={setHash}
 							logInfo={logInfo}
 						/>
-						</div>
+					</div>
 				</Modal>
 			</div>
 		</div>

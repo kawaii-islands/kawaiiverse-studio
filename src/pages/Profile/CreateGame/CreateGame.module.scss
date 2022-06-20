@@ -259,7 +259,7 @@ $mobile: 576px;
 		margin-top: 15px;
 		margin-bottom: 30px;
 		width: 60%;
-		background: #ffb16f;
+		background: #ff7500;
 		border-radius: 4px;
 		cursor: pointer;
 		color: white;
@@ -286,6 +286,13 @@ $mobile: 576px;
 			position: absolute;
 			transform: translateY(30%);
 			left: 21%;
+			height: 60px;
+		}
+
+		.upload_img_spin {
+			position: absolute;
+			transform: translateY(58%);
+			left: 23%;
 			height: 60px;
 		}
 
