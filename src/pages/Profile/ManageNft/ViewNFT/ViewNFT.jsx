@@ -104,19 +104,17 @@ const ViewNFT = ({ gameSelected, setIsMintNFT }) => {
 				</div>
 			</div>
 
-			<Grid container>
+			<div className={cx("list")}>
 				{loading ? (
 					<ListSkeleton />
 				) : listNft.length > 0 ? (
-					<div className={cx("list-nft")}>
-						<List listNft={listNft} gameSelected={gameSelected} hasPrice={false} canBuy={false} />
-					</div>
+					<List listNft={listNft} gameSelected={gameSelected} hasPrice={false} canBuy={false} />
 				) : (
 					<div style={{ margin: "0 auto" }}>
 						<img src={noData} alt="no-data" />
 					</div>
 				)}
-			</Grid>
+			</div>
 		</div>
 	);
 };

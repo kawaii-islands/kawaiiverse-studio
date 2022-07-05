@@ -1,6 +1,50 @@
+.list-container {
+	margin-bottom: 30px;
+
+	.grid {
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: space-evenly;
+
+		&::after {
+			content: "";
+			flex: auto;
+		}
+
+		.nft-card {
+			width: 20%;
+			margin-bottom: 20px;
+			padding: 0 10px;
+			display: flex;
+			justify-content: center;
+			position: relative;
+
+			@media (max-width: 1626px) {
+				width: 25%;
+			}
+			@media (max-width: 1378px) {
+				width: 33.33%;
+			}
+
+			@media (max-width: 1120px) {
+				width: 50%;
+			}
+			@media (max-width: 860px) {
+				width: 100%;
+			}
+			@media (max-width: 768px) {
+				width: 50%;
+			}
+			@media (max-width: 600px) {
+				width: 100%;
+			}
+		}
+	}
+}
+
 .pagination {
 	width: fit-content;
-	margin: 20px auto;
+	margin: 0px auto;
 
 	:global(.MuiPaginationItem-root) {
 		color: #833f1d;

@@ -207,12 +207,11 @@ const ViewNFT = ({ gameSelected, setIsSellNFT, isSellNFT }) => {
 					allList.forEach((nft, id) => {
 						if (Number(nftSale.tokenId) === Number(nft.tokenId)) {
 							nftSaleList[index] = { ...nftSale, ...nft };
-							
 						}
 					});
 				});
 
-				console.log('nftSale :>> ', nftSaleList);
+				console.log("nftSale :>> ", nftSaleList);
 
 				setOriginalList([...nftSaleList].reverse());
 				setGameItemList([...nftSaleList].reverse());
@@ -279,9 +278,7 @@ const ViewNFT = ({ gameSelected, setIsSellNFT, isSellNFT }) => {
 				{loading ? (
 					<ListSkeleton />
 				) : listNft.length > 0 ? (
-					<div className={cx("list-nft")}>
-						<List listNft={listNft} gameSelected={gameSelected} hasPrice={true} canBuy={false} />
-					</div>
+					<List listNft={listNft} gameSelected={gameSelected} hasPrice={true} canBuy={false} />
 				) : (
 					<div style={{ textAlign: "center", width: "100%" }}>
 						<img src={noData} alt="no-data" />

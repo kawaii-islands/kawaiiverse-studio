@@ -17,6 +17,7 @@ import styles from "./index.module.scss";
 import cn from "classnames/bind";
 import { useDispatch, useSelector } from "react-redux";
 import { setFilter } from "src/lib/redux/slices/filter";
+import FilterIcon from "src/assets/icons/filter.svg";
 
 const cx = cn.bind(styles);
 
@@ -100,11 +101,16 @@ export default function Toolbar({ listNft, setListNft, originalList }) {
 
 	return (
 		<>
-			<Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "12px" }}>
-				<Box sx={{ display: "flex", alignContent: "center" }}>
-					<Typography variant="h6" className={cx("total")}>
-						{listNft?.length} Items
-					</Typography>
+			<Box className={cx("toolbar")}>
+				<Box sx={{ display: "flex", alignContent: "center", justifyContent: "space-between" }}>
+					<Box sx={{ display: "flex", alignContent: "center" }}>
+						<Typography variant="h6" className={cx("total")}>
+							{listNft?.length} Items
+						</Typography>
+					</Box>
+					<div className={cx("filter-mobile")}>
+						<img src={FilterIcon} alt="filter-icon" />
+					</div>
 				</Box>
 				<OutlinedInput
 					className={cx("search")}
@@ -136,7 +142,7 @@ export default function Toolbar({ listNft, setListNft, originalList }) {
 			</Box>
 
 			{activeGames.length > 0 && (
-				<div style={{ display: "flex", alignItems: "center", marginTop: '12px', flexWrap: 'wrap' }}>
+				<div style={{ display: "flex", alignItems: "center", marginTop: "12px", flexWrap: "wrap" }}>
 					{activeGames.map((game, idx) => (
 						<Box display="flex" alignItems="center" flexWrap="wrap" key={idx}>
 							<Chip

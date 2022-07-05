@@ -14,38 +14,40 @@ export default function NFTCard({ nftInfo, hasPrice }) {
 	const { kwtPrice } = useSelector(state => state?.price);
 
 	return (
-		<div className={cx("card")}>
-			<Typography variant="body2" className={cx("id")}>
-				#{nftInfo?.tokenId}
-			</Typography>
-			<div className={cx("avatar")}>
-				<img src={nftInfo?.imageUrl} />
-				{hasPrice && (
-					<Typography variant="body1" className={cx("balance")}>
-						{nftInfo?.amount - nftInfo?.alreadySale}
+		<div className={cx("nft-card")}>
+			<div className={cx("card-container")}>
+				<Typography variant="body2" className={cx("id")}>
+					#{nftInfo?.tokenId}
+				</Typography>
+				<div className={cx("avatar")}>
+					<img src={nftInfo?.imageUrl} />
+					{hasPrice && (
+						<Typography variant="body1" className={cx("balance")}>
+							{nftInfo?.amount - nftInfo?.alreadySale}
+						</Typography>
+					)}
+				</div>
+				{nftInfo?.game && (
+					<Typography variant="body1" className={cx("game")}>
+						<img src={nftInfo?.game?.logoUrl} alt="logo-game" className={cx("game-logo")} />
+						<span>{nftInfo?.game?.gameName}</span>
 					</Typography>
 				)}
-			</div>
-			{nftInfo?.game && (
-				<Typography variant="body1" className={cx("game")}>
-					<img src={nftInfo?.game?.logoUrl} alt="logo-game" className={cx("game-logo")} />
-					<span>{nftInfo?.game?.gameName}</span>
+				<Typography variant="body1" className={cx("name")}>
+					{nftInfo?.name}
 				</Typography>
-			)}
-			<Typography variant="body1" className={cx("name")}>
-				{nftInfo?.name}
-			</Typography>
-			{hasPrice && (
-				<div className={cx("price")}>
-					<img src={kwtLogo} />
-					<Typography className={cx("amount")}>
-						{nftInfo?.price ? Number(web3.utils.fromWei(nftInfo?.price.toString())) : 0}
-					</Typography>
-					<Typography className={cx("usd")}>
-						${nftInfo?.price && formatNumber(Number(web3.utils.fromWei(nftInfo?.price.toString())) * kwtPrice)}
-					</Typography>
-				</div>
-			)}
+				{hasPrice && (
+					<div className={cx("price")}>
+						<img src={kwtLogo} />
+						<Typography className={cx("amount")}>
+							{nftInfo?.price ? Number(web3.utils.fromWei(nftInfo?.price.toString())) : 0}
+						</Typography>
+						<Typography className={cx("usd")}>
+							${nftInfo?.price && formatNumber(Number(web3.utils.fromWei(nftInfo?.price.toString())) * kwtPrice)}
+						</Typography>
+					</div>
+				)}
+			</div>
 		</div>
 	);
 }

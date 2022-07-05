@@ -129,6 +129,9 @@ const Profile = () => {
 				<div className={cx("left")}>
 					<Filter />
 				</div>
+				{/* <div className={cx("filter-mobile")}>
+					<img src={FilterIcon} alt="filter-icon" />
+				</div> */}
 
 				<div className={cx("right")}>
 					<Toolbar listNft={listNft} setListNft={setListNft} originalList={originalList} />

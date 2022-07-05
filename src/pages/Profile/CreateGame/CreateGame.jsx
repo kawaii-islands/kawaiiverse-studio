@@ -149,9 +149,15 @@ const CreateGame = () => {
 					</Grid>
 					{componentGameList}
 				</Grid>
-				<div className={cx("pagination")}>
-					<Pagination count={totalPage} page={page} onChange={handleChange} />
-				</div>
+
+				{totalPage > 1 ? (
+					<div className={cx("pagination")}>
+						<Pagination count={totalPage} page={page} onChange={handleChange} />
+					</div>
+				) : (
+					""
+				)}
+
 				{uploadGameLoading && (
 					<LoadingModal
 						show={uploadGameLoading}
