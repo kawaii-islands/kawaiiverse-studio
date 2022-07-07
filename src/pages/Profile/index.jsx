@@ -14,6 +14,8 @@ import { BSC_CHAIN_ID } from "src/constants/network";
 import { FACTORY_ADDRESS } from "src/constants/address";
 import FACTORY_ABI from "src/utils/abi/factory.json";
 import NFT1155_ABI from "src/utils/abi/KawaiiverseNFT1155.json";
+import TabMobile from "src/components/Profile/Tab/TabMobile";
+import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 
 const cx = cn.bind(styles);
 
@@ -31,14 +33,15 @@ const Profile = () => {
 		gameUrl: "",
 	});
 	const pathnames = pathname.split("/").filter(Boolean);
+	const [isOpenTab, setIsOpenTab] = useState(false);
+	let screenWidth = window.innerWidth;
 
 	useEffect(() => {
 		setLoading(true);
 		setLoading(false);
 	}, []);
 
-	useEffect(() => {
-	}, [account]);
+	useEffect(() => {}, [account]);
 
 	useEffect(() => {
 		setGameSelected(address);
@@ -60,13 +63,17 @@ const Profile = () => {
 			console.log(error);
 		}
 	};
-	
+
 	return (
 		<div className={cx("profile")}>
 			<div className={cx("row")}>
-				<div className={cx("left")}>
-					<Tab gameInfo={gameInfo} />
-				</div>
+				{!isOpenTab ? (
+					<div className={cx("left")}>
+						<Tab gameInfo={gameInfo} />
+					</div>
+				) : (
+					<TabMobile gameInfo={gameInfo} setIsOpen={() => setIsOpenTab(false)} />
+				)}
 
 				<div className={cx("right")}>
 					<div className={cx("breadcrumbs")}>
@@ -90,6 +97,15 @@ const Profile = () => {
 								);
 							})}
 						</Breadcrumbs>
+					</div>
+					{console.log("isOpenTab :>> ", isOpenTab)}
+					<div className={cx("navigate-mobile")}>
+						<div className={cx("tab-name")}>
+							{pathnames.slice(0, 30).join("/").toLowerCase().includes("manage-nft") ? "Manage NFT" : "Store"}
+						</div>
+						<div className={cx("menu-icon")} onClick={() => setIsOpenTab(true)}>
+							<MenuRoundedIcon />
+						</div>
 					</div>
 
 					<div className={cx("content")}>

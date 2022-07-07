@@ -15,7 +15,7 @@ import { useSelector } from "react-redux";
 import { useQuery } from "react-query";
 import Filter from "src/components/Marketplace/Filter";
 import ListSkeleton from "src/components/common/ListSkeleton/ListSkeleton";
-import FilterMobile from "src/components/Marketplace/Filter/FilterMobile";
+import FilterMobileTab from "src/components/Marketplace/Filter/FilterMobileTab";
 
 const cx = cn.bind(styles);
 
@@ -29,7 +29,7 @@ const Profile = () => {
 	const firstUpdate = useRef(true);
 	const { error, isLoading, data } = useQuery("getListSellingGame", getListSellingGame);
 	const activeGames = useSelector(state => state?.filter) || [];
-	const [isOpenFilter, setIsOpenFilter] = useState(false);
+	const [isOpenFilterTab, setIsOpenFilterTab] = useState(false);
 
 	useEffect(() => {
 		setGameList(data);
@@ -131,14 +131,21 @@ const Profile = () => {
 				<div className={cx("left")}>
 					<Filter />
 				</div>
-				{console.log("isOpenFilter :>> ", isOpenFilter)}
-				<FilterMobile isOpen={isOpenFilter} setIsOpen={status => setIsOpenFilter(status)} />
+
+				{isOpenFilterTab ? (
+					<div className={cx("filter-mobile")}>
+						<FilterMobileTab setIsOpen={status => setIsOpenFilterTab(status)} />
+					</div>
+				) : (
+					""
+				)}
+
 				<div className={cx("right")}>
 					<Toolbar
 						listNft={listNft}
 						setListNft={setListNft}
 						originalList={originalList}
-						setIsOpen={status => setIsOpenFilter(status)}
+						setIsOpen={status => setIsOpenFilterTab(status)}
 					/>
 					<div className={cx("list")}>
 						{loadingListNFT ? (

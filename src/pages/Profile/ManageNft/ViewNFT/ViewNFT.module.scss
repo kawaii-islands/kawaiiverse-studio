@@ -10,9 +10,20 @@ $break-point-3: 767px;
 		justify-content: space-between;
 		margin-bottom: 30px;
 
+		@media (max-width: $break-point-2) {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+
 		.left-title {
 			display: flex;
 			align-items: center;
+
+			@media (max-width: $break-point-2) {
+				flex-direction: column;
+				align-items: flex-start;
+				width: 100%;
+			}
 
 			.title {
 				font-weight: 700;
@@ -33,6 +44,11 @@ $break-point-3: 767px;
 				justify-content: space-between;
 				font-family: "Play", sans-serif;
 
+				@media (max-width: $break-point-2) {
+					width: 100%;
+					margin: 12px 0px;
+				}
+
 				.icon {
 					cursor: pointer;
 					color: #833f1d;
@@ -43,6 +59,10 @@ $break-point-3: 767px;
 		.group-search {
 			display: flex;
 			align-items: center;
+
+			@media (max-width: $break-point-2) {
+				width: 100%;
+			}
 
 			.sort {
 				width: 200px;
@@ -56,6 +76,10 @@ $break-point-3: 767px;
 					background: transparent;
 					border: 1px solid rgba(148, 72, 80, 0.5);
 					border-radius: 6px;
+				}
+
+				@media (max-width: $break-point-2) {
+					width: 140px;
 				}
 			}
 
@@ -77,6 +101,26 @@ $break-point-3: 767px;
 				font-size: 16px;
 				line-height: 150%;
 				padding: 10px 24px;
+
+				@media (max-width: $break-point-2) {
+					margin-left: 0px;
+					width: 100%;
+				}
+			}
+
+			.btn-sell {
+				margin-left: 20px;
+				background: #ff7500;
+				border-radius: 6px;
+				color: #f6f7fb;
+				font-weight: 700;
+				font-size: 16px;
+				line-height: 150%;
+				padding: 10px 24px;
+
+				@media (max-width: $break-point-2) {
+					width: 50%;
+				}
 			}
 		}
 	}

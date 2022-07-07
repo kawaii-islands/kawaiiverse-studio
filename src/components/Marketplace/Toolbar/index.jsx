@@ -102,16 +102,13 @@ export default function Toolbar({ listNft, setListNft, originalList, setIsOpen }
 	return (
 		<>
 			<Box className={cx("toolbar")}>
-				<Box className={cx("toolbar-top")}>
-					<Box sx={{ display: "flex", alignContent: "center" }}>
-						<Typography variant="h6" className={cx("total")}>
-							{listNft?.length} Items
-						</Typography>
-					</Box>
-					<div className={cx("filter-mobile")}>
+				<div className={cx("toolbar-top")}>
+					<div className={cx("total")}>{listNft?.length} Items</div>
+
+					<div className={cx("filter-mobile")} onClick={() => setIsOpen(true)}>
 						<img src={FilterIcon} alt="filter-icon" />
 					</div>
-				</Box>
+				</div>
 				<OutlinedInput
 					className={cx("search")}
 					variant="filled"

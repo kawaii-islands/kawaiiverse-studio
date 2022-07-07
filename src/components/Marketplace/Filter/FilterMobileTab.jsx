@@ -1,4 +1,3 @@
-import { slide as Menu } from "react-burger-menu";
 import { Box, InputAdornment, Typography, OutlinedInput } from "@mui/material";
 import FilterIcon from "src/assets/icons/filter.svg";
 import SearchIcon from "@mui/icons-material/Search";
@@ -10,10 +9,11 @@ import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { setGames } from "src/lib/redux/slices/game";
 import { useEffect, useState } from "react";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
 const cx = cn.bind(styles);
 
-export default function FilterMobile({ isOpen, setIsOpen }) {
+export default function FilterMobileTab({ setIsOpen }) {
 	const [listGame, setListGame] = useState([]);
 	const dispatch = useDispatch();
 	const activeGames = useSelector(state => state?.filter) || [];
@@ -24,24 +24,23 @@ export default function FilterMobile({ isOpen, setIsOpen }) {
 		setListGame(data);
 	}, [data]);
 
-	const handleSearch = value => {
-		let result = data.filter(game => game.gameName.toLowerCase().includes(value.toLowerCase()));
-		setListGame([...result]);
-	};
+	// const handleSearch = value => {
+	// 	let result = data.filter(game => game.gameName.toLowerCase().includes(value.toLowerCase()));
+	// 	setListGame([...result]);
+	// };
 
 	return (
-		<Menu
-			className={cx("container", "filter-mobile")}
-			right
-			width={"280px"}
-			isOpen={isOpen}
-			onOpen={setIsOpen(!isOpen)}
-			onClose={setIsOpen(false)}>
-			<div style={{ display: "flex" }}>
-				<img src={FilterIcon} />
-				<Typography variant="h5" className={cx("title")}>
-					Filter
-				</Typography>
+		<div className={cx("container", "filter-mobile")}>
+			<div style={{ display: "flex", justifyContent: "space-between" }}>
+				<div style={{ display: "flex" }}>
+					<img src={FilterIcon} />
+					<Typography variant="h5" className={cx("title")}>
+						Filter
+					</Typography>
+				</div>
+				<div onClick={() => setIsOpen(false)}>
+					<CloseRoundedIcon style={{ color: "#833f1d" }} />
+				</div>
 			</div>
 			{listGame &&
 				listGame.map(game => (
@@ -51,6 +50,6 @@ export default function FilterMobile({ isOpen, setIsOpen }) {
 						active={activeGames.length && activeGames?.find(item => item.gameAddress === game.gameAddress)}
 					/>
 				))}
-		</Menu>
+		</div>
 	);
 }

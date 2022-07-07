@@ -264,7 +264,7 @@ const ViewNFT = ({ gameSelected, setIsSellNFT, isSellNFT }) => {
 					</FormControl>
 
 					<Button
-						className={cx("button")}
+						className={cx("btn-sell")}
 						onClick={() => {
 							navigate({ search: "?view=false" });
 							setIsSellNFT(true);

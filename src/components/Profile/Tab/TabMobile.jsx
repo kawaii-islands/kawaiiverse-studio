@@ -7,6 +7,7 @@ import manageNftIcon from "src/assets/icons/manage-nft-icon.svg";
 import storeIcon from "src/assets/icons/store-icon.svg";
 import ContentCopyRoundedIcon from "@mui/icons-material/ContentCopyRounded";
 import { toast } from "react-toastify";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
 const cx = cn.bind(styles);
 
@@ -25,7 +26,7 @@ const tab = [
 	},
 ];
 
-const Tab = ({ gameInfo, isOpen, setIsOpen }) => {
+const TabMobile = ({ gameInfo, isOpen, setIsOpen }) => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	let { address } = useParams();
@@ -33,6 +34,9 @@ const Tab = ({ gameInfo, isOpen, setIsOpen }) => {
 	return (
 		<>
 			<div className={cx("filter")}>
+				<div className={cx("close-icon")} onClick={setIsOpen}>
+					<CloseRoundedIcon />
+				</div>
 				<div className={cx("game-info")}>
 					<div className={cx("image-box")}>
 						<img src={gameInfo?.gameUrl} alt="game" className={cx("game-image")} />
@@ -73,4 +77,4 @@ const Tab = ({ gameInfo, isOpen, setIsOpen }) => {
 	);
 };
 
-export default Tab;
+export default TabMobile;
