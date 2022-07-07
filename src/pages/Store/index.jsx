@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 import { useQuery } from "react-query";
 import Filter from "src/components/Marketplace/Filter";
 import ListSkeleton from "src/components/common/ListSkeleton/ListSkeleton";
+import FilterMobile from "src/components/Marketplace/Filter/FilterMobile";
 
 const cx = cn.bind(styles);
 
@@ -28,6 +29,7 @@ const Profile = () => {
 	const firstUpdate = useRef(true);
 	const { error, isLoading, data } = useQuery("getListSellingGame", getListSellingGame);
 	const activeGames = useSelector(state => state?.filter) || [];
+	const [isOpenFilter, setIsOpenFilter] = useState(false);
 
 	useEffect(() => {
 		setGameList(data);
@@ -129,13 +131,15 @@ const Profile = () => {
 				<div className={cx("left")}>
 					<Filter />
 				</div>
-				{/* <div className={cx("filter-mobile")}>
-					<img src={FilterIcon} alt="filter-icon" />
-				</div> */}
-
+				{console.log("isOpenFilter :>> ", isOpenFilter)}
+				<FilterMobile isOpen={isOpenFilter} setIsOpen={status => setIsOpenFilter(status)} />
 				<div className={cx("right")}>
-					<Toolbar listNft={listNft} setListNft={setListNft} originalList={originalList} />
-
+					<Toolbar
+						listNft={listNft}
+						setListNft={setListNft}
+						originalList={originalList}
+						setIsOpen={status => setIsOpenFilter(status)}
+					/>
 					<div className={cx("list")}>
 						{loadingListNFT ? (
 							<ListSkeleton page={"store"} />

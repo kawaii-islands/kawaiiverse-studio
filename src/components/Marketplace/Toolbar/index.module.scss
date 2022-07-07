@@ -13,21 +13,33 @@
 		width: 100%;
 		align-items: flex-start;
 	}
+
+	&-top {
+		display: flex;
+		align-content: center;
+		justify-content: space-between;
+
+		@media (max-width: 600px) {
+			width: 100%;
+			justify-content: space-between;
+		}
+
+	}
 }
 
 .filter-mobile {
 	display: none;
-	background-color: #fff;
+	background-color: transparent;
 	border-radius: 6px;
 	text-align: center;
-	color: #fff;
-	border: 1px solid #a86c60;
-	box-shadow: 0 0 8px 0 rgb(4 17 29 / 25%);
+	color: #833f1d;
+	border: 1px solid rgba(148, 72, 80, 0.5);
+	// box-shadow: 0 0 8px 0 rgb(4 17 29 / 25%);
 	padding: 10px;
 	width: fit-content;
 	cursor: pointer;
 
-	@media (max-width: 600px) {
+	@media (max-width: 813px) {
 		display: block;
 	}
 }

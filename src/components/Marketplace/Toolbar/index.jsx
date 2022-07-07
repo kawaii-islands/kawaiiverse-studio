@@ -23,7 +23,7 @@ const cx = cn.bind(styles);
 
 const names = ["Price: Low to High", "Price: High to Low", "Newest", "Oldest"];
 
-export default function Toolbar({ listNft, setListNft, originalList }) {
+export default function Toolbar({ listNft, setListNft, originalList, setIsOpen }) {
 	const dispatch = useDispatch();
 	const [sort1, setSort] = useState(names[2]);
 	const activeGames = useSelector(state => state?.filter) || [];
@@ -102,7 +102,7 @@ export default function Toolbar({ listNft, setListNft, originalList }) {
 	return (
 		<>
 			<Box className={cx("toolbar")}>
-				<Box sx={{ display: "flex", alignContent: "center", justifyContent: "space-between" }}>
+				<Box className={cx("toolbar-top")}>
 					<Box sx={{ display: "flex", alignContent: "center" }}>
 						<Typography variant="h6" className={cx("total")}>
 							{listNft?.length} Items
