@@ -13,12 +13,13 @@ import { FACTORY_ADDRESS } from "src/constants/address";
 import FACTORY_ABI from "src/utils/abi/KawaiiFactory.json";
 import CircularProgress from "@mui/material/CircularProgress";
 import { read, createNetworkOrSwitch, write } from "src/lib/web3";
+import Spin from "src/components/common/Spin";
 
 const cx = cn.bind(styles);
 const client = create("https://ipfs.infura.io:5001/api/v0");
 
-const CreateGameModal = ({logInfo, setHash, setLoadingTitle, setStepLoading, setUploadGameLoading, handleClose}) => {
-    const [uploadImageLoading, setUploadImageLoading] = useState(false);
+const CreateGameModal = ({ logInfo, setHash, setLoadingTitle, setStepLoading, setUploadGameLoading, handleClose }) => {
+	const [uploadImageLoading, setUploadImageLoading] = useState(false);
 	const [errorSymbol, setErrorSymbol] = useState(false);
 	const { account, chainId, library } = useWeb3React();
 	const [errorImage, setErrorImage] = useState(false);
@@ -27,7 +28,7 @@ const CreateGameModal = ({logInfo, setHash, setLoadingTitle, setStepLoading, set
 	const [fileSize, setFileSize] = useState();
 	const [fileUrl, setFileUrl] = useState();
 
-    const inputChangeHandler = (key, value) => {
+	const inputChangeHandler = (key, value) => {
 		setgameInfo({ ...gameInfo, [key]: value });
 	};
 
@@ -232,31 +233,31 @@ const CreateGameModal = ({logInfo, setHash, setLoadingTitle, setStepLoading, set
 		}
 	};
 
-    let componentButtonCreate;
+	let componentButtonCreate;
 	let componentErrorName;
 	let componentErrorSymbol;
 	let componentErrorImage;
 
-    if (!uploadImageLoading) {
-		if (gameInfo.name !== undefined && gameInfo.symbol !== undefined && gameInfo.avatar !== undefined) {
-			componentButtonCreate = (
-				<Button className={cx("modal_create")} onClick={handleCreate}>
-					Create now
-				</Button>
-			);
-		} else
-			componentButtonCreate = (
-				<Button className={cx("modal_pending_create")} onClick={handleCreate}>
-					Create now
-				</Button>
-			);
-	} else {
+	if (gameInfo.name !== undefined && gameInfo.symbol !== undefined && gameInfo.avatar !== undefined) {
 		componentButtonCreate = (
-			<Button className={cx("modal_create")}>
-				<CircularProgress />
+			<Button className={cx("modal_create")} onClick={handleCreate}>
+				Create now
 			</Button>
 		);
-	}
+	} else
+		componentButtonCreate = (
+			<Button className={cx("modal_pending_create")} onClick={handleCreate}>
+				Create now
+			</Button>
+		);
+
+	// } else {
+	// 	componentButtonCreate = (
+	// 		<Button className={cx("modal_create")}>
+	// 			<Spin />
+	// 		</Button>
+	// 	);
+	// }
 
 	if (errorName) {
 		componentErrorName = (
@@ -282,49 +283,60 @@ const CreateGameModal = ({logInfo, setHash, setLoadingTitle, setStepLoading, set
 		);
 	}
 
-    return (		
-    <>
-        <Typography className={cx("modal_header")}>CREATE GAME</Typography>
-        <input
-            placeholder="Name"
-            className={errorName ? cx("input_error") : cx("input")}
-            required
-            value={gameInfo.name || ""}
-            onChange={handleChangeName}
-        />
-        {componentErrorName}
-        <input
-            placeholder="Game symbol"
-            className={errorSymbol ? cx("input_error") : cx("input")}
-            required
-            value={gameInfo.symbol || ""}
-            onChange={handleChangeSymbol}
-        />
-        {componentErrorSymbol}
-        <div className={cx("input_container", "input_container--image")}>
-            {fileUrl ? <img src={fileUrl} alt="loading image" className={cx("upload_img")} /> : <></>}
+	return (
+		<>
+			<Typography className={cx("modal_header")}>CREATE GAME</Typography>
+			<input
+				placeholder="Name"
+				className={errorName ? cx("input_error") : cx("input")}
+				required
+				value={gameInfo.name || ""}
+				onChange={handleChangeName}
+			/>
+			{componentErrorName}
+			<input
+				placeholder="Game symbol"
+				className={errorSymbol ? cx("input_error") : cx("input")}
+				required
+				value={gameInfo.symbol || ""}
+				onChange={handleChangeSymbol}
+			/>
+			{componentErrorSymbol}
+			<div className={cx("input_container", "input_container--image")}>
+				{!uploadImageLoading ? (
+					fileUrl ? (
+						<img src={fileUrl} alt="loading image" className={cx("upload_img")} />
+					) : (
+						<></>
+					)
+				) : (
+					<span className={cx("upload_img_spin")}>
+						<Spin />
+					</span>
+				)}
 
-            <input
-                placeholder={fileUrl ? "" : "Avatar"}
-                className={errorImage ? cx("input_error_image") : cx("input_image")}
-                readOnly
-            />
-            <label htmlFor="file-input">
-                <img src={addImage} alt="upload-img" className={cx("input_img")} />
-            </label>
-            <input
-                placeholder="String"
-                id="file-input"
-                type="file"
-                accept="image/*"
-                style={{ display: "none" }}
-                onChange={e => handleUploadImage(e)}
-            />
+				<input
+					placeholder={fileUrl || uploadImageLoading ? "" : "Avatar"}
+					className={errorImage ? cx("input_error_image") : cx("input_image")}
+					readOnly
+				/>
+				<label htmlFor="file-input">
+					<img src={addImage} alt="upload-img" className={cx("input_img")} />
+				</label>
+				<input
+					placeholder="String"
+					id="file-input"
+					type="file"
+					accept="image/*"
+					style={{ display: "none" }}
+					onChange={e => handleUploadImage(e)}
+				/>
 
-            {componentErrorImage}
-        </div>
-        <div className={cx("input_container", "input_container--image")}></div>
-        {componentButtonCreate}
-    </>)
-}
+				{componentErrorImage}
+			</div>
+			<div className={cx("input_container", "input_container--image")}></div>
+			{componentButtonCreate}
+		</>
+	);
+};
 export default CreateGameModal;

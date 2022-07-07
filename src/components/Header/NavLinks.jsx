@@ -2,18 +2,18 @@ import { Box } from "@mui/system";
 import { Link } from "react-router-dom";
 
 const links = [
-	{
-		title: "About",
-		link: "/",
-	},
+	// {
+	// 	title: "About",
+	// 	link: "/",
+	// },
 	{
 		title: "Store",
 		link: "/",
 	},
-	{
-		title: "Game",
-		link: "/",
-	},
+	// {
+	// 	title: "Game",
+	// 	link: "/",
+	// },
 ];
 
 export default function NavLinks() {

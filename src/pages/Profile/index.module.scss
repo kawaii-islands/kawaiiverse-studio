@@ -1,4 +1,5 @@
 $break-point-1: 814px;
+$break-point-2: 912px;
 $mobile: 576px;
 .profile {
 	.row {
@@ -10,7 +11,7 @@ $mobile: 576px;
 			height: calc(100vh - 70px);
 			overflow-y: auto;
 
-			@media (max-width: $break-point-1) {
+			@media (max-width: $break-point-2) {
 				display: none;
 			}
 		}
@@ -20,8 +21,13 @@ $mobile: 576px;
 			height: calc(100vh - 70x);
 			overflow-y: auto;
 
+			@media (max-width: $break-point-2) {
+				width: 100%;
+			}
+
 			.breadcrumbs {
 				padding: 25px 60px;
+
 				:global {
 					.MuiTypography-root {
 						color: #833f1d !important;
@@ -39,13 +45,47 @@ $mobile: 576px;
 				padding-bottom: 18px;
 				margin-bottom: 40px;
 				border-bottom: 1px solid #d2b0a3;
+
+				@media (max-width: $break-point-2) {
+					display: none;
+				}
 			}
-			@media (max-width: $break-point-1) {
-				padding: 40px 8px;
+
+			@media (max-width: $break-point-2) {
+				padding: 25px 8px;
+			}
+
+			.navigate-mobile {
+				display: none;
+				border-bottom: 1px solid #d2b0a3;
+				padding: 20px;
+
+				@media (max-width: $break-point-2) {
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+				}
+
+				.tab-name {
+					color: #833f1d;
+					font-size: 18px;
+					font-weight: 700;
+				}
+
+				.menu-icon {
+					border: 1px solid rgba(148, 72, 80, 0.5);
+					border-radius: 6px;
+					padding: 6px 8px;
+					color: #833f1d;
+				}
 			}
 
 			.content {
 				padding: 0px 60px;
+
+				@media (max-width: $break-point-2) {
+					padding: 0px 25px;
+				}
 			}
 		}
 	}

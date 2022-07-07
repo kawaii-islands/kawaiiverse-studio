@@ -150,11 +150,11 @@ const NFTDetail = () => {
 							<div className={cx("content")} style={{ padding: 0 }}>
 								<div className={cx("attribute-table")}>
 									<Grid container className={cx("tb-header")}>
-										<Grid item xs={3}>
-											Image
-										</Grid>
 										<Grid item xs={5}>
 											Name
+										</Grid>
+										<Grid item xs={3}>
+											Image
 										</Grid>
 										<Grid item xs={4}>
 											Value
@@ -169,15 +169,15 @@ const NFTDetail = () => {
 												.filter(item => item.valueType === "Text")
 												?.map((info, ind) => (
 													<Grid container className={cx("tb-row")} key={ind}>
+														<Grid item xs={5}>
+															{info?.type}
+														</Grid>
 														<Grid item xs={3}>
 															<img
 																src={info?.image ? info?.image : defaultImage}
 																alt="attr"
 																className={cx("attr-image")}
 															/>
-														</Grid>
-														<Grid item xs={5}>
-															{info?.type}
 														</Grid>
 														<Grid item xs={4}>
 															{info?.value}
@@ -190,15 +190,15 @@ const NFTDetail = () => {
 												.filter(item => item.valueType === "Image")
 												?.map((info, ind) => (
 													<Grid container className={cx("tb-row")} key={ind}>
+														<Grid item xs={5}>
+															{info?.type}
+														</Grid>
 														<Grid item xs={3}>
 															<img
 																src={info?.image ? info?.image : defaultImage}
 																alt="attr"
 																className={cx("attr-image")}
 															/>
-														</Grid>
-														<Grid item xs={5}>
-															{info?.type}
 														</Grid>
 														<Grid item xs={4}>
 															<img

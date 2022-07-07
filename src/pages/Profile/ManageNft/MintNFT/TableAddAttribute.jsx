@@ -247,7 +247,7 @@ const TableAddAttribute = ({
 				<Grid item xs={5} className={cx("header-cell-last")}>
 					Value
 				</Grid>
-				<Grid xs={1}></Grid>
+				<Grid item xs={1}></Grid>
 			</Grid>
 
 			{listAttribute.map((item, idx) => (
@@ -355,21 +355,31 @@ const TableAddAttribute = ({
 										) : (
 											<img src={item?.value ? item?.value : defaultImage} alt="ic" width={16} height={16} />
 										)}
-										<input
-											value={item?.value}
-											placeholder="String"
-											className={cx("input")}
-											onChange={e => {
-												setDetailAttribute("value", e.target.value, idx);
-												checkValueNull(e.target.value, idx);
-											}}
-											style={{ width: "50%", marginLeft: "5px" }}
-											onBlur={() => checkNameNull(item.type, idx)}
-										/>
+										{!item?.value ? (
+											<input
+												value={item?.value}
+												placeholder="String"
+												className={cx("input")}
+												onChange={e => {
+													setDetailAttribute("value", e.target.value, idx);
+													checkValueNull(e.target.value, idx);
+												}}
+												style={{ width: "50%", marginLeft: "5px" }}
+												onBlur={() => checkNameNull(item.type, idx)}
+											/>
+										) : (
+											""
+										)}
+
 										<span>&nbsp; or:</span>
 										<span className={cx("image-upload")}>
 											<label htmlFor={`value-image-${idx}`}>
-												<img src={uploadImageIcon} alt="upload-img" className={cx("upload-img-icon")} />
+												<img
+													src={uploadImageIcon}
+													alt="upload-img"
+													className={cx("upload-img-icon")}
+													style={{ marginRight: item?.value ? "6px" : "0px" }}
+												/>
 											</label>
 											<input
 												id={`value-image-${idx}`}
@@ -389,7 +399,7 @@ const TableAddAttribute = ({
 						</div>
 						{listAttributeError[idx]?.valueNull && <div style={{ color: "#9e494d" }}>{"Please enter value!"}</div>}
 					</Grid>
-					<Grid xs={1} className={cx("data-cell")} style={{ padding: "0px" }}>
+					<Grid item xs={1} className={cx("data-cell")} style={{ padding: "0px" }}>
 						<DeleteOutlinedIcon
 							className={cx("delete-icon")}
 							onClick={() => {

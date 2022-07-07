@@ -37,7 +37,7 @@ const MintNFT = ({ setIsMintNFT, gameSelected }) => {
 
 	let oneNft = {
 		type: "",
-		tokenId: 0,
+		tokenId: "",
 		author: account,
 		name: "",
 		description: "",
@@ -160,7 +160,7 @@ const MintNFT = ({ setIsMintNFT, gameSelected }) => {
 		let arr = [...listErr];
 		let flag = false;
 
-		data.forEach(item => {
+		data.map((item, i) => {
 			if (!item.tokenId) {
 				arr[i] = { ...arr[i], tokenIdErr: true };
 				flag = true;
@@ -360,7 +360,7 @@ const MintNFT = ({ setIsMintNFT, gameSelected }) => {
 				window.localStorage.setItem("hashCreateToken", "");
 			}
 		} catch (err) {
-			console.log(err.response);
+			console.log(err.response || err);
 			toast.error(err.message || "An error occurred!");
 			setStepLoading(3);
 		} finally {
@@ -585,7 +585,7 @@ const MintNFT = ({ setIsMintNFT, gameSelected }) => {
 			{loadingSubmit && (
 				<LoadingModal
 					show={loadingSubmit}
-					network={"BscScan"}
+					network={"KawaiiScan"}
 					loading={loading}
 					title={loadingTitle}
 					stepLoading={stepLoading}

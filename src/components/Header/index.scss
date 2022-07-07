@@ -6,11 +6,19 @@
 
 .header {
 	box-shadow: none;
+
+	@media (max-width: 600px) {
+		padding: 0px;
+	}
 }
 
 .app-header {
 	width: 100%;
+	display: flex;
 	justify-content: space-between;
+
+	@media (max-width: 600px) {
+	}
 
 	&-logo {
 		height: 50px;
@@ -29,6 +37,10 @@
 	font-weight: 700;
 	position: relative;
 	padding: 0px !important;
+
+	@media (max-width: 600px) {
+		margin-left: 0px;
+	}
 
 	&::after {
 		position: absolute;
@@ -52,8 +64,8 @@
 }
 
 .connect-wallet-btn {
-	background: #F25858 !important;
-	color: #F3F3F3;
+	background: #f25858 !important;
+	color: #f3f3f3;
 }
 
 .connect-modal {

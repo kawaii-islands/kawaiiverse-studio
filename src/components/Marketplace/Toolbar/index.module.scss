@@ -2,21 +2,56 @@
 	margin-right: 28px;
 }
 
-// .search {
-// 	border-radius: 0;
-// 	border-bottom: 2px solid rgba(188, 166, 150, 0.5);
-// 	height: 33px;
-// 	color: #833f1d;
-// 	width: 374px;
-// 	padding: 0;
-// 	:global(.MuiOutlinedInput-input) {
-// 		padding: 0;
-// 	}
-// 	:global(.MuiOutlinedInput-notchedOutline) {
-// 		outline: none;
-// 		border: none;
-// 	}
-// }
+.toolbar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 12px;
+
+	@media (max-width: 600px) {
+		flex-direction: column;
+		width: 100%;
+		align-items: flex-start;
+	}
+
+	&-top {
+		display: flex;
+		align-content: center;
+		justify-content: space-between;
+
+		@media (max-width: 600px) {
+			width: 100%;
+			justify-content: space-between;
+		}
+
+		.total {
+			font-size: 24px;
+			font-weight: 700;
+			color: #833f1d;
+
+			@media (max-width: 813px) {
+				width: 80%;
+			}
+		}
+
+		.filter-mobile {
+			display: none;
+			background-color: transparent;
+			border-radius: 6px;
+			text-align: center;
+			color: #833f1d;
+			border: 1px solid rgba(148, 72, 80, 0.5);
+			// box-shadow: 0 0 8px 0 rgb(4 17 29 / 25%);
+			padding: 10px;
+			width: fit-content;
+			cursor: pointer;
+
+			@media (max-width: 813px) {
+				display: inline-block;
+			}
+		}
+	}
+}
 
 .search {
 	width: 320px;
@@ -28,6 +63,11 @@
 	align-items: center;
 	justify-content: space-between;
 	font-family: "Play", sans-serif;
+
+	@media (max-width: 600px) {
+		width: 100%;
+		margin-top: 10px;
+	}
 
 	:global(.MuiOutlinedInput-input) {
 		padding: 0;

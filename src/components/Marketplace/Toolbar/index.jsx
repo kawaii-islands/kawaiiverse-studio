@@ -17,12 +17,13 @@ import styles from "./index.module.scss";
 import cn from "classnames/bind";
 import { useDispatch, useSelector } from "react-redux";
 import { setFilter } from "src/lib/redux/slices/filter";
+import FilterIcon from "src/assets/icons/filter.svg";
 
 const cx = cn.bind(styles);
 
 const names = ["Price: Low to High", "Price: High to Low", "Newest", "Oldest"];
 
-export default function Toolbar({ listNft, setListNft, originalList }) {
+export default function Toolbar({ listNft, setListNft, originalList, setIsOpen }) {
 	const dispatch = useDispatch();
 	const [sort1, setSort] = useState(names[2]);
 	const activeGames = useSelector(state => state?.filter) || [];
@@ -100,12 +101,14 @@ export default function Toolbar({ listNft, setListNft, originalList }) {
 
 	return (
 		<>
-			<Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "12px" }}>
-				<Box sx={{ display: "flex", alignContent: "center" }}>
-					<Typography variant="h6" className={cx("total")}>
-						{listNft?.length} Items
-					</Typography>
-				</Box>
+			<Box className={cx("toolbar")}>
+				<div className={cx("toolbar-top")}>
+					<div className={cx("total")}>{listNft?.length} Items</div>
+
+					<div className={cx("filter-mobile")} onClick={() => setIsOpen(true)}>
+						<img src={FilterIcon} alt="filter-icon" />
+					</div>
+				</div>
 				<OutlinedInput
 					className={cx("search")}
 					variant="filled"
@@ -136,7 +139,7 @@ export default function Toolbar({ listNft, setListNft, originalList }) {
 			</Box>
 
 			{activeGames.length > 0 && (
-				<div style={{ display: "flex", alignItems: "center", marginTop: '12px', flexWrap: 'wrap' }}>
+				<div style={{ display: "flex", alignItems: "center", marginTop: "12px", flexWrap: "wrap" }}>
 					{activeGames.map((game, idx) => (
 						<Box display="flex" alignItems="center" flexWrap="wrap" key={idx}>
 							<Chip

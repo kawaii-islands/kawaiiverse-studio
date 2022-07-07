@@ -344,7 +344,7 @@ const SellItemNFT = ({ gameSelected, setIsSellNFT, isSellNFT }) => {
 			{showModalLoading && (
 				<LoadingModal
 					show={showModalLoading}
-					network={"BscScan"}
+					network={"KawaiiScan"}
 					loading={loading}
 					title={loadingTitle}
 					stepLoading={stepLoading}

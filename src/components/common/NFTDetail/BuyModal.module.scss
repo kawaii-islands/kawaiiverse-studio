@@ -27,22 +27,37 @@
 	.info {
 		display: flex;
 
+		@media (max-width: 600px) {
+			flex-direction: column;
+		}
+
 		.avatar {
 			width: 200px;
 			height: 200px;
 			margin-right: 30px;
+			padding: 6px;
 			border: 1px solid #a86c60;
 			border-radius: 8px;
 			text-align: center;
 
+			@media (max-width: 600px) {
+				width: 150px;
+				height: 150px;
+				margin: 0 auto;
+			}
+
 			img {
 				max-width: 100%;
 				max-height: 100%;
-				border-radius: 8px;
+				// border-radius: 8px;
 			}
 		}
 
 		.right {
+			@media (max-width: 600px) {
+				margin-top: 30px;
+			}
+
 			flex: 1;
 			.row {
 				display: flex;
