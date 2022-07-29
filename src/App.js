@@ -24,6 +24,7 @@ const Profile = React.lazy(() => import("src/pages/Profile"));
 const ManageNft = React.lazy(() => import("src/pages/Profile/ManageNft"));
 const StoreProfile = React.lazy(() => import("src/pages/Profile/StoreProfile"));
 const NFTDetail = React.lazy(() => import("src/components/common/NFTDetail"));
+const Test = React.lazy(() => import("src/pages/Test"));
 
 const UpdatePrice = () => {
 	const dispatch = useDispatch();
@@ -59,6 +60,7 @@ export default function App() {
 									<Route path="/" element={<Store />} />
 									<Route path="/store" element={<Store />} />
 									<Route path="profile" element={<CreateGame />} />
+									<Route path="/test" element={<Test />} />
 									<Route path="account" element={<Profile />}>
 										<Route path="manage-nft/:address" element={<ManageNft />} />
 										<Route path="store/:address" element={<StoreProfile />} />
